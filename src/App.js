@@ -1,11 +1,13 @@
-import './LoginPage.js';
+import LoginPage from './LoginPage.js';
+import Dashboard from './components/Dashboard.js';
 import './App.css';
 
 function App() {
   return (
-    <div>
-      <LoginPage/>
-    </div>
+    <>
+     {/* <LoginPage/> */}
+     < Dashboard/>
+    </>
   );
 }
 

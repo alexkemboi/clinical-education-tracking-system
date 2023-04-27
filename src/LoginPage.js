@@ -1,49 +1,61 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const history = useHistory();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('/api/login', { username, password });
-      // Assuming backend returns a success status and a token upon successful login
-      if (response.status === 200 && response.data.token) {
-        localStorage.setItem('token', response.data.token); // Store the token in localStorage for authentication
-        history.push('/dashboard'); // Redirect to dashboard page
-      } else {
-        setError('Invalid credentials. Please try again.'); // Show error message
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.'); // Show error message
-    }
-  };
-
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <div>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header bg-dark text-white text-center">
+          <i class="fas fa-user-md fa-3x"></i>
+          <h4 class="mb-0"> Clinical Education Tracking System</h4>
+
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Enter username"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Enter password"
+                    required
+                  />
+                </div>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block">
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   );
 };
 
