@@ -16,10 +16,7 @@ body, html, .container-fluid, .row {
     overflow-x: hidden;
     padding-top: 20px;
   }
-.bg-color{
-  background-color: #111;
-}
-  /* Style the links inside the sidebar */
+/* Style the links inside the sidebar */
   .sidebar a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -27,16 +24,24 @@ body, html, .container-fluid, .row {
     color: #818181;
     display: block;
   }
-
+  
   /* Change the color of links on hover */
   .sidebar a:hover {
     color: #f1f1f1;
   }
-
+  
   /* Style the main content */
   .working-area {
-    margin-left: 200px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
+    margin-left:200px; /* Same as the width of the sidebar */
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
   }
 
   /* Add media queries for small screens */
