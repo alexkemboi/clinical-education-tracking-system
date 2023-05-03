@@ -75,34 +75,40 @@ function Dashboard() {
                           <div class="container">
                           <div className='row'>
                                 <div className='col-12'>
-                                    <div className='card'><div className='card-body bg-dark'>  <h3>Clinical Education Tracking System Dashboard</h3></div></div>          
+                                    <div className='card'><div className='card-body bg-dark'>  <h3 class="text-light">Clinical Education Tracking System Dashboard</h3></div></div>          
                                 </div>
                           </div> 
                                   <div class="row">
                                     <div class="col-md-4">
                                       <div class="card">
-                                        <div class="card-body">
+                                        <div class="card-header text-center">
+                                          <i class="fas fa-user-graduate fa-3x"></i> 
                                           <h5 class="card-title">Number of Students</h5>
-                                          <p class="card-text text-center"><i class="fas fa-user-graduate text-center fa-3x"></i> </p>
-                                          <canvas id="students-chart">300</canvas>
+                                        </div>
+                                        <div class="card-body">
+                                          <p class="card-text text-center">300</p>
                                         </div>
                                       </div>
                                     </div>
                                     <div class="col-md-4">
                                       <div class="card">
+                                      <div class="card-header text-center">
+                                          <i class="fas fa-chart-bar fa-3x"></i> 
+                                          <h5 class="card-title">placement types</h5>
+                                        </div>
                                         <div class="card-body">
-                                          <h5 class="card-title">Placements by Type</h5>
-                                          <p class="card-text text-center"><i class="fas fa-chart-pie  fa-3x"></i></p>
-                                          <canvas id="placements-chart"></canvas>
+                                          <p class="card-text text-center">500</p>                                          
                                         </div>
                                       </div>
                                     </div>
                                     <div class="col-md-4">
                                       <div class="card">
+                                      <div class="card-header text-center">
+                                          <i class="fas fa-user-graduate fa-3x"></i> 
+                                          <h5 class="card-title">Success rate</h5>
+                                        </div>
                                         <div class="card-body">
-                                          <h5 class="card-title">Success Rate</h5>
-                                          <p class="card-text text-center"><i class="fas fa-chart-bar text-center fa-3x"></i></p>
-                                          <canvas id="success-rate-chart"></canvas>
+                                          <p class="card-text text-center">132</p>
                                         </div>
                                       </div>
                                     </div>
