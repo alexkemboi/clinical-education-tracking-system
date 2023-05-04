@@ -1,0 +1,71 @@
+/* Set height of body and container to full screen */
+body, html, .container-fluid, .row {
+    height: 100%;
+  }
+
+  
+  /* Style the sidebar */
+  .sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+/* Style the links inside the sidebar */
+  .sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* Change the color of links on hover */
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Style the main content */
+  .working-area {
+    margin-left:200px; /* Same as the width of the sidebar */
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Add media queries for small screens */
+  @media only screen and (max-width: 768px) {
+    /* On small screens, we increase the margin-top of the main content to make it go below the sidebar */
+    .working-area {
+      margin-top: 100px;
+      margin-left: 0;
+    }
+
+    /* On small screens, we make the sidebar go on top of the main content */
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      background-color: #111;
+    }
+  }
+  /* Set text color and padding of sidebar links */
+  .nav-link {
+    color: #fff;
+    padding: 10px;
+  }
+
+  
+
+  
