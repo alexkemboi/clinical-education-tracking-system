@@ -1,15 +1,21 @@
-/* Set height of body and container to full screen */
+Set height of body and container to full screen
 body, html, .container-fluid, .row {
     height: 100%;
+    
+  }
+  body, html{
+    background-color: #111;
   }
 
   
   /* Style the sidebar */
   .sidebar {
-    height: 100%;
+    margin-top: 70px;
+    margin-left: 30px;
+    height: 95%;
     width: 200px;
     position: fixed;
-    z-index: 1;
+    /* z-index: 1; */
     top: 0;
     left: 0;
     background-color: #111;
@@ -32,8 +38,9 @@ body, html, .container-fluid, .row {
   
   /* Style the main content */
   .working-area {
+    margin-top:70px;
     margin-left:200px; /* Same as the width of the sidebar */
-    height: 100%;
+    height: 95%;
     width: 100%;
     position: fixed;
     z-index: 1;
