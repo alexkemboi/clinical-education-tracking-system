@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React,{useState} from 'react';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
@@ -18,6 +19,13 @@ const LoginPage = () => {
 return (
     <>
     {showLoginForm&&<div class="container">
+=======
+import React from 'react';
+
+const LoginPage = () => {
+  return (
+    <div class="container">
+>>>>>>> origin/main
     <div class="row justify-content-center mt-5">
       <div class="col-md-6 col-lg-4">
         <div class="card">
@@ -62,6 +70,7 @@ return (
                   />
                 </div>
               </div>
+<<<<<<< HEAD
               
               <button type="submit" class="btn btn-dark btn-block" onClick={handleLogin}>
                       Login
@@ -77,18 +86,27 @@ return (
                 </div>
 
               </div>
+=======
+              <button type="submit" class="btn btn-dark btn-block">
+                Login
+              </button>
+>>>>>>> origin/main
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
     }
   {showSignUpForm && <Signup />}
   {showDashboard && <Dashboard/>}
   </>
   )
  
+=======
+  );
+>>>>>>> origin/main
 };
 
 export default LoginPage;
