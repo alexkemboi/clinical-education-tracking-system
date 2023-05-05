@@ -1,8 +1,31 @@
+<<<<<<< HEAD
+import React,{useState} from 'react';
+import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
+const LoginPage = () => {  
+   const [showSignUpForm,setShowSignUpForm]=useState(false);
+   const [showLoginForm,setShowLoginForm]=useState(true);
+   const[showDashboard,setShowDashboard]=useState(false);
+  function handleSignupClick() {
+      setShowSignUpForm(true);
+      setShowLoginForm(false);
+      setShowDashboard(false);
+    }
+  function handleLogin(){
+    setShowDashboard(true);
+    setShowSignUpForm(false);
+    setShowLoginForm(false);
+  }
+return (
+    <>
+    {showLoginForm&&<div class="container">
+=======
 import React from 'react';
 
 const LoginPage = () => {
   return (
     <div class="container">
+>>>>>>> origin/main
     <div class="row justify-content-center mt-5">
       <div class="col-md-6 col-lg-4">
         <div class="card">
@@ -47,16 +70,43 @@ const LoginPage = () => {
                   />
                 </div>
               </div>
+<<<<<<< HEAD
+              
+              <button type="submit" class="btn btn-dark btn-block" onClick={handleLogin}>
+                      Login
+                </button>                     
+                 
+              <div className='row mt-4'>
+                <div className='col-8'> <label className='text-danger text-center'>Don't you have account?</label>                 
+                </div>
+                <div className='col-4'>
+                  <button type="submit" class="btn btn-warning btn-block" onClick={handleSignupClick}>
+                      SignUp
+                    </button>                    
+                </div>
+
+              </div>
+=======
               <button type="submit" class="btn btn-dark btn-block">
                 Login
               </button>
+>>>>>>> origin/main
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+    }
+  {showSignUpForm && <Signup />}
+  {showDashboard && <Dashboard/>}
+  </>
+  )
+ 
+=======
   );
+>>>>>>> origin/main
 };
 
 export default LoginPage;
