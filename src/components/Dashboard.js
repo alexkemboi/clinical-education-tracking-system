@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import ApexCharts from "apexcharts";
-//import "./styles/DashboardStyles.css";
+import "./styles/DashboardStyles.css";
 import LoginPage from "../LoginPage";
 import ClinicalManagement from "./ClinicalManagement";
 import StudentRegistratiion from "./StudentRegistration";
@@ -24,20 +23,24 @@ function Dashboard() {
   }
   return (
     <>
-      {" "}
       {showDashboard && (
-        <div className="card h-100 w-100">
-          <div className="card-header bg-dark">
-            <div className="row  text-centre ">
-              <h3 className="text-centre m-auto text-light">
-                Clinical Rotation Request Form
-              </h3>
+        <div className="card ">
+          <div className="card-header bg-light text-center text-dark">
+            <div className="row  text-center ">
+              <div className="card-title">
+                <span>
+                  <h4 className="m-auto text-dark text-center">
+                    <i className="fas fa-hospital fa-2x text-warning"></i>
+                    Clinical Rotation Request Form
+                  </h4>
+                </span>
+              </div>
             </div>
           </div>
-          <div className="card-body">
+          <div className="card-body bg-dark">
             <section>
               <div className="row">
-                <div className="col-2 sidebar ml-0 bg-dark text-light h-100 w-25">
+                <div className="col-2 sidebar text-light bg-dark">
                   <ul className="nav flex-column">
                     <li className="nav-item">
                       <a className="nav-link active" href="#">
@@ -80,7 +83,7 @@ function Dashboard() {
                   </ul>
                 </div>
 
-                <div className="col-10 working-area mr-0  bg-light h-100 m-25">
+                <div className="col-10 working-area bg-dark">
                   <div className="working-area-content">
                     {showStudentForm && <StudentRegistratiion />}
                     {showClinicalManagement && <ClinicalManagement />}
@@ -89,7 +92,7 @@ function Dashboard() {
               </div>
             </section>
           </div>
-          <div className="card-footer bg-dark p-10"></div>
+          <div className="card-footer bg-dark h-200"></div>
         </div>
       )}
       {showLoginForm && <LoginPage />}
