@@ -14,8 +14,8 @@ function ClinicalManagement() {
 
   return (
     <>
-      <div className="container my-1">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-0">
+      <div className="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
           <a class="navbar-brand" href="#">
             Clinicals Rotation Management
           </a>
@@ -56,13 +56,11 @@ function ClinicalManagement() {
 
         {showClinicalRotation && (
           <div class="card">
-            <div class="card-header bg-dark text-white text-center">
-              <i class="fas fa-user-md fa-3x"></i>
-              <h3>
+            <div class="card-header bg-dark text-white">
+              <h4>
                 <i className="fas fa-clipboard-list"></i> Clinical Rotation
                 Request Form
-              </h3>
-              <hr />
+              </h4>
             </div>
             <div class="card-body">
               <form>
@@ -190,7 +188,7 @@ function ClinicalManagement() {
                     ></textarea>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-dark">
                   <i className="fas fa-save"></i> Submit Request
                 </button>
               </form>
@@ -199,12 +197,14 @@ function ClinicalManagement() {
         )}
 
         {showEvaluationAssessment && (
-          <div class="container mt-3">
+          <div>
             <div class="card">
-              <div class="card-header bg-dark text-white text-center">
-                <i class="fas fa-user-md fa-3x"></i>
-                <h2>Evaluation and Assessment Form</h2>
-                <hr />
+              <div class="card-header bg-dark text-white">
+                {" "}
+                <h4>
+                  {" "}
+                  <i class="fas fa-user-md"></i>Evaluation and Assessment Form
+                </h4>
               </div>
               <div class="card-body">
                 <form>
@@ -300,7 +300,7 @@ function ClinicalManagement() {
                     ></textarea>
                   </div>
 
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-dark">
                     Submit
                   </button>
                 </form>

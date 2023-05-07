@@ -23,8 +23,20 @@ function Signup() {
                 </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">
-                      <i class="fas fa-user"></i> Name:
+                    <label for="first-name">
+                      <i class="fas fa-user"></i> First Name:
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="second-name">
+                      <i class="fas fa-user"></i> Second Name:
                     </label>
                     <input
                       type="text"

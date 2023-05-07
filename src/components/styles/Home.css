@@ -1,0 +1,19 @@
+.visualization {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  .visualization h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .visualization .value {
+    font-size: 36px;
+    font-weight: bold;
+  }
+  .visualization .icon {
+    font-size: 48px;
+    margin-right: 20px;
+  }
