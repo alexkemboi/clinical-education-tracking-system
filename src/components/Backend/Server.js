@@ -32,25 +32,43 @@ app.use(function (req, res, next) {
 });
 
 app.post("/users", (req, res) => {
-  const { firstName, secondName, password } = req.body;
+  console.log(req.body);
+  const { firstName, secondName, email, password } = req.body;
 
-  const query = `INSERT INTO products (name,  description, image, category, quantity,price)
-                VALUES (?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO users (firstName,secondName,email,password)
+                VALUES (?, ?, ?, ?)`;
 
   connection.query(
     query,
-    [name, description, image, category, quantity, price],
+    [firstName, secondName, email, password],
     (error, results) => {
       if (error) {
-        res.status(500).send("Failed to insert product data");
+        res.status(500).json({ message: "Failed to insert user data" });
       } else {
-        res.status(200).send("Product data inserted successfully");
+        res.status(200).json({ message: "User data inserted successfully" });
       }
     }
   );
 });
 
-const port = 3000;
+app.get("/usersDetails", (req, res) => {
+  const query =
+    "SELECT firstName, secondName, email,password FROM users WHERE email=? AND password=?";
+  const email = req.query.email;
+  const password = req.query.password; // Assuming you will pass the user id as a query parameter
+  console.log(email);
+  connection.query(query, [email, password], (error, results) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({ message: "Failed to fetch user details" });
+    } else {
+      console.log(results);
+      res.status(200).json(results); // Assuming you want to return only the first row
+    }
+  });
+});
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
