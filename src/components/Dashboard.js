@@ -41,14 +41,14 @@ function Dashboard() {
           <div class="row">
             <div class="col-lg-12">
               <div className="card ">
-                <div className="card-header bg-light">
+                <div className="card-header bg-secondary">
                   <div className="row">
                     <div class="col-lg-12">
                       <div className="card-title">
                         <span className="row text-right">
-                          <h4 className="text-dark text-center">
+                          <h4 className="text-light text-center">
                             <i className="fas fa-stethoscope fa-2x text-warning"></i>
-                            Clinical Rotation Request Form
+                            Clinical Education Rotation System
                           </h4>
                           <div class="account text-right">
                             <i class="fas fa-user"></i>
@@ -139,7 +139,7 @@ function Dashboard() {
                     </div>
                   </section>
                 </div>
-                <div className="card-footer bg-dark">
+                <div className="card-footer bg-secondary">
                   <p className="card-text">Developped and managed by @ikonex</p>
                 </div>
               </div>

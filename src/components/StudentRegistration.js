@@ -1,6 +1,7 @@
 import { useState } from "react";
 function StudentRegistratiion() {
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState("");
@@ -9,49 +10,98 @@ function StudentRegistratiion() {
   const [showPersonalInformation, setShowPersonalInformation] = useState(false);
   const [showEducationalInformation, setShowEducationalInformation] =
     useState(false);
-  const [showClinicalInformation, setShowClinicalInformation] = useState(false);
   const [showEmergencyInformation, setShowEmergencyInformation] =
     useState(false);
   const [showAdditionalInformation, setShowAdditionalInformation] =
     useState(false);
 
-  const handleSubmit = (e) => {
+  //submit personal information
+  const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
-    // TODO: Handle form submission
+    const personalInformation = {
+      firstName: firstName,
+      lastName: lastName,
+      dob: dob,
+      gender: gender,
+      address: address,
+      phoneNumber: phoneNumber,
+      email: email,
+    };
+    fetch("http://localhost:3001/personalInformation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(personalInformation),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Successfully saved personal information");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  //submit educational information
+  const [institutionName, setInsitutionName] = useState("");
+  const [degree, setDegree] = useState("");
+  const [fieldStudy, setFieldStudy] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const educationalInformation = {
+    institutionName: institutionName,
+    degree: degree,
+    degree: degree,
+    fieldStudy: fieldStudy,
+    startDate: startDate,
+    endDate: endDate,
+  };
+
+  const handleSubmitEducationalInformation = () => {
+    fetch("http://localhost:3001/EducationalInformation", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(educationalInformation),
+    })
+      .then((response) => response.json)
+      .then((data) => {
+        console.log("Successfully saved", data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleShowPersonalInformation = () => {
     setShowPersonalInformation(true);
     setShowEducationalInformation(false);
-    setShowClinicalInformation(false);
+
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
   };
   const handleShowEducationalInformation = () => {
     setShowEducationalInformation(true);
     setShowPersonalInformation(false);
-    setShowClinicalInformation(false);
+
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
   };
-  const handleShowClinicalInformation = () => {
-    setShowClinicalInformation(true);
-    setShowPersonalInformation(false);
-    setShowEducationalInformation(false);
-    setShowEmergencyInformation(false);
-    setShowAdditionalInformation(false);
-  };
+
   const handleShowEmergencyInformation = () => {
     setShowEmergencyInformation(true);
     setShowPersonalInformation(false);
     setShowEducationalInformation(false);
-    setShowClinicalInformation(false);
+
     setShowAdditionalInformation(false);
   };
   const handleShowAdditionalInformation = () => {
     setShowAdditionalInformation(true);
     setShowPersonalInformation(false);
     setShowEducationalInformation(false);
-    setShowClinicalInformation(false);
+
     setShowEmergencyInformation(false);
   };
   return (
@@ -100,15 +150,7 @@ function StudentRegistratiion() {
                 <i class="fas fa-graduation-cap"></i> Educational
               </a>
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-                onClick={handleShowClinicalInformation}
-              >
-                <i class="fas fa-hospital"></i> Clinical
-              </a>
-            </li>
+
             <li class="nav-item">
               <a
                 class="nav-link"
@@ -143,18 +185,27 @@ function StudentRegistratiion() {
               <div className="card-body">
                 <div className="row">
                   <div className="col-12">
-                    <form onSubmit={handleSubmit}>
+                    <form>
                       <div className="form-group">
-                        <label htmlFor="full-name">
-                          <i className="fas fa-signature"></i> Full Name
+                        <label htmlFor="first-name">
+                          <i className="fas fa-signature"></i> First Name
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="full-name"
-                          name="full-name"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
+                          id="first-name"
+                          name="first-name"
+                          onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <label htmlFor="last-name">
+                          <i className="fas fa-signature"></i> Last Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="last-name"
+                          name="last-name"
+                          onChange={(e) => setLastName(e.target.value)}
                         />
                         <label htmlFor="dob">
                           <i className="fas fa-calendar-alt"></i> Date of Birth
@@ -214,14 +265,21 @@ function StudentRegistratiion() {
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn bg-dark text-white">
-                        <i className="fas fa-save"></i> Save
-                      </button>
                     </form>
                   </div>
                 </div>
               </div>
-              <div className="card-footer"></div>
+              <div className="card-footer">
+                <button
+                  type="submit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#successModal"
+                  className="btn bg-dark text-white"
+                  onClick={handleSubmitPersonalInformation}
+                >
+                  <i className="fas fa-save"></i> Save personal information
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -247,6 +305,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="institution-name"
                     name="institution-name"
+                    onChange={(e) => setInsitutionName(e.target.value)}
                   />
                   <label htmlFor="degree">
                     <i className="fas fa-certificate"></i> Degree
@@ -256,6 +315,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="degree"
                     name="degree"
+                    onChange={(e) => setDegree(e.target.value)}
                   />
                   <label htmlFor="field-of-study">
                     <i className="fas fa-book"></i> Field of Study
@@ -265,6 +325,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="field-of-study"
                     name="field-of-study"
+                    onChange={(e) => setFieldStudy(e.target.value)}
                   />
                   <label htmlFor="start-date">
                     <i className="fas fa-calendar-alt"></i> Start Date
@@ -274,6 +335,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="start-date"
                     name="start-date"
+                    onChange={(e) => setStartDate(e.target.value)}
                   />
                   <label htmlFor="end-date">
                     <i className="fas fa-calendar-alt"></i> End Date
@@ -283,68 +345,15 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="end-date"
                     name="end-date"
+                    onChange={(e) => setEndDate(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="btn bg-dark text-white">
-                  <i className="fas fa-save"></i> Save
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showClinicalInformation && (
-        <div className="m-auto">
-          <div className="card">
-            <div className=" card-header bg-dark">
-              <h5 className="card-text text-light">
-                <i className="fas fa-hospital"></i> Clinical Education
-                Information
-              </h5>
-            </div>
-            <div className="card-body">
-              <form>
-                <div className="form-group">
-                  <label htmlFor="clinical-site">
-                    <i className="fas fa-map-marker-alt"></i> Clinical Site
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="clinical-site"
-                    name="clinical-site"
-                  />
-                  <label htmlFor="preceptor">
-                    <i className="fas fa-user-md"></i> Preceptor
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="preceptor"
-                    name="preceptor"
-                  />
-                  <label htmlFor="start-date">
-                    <i className="fas fa-calendar-alt"></i> Start Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="start-date"
-                    name="start-date"
-                  />
-                  <label htmlFor="end-date">
-                    <i className="fas fa-calendar-alt"></i> End Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id="end-date"
-                    name="end-date"
-                  />
-                </div>
-                <button type="submit" className="btn btn-dark">
-                  <i className="fas fa-save"></i> Save
+                <button
+                  type="submit"
+                  className="btn bg-dark text-white"
+                  onClick={handleSubmitEducationalInformation}
+                >
+                  <i className="fas fa-save"></i> Save Educational information
                 </button>
               </form>
             </div>

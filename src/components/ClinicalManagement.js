@@ -38,7 +38,7 @@ function ClinicalManagement() {
                   href="#"
                   onClick={handleShowClinicalRotation}
                 >
-                  <i class="fas fa-stethoscope"></i> Clinical Rotation Request
+                  <i class="fas fa-stethoscope"></i> Clinical Rotation Placement
                 </a>
               </li>
               <li class="nav-item">
@@ -57,10 +57,10 @@ function ClinicalManagement() {
         {showClinicalRotation && (
           <div class="card">
             <div class="card-header bg-dark text-white">
-              <h4>
+              <h6>
                 <i className="fas fa-clipboard-list"></i> Clinical Rotation
-                Request Form
-              </h4>
+                placement
+              </h6>
             </div>
             <div class="card-body">
               <form>
@@ -209,7 +209,7 @@ function ClinicalManagement() {
               <div class="card-body">
                 <form>
                   <div class="form-group">
-                    <label for="rotation">
+                    <label htmlFor="rotation">
                       Rotation Area <i class="fas fa-asterisk text-danger"></i>
                     </label>
                     <select class="form-control" id="rotation" required>
@@ -225,7 +225,7 @@ function ClinicalManagement() {
                   </div>
 
                   <div class="form-group">
-                    <label for="objective">
+                    <label htmlFor="objective">
                       Objective <i class="fas fa-asterisk text-danger"></i>
                     </label>
                     <select class="form-control" id="objective" required>
@@ -268,7 +268,7 @@ function ClinicalManagement() {
                   </div>
 
                   <div class="form-group">
-                    <label for="performance-rating">
+                    <label htmlFor="performance-rating">
                       Performance Rating{" "}
                       <i class="fas fa-asterisk text-danger"></i>
                     </label>
@@ -289,7 +289,7 @@ function ClinicalManagement() {
                   </div>
 
                   <div class="form-group">
-                    <label for="feedback">
+                    <label htmlFor="feedback">
                       Feedback <i class="fas fa-asterisk text-danger"></i>
                     </label>
                     <textarea

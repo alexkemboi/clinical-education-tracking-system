@@ -1,9 +1,11 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
+const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 
+app.use(bodyParser.json());
+app.use(cors());
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -18,9 +20,6 @@ connection.connect((error) => {
     console.log("Connected to database");
   }
 });
-
-app.use(bodyParser.json());
-app.use(cors());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -50,6 +49,54 @@ app.post("/users", (req, res) => {
     }
   );
 });
+app.post("/personalInformation", (req, res) => {
+  console.log(req.body);
+  const { firstName, lastName, dob, gender, address, phoneNumber, email } =
+    req.body;
+  console.log(req.body);
+  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email )
+                VALUES (?, ?, ?, ?,?,?,?)`;
+
+  connection.query(
+    query,
+    [firstName, lastName, dob, gender, address, phoneNumber, email],
+    (error, results) => {
+      if (error) {
+        res
+          .status(500)
+          .json({ message: "Failed to insert user personal information data" });
+      } else {
+        res
+          .status(200)
+          .json({ message: "Personal data inserted successfully" });
+      }
+    }
+  );
+});
+
+app.post("/educationalInformation", (req, res) => {
+  console.log(req.body);
+  const { insitutionName, degree, fieldStudy, startDate, endDate } = req.body;
+  console.log(req.body);
+  const query = `INSERT INTO personal_information (institution_name,degree,field_of_study,start_date,end_date)
+                VALUES (?, ?, ?, ?,?)`;
+
+  connection.query(
+    query,
+    [insitutionName, degree, fieldStudy, startDate, endDate],
+    (error, results) => {
+      if (error) {
+        res
+          .status(500)
+          .json({ message: "Failed to insert user personal information data" });
+      } else {
+        res
+          .status(200)
+          .json({ message: "Personal data inserted successfully" });
+      }
+    }
+  );
+});
 
 app.get("/usersDetails", (req, res) => {
   const query =
@@ -68,7 +115,7 @@ app.get("/usersDetails", (req, res) => {
   });
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
