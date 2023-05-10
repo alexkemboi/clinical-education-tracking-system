@@ -12,7 +12,8 @@ const LoginPage = () => {
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function handleLogin() {
+  function handleLogin(e) {
+    e.preventDefault();
     fetch(
       `http://localhost:3001/usersDetails?email=${email}&password=${password}`,
       {
@@ -24,10 +25,10 @@ const LoginPage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        // do something with the retrieved data
+        console.log(data[0].email);
         if (data.length > 0) {
           setShowDashboard(true);
+          setShowLoginForm(false);
         } else {
           setShowDashboard(false);
           setShowLoginForm(true);
@@ -38,7 +39,6 @@ const LoginPage = () => {
       });
 
     setShowSignUpForm(false);
-    setShowLoginForm(false);
   }
 
   return (
@@ -55,7 +55,7 @@ const LoginPage = () => {
                 <div className="card-body">
                   <form className="form" id="loginForm">
                     <div className="form-group">
-                      <label for="email">Email</label>
+                      <label htmlFor="email">Email</label>
                       <div className="input-group">
                         <div className="input-group-prepend">
                           <span className="input-group-text">
@@ -73,7 +73,7 @@ const LoginPage = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label for="password">Password</label>
+                      <label htmlFor="password">Password</label>
                       <div className="input-group">
                         <div className="input-group-prepend">
                           <span className="input-group-text">
@@ -92,8 +92,6 @@ const LoginPage = () => {
                     </div>
 
                     <button
-                      data-bs-toggle="modal"
-                      data-bs-target="#successModal"
                       className="btn btn-dark btn-block"
                       onClick={handleLogin}
                     >
@@ -103,7 +101,7 @@ const LoginPage = () => {
                       <div className="col-8">
                         {" "}
                         <label className="text-danger text-center">
-                          Don't you have account?
+                          Don't you have an account?
                         </label>
                       </div>
                       <div className="col-4">

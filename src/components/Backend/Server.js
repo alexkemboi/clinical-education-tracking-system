@@ -74,16 +74,17 @@ app.post("/personalInformation", (req, res) => {
   );
 });
 
-app.post("/educationalInformation", (req, res) => {
+app.post("/personalInformation", (req, res) => {
   console.log(req.body);
-  const { insitutionName, degree, fieldStudy, startDate, endDate } = req.body;
+  const { firstName, lastName, dob, gender, address, phoneNumber, email } =
+    req.body;
   console.log(req.body);
-  const query = `INSERT INTO personal_information (institution_name,degree,field_of_study,start_date,end_date)
-                VALUES (?, ?, ?, ?,?)`;
+  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email )
+                VALUES (?, ?, ?, ?,?,?,?)`;
 
   connection.query(
     query,
-    [insitutionName, degree, fieldStudy, startDate, endDate],
+    [firstName, lastName, dob, gender, address, phoneNumber, email],
     (error, results) => {
       if (error) {
         res
@@ -93,6 +94,51 @@ app.post("/educationalInformation", (req, res) => {
         res
           .status(200)
           .json({ message: "Personal data inserted successfully" });
+      }
+    }
+  );
+});
+
+app.post("/educationalInformation", (req, res) => {
+  console.log(req.body);
+  const { institutionName, degree, fieldStudy, startDate, endDate } = req.body;
+  const query = `INSERT INTO educational_info (institution_name,degree,field_of_study,start_date,end_date)
+                VALUES (?, ?, ?, ?,?)`;
+
+  connection.query(
+    query,
+    [institutionName, degree, fieldStudy, startDate, endDate],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({
+          message: "Failed to insert user educatinal information data",
+        });
+      } else {
+        res
+          .status(200)
+          .json({ message: "Educational data inserted successfully" });
+      }
+    }
+  );
+});
+app.post("/emergencyInformation", (req, res) => {
+  console.log(req.body);
+  const { contactName, relationship, phoneNumber, email } = req.body;
+  const query = `INSERT INTO emergency_info (contact_name,relationship,phone_number,email)
+                VALUES (?, ?, ?, ?)`;
+
+  connection.query(
+    query,
+    [contactName, relationship, phoneNumber, email],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({
+          message: "Failed to insert emergency information data",
+        });
+      } else {
+        res
+          .status(200)
+          .json({ message: "Emergency data inserted successfully" });
       }
     }
   );

@@ -37,23 +37,34 @@ function Dashboard() {
   return (
     <>
       {showDashboard && (
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-12">
               <div className="card ">
                 <div className="card-header bg-secondary">
                   <div className="row">
-                    <div class="col-lg-12">
+                    <div className="col-lg-12">
                       <div className="card-title">
-                        <span className="row text-right">
-                          <h4 className="text-light text-center">
-                            <i className="fas fa-stethoscope fa-2x text-warning"></i>
-                            Clinical Education Rotation System
-                          </h4>
-                          <div class="account text-right">
-                            <i class="fas fa-user"></i>
+                        <div className="row">
+                          <div className="col-lg-10">
+                            <h4 className="text-light text-center">
+                              <i className="fas fa-stethoscope fa-2x text-warning"></i>
+                              Clinical Education Rotation System
+                            </h4>
                           </div>
-                        </span>
+                          <div className="col-lg-2">
+                            <div className="row">
+                              <div className="col-lg-3">
+                                <div className="account mr-0">
+                                  <i className="fas fa-user text-center"></i>
+                                </div>
+                              </div>
+                              <div className="col-lg-9">
+                                <h5>Full Name</h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

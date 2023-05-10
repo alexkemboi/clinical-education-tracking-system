@@ -15,12 +15,7 @@ function Signup() {
     const secondName = document.getElementById("secondName").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    const userData = {
-      firstName: firstName,
-      secondName: secondName,
-      email: email,
-      password: password,
-    };
+
     fetch("http://localhost:3001/users", {
       method: "POST",
       headers: {
@@ -75,7 +70,7 @@ function Signup() {
                 </div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label for="firstName">
+                    <label htmlFor="firstName">
                       <i className="fas fa-user"></i> First Name:
                     </label>
                     <input
@@ -87,7 +82,7 @@ function Signup() {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="secondName">
+                    <label htmlFor="secondName">
                       <i className="fas fa-user"></i> Second Name:
                     </label>
                     <input
@@ -99,7 +94,7 @@ function Signup() {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="email">
+                    <label htmlFor="email">
                       <i className="fas fa-envelope"></i> Email:
                     </label>
                     <input
@@ -111,7 +106,7 @@ function Signup() {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="password">
+                    <label htmlFor="password">
                       <i className="fas fa-lock"></i> Password:
                     </label>
                     <input
@@ -123,7 +118,7 @@ function Signup() {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="confirm-password">
+                    <label htmlFor="confirm-password">
                       <i className="fas fa-lock"></i> Confirm Password:
                     </label>
                     <input
@@ -142,14 +137,12 @@ function Signup() {
                       name="terms"
                       required
                     />
-                    <label className="form-check-label" for="terms">
+                    <label className="form-check-label" htmlFor="terms">
                       I agree to the <a href="#">Terms and Conditions</a>.
                     </label>
                   </div>
                   <button
                     type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#successModal"
                     className="btn btn-dark"
                     onClick={handleSignup}
                   >
@@ -180,9 +173,9 @@ function Signup() {
       <div
         className="modal fade"
         id="successModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="successModalLabel"
-        aria-hidden="true"
+        aria-hidden="false"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">

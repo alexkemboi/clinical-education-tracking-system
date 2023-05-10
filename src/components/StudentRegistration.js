@@ -52,13 +52,13 @@ function StudentRegistratiion() {
   const educationalInformation = {
     institutionName: institutionName,
     degree: degree,
-    degree: degree,
     fieldStudy: fieldStudy,
     startDate: startDate,
     endDate: endDate,
   };
 
-  const handleSubmitEducationalInformation = () => {
+  const handleSubmitEducationalInformation = (e) => {
+    e.preventDefault();
     fetch("http://localhost:3001/EducationalInformation", {
       method: "post",
       headers: {
@@ -68,7 +68,32 @@ function StudentRegistratiion() {
     })
       .then((response) => response.json)
       .then((data) => {
-        console.log("Successfully saved", data);
+        console.log("Successfully saved");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const [contactName, setContactName] = useState("");
+  const [relationship, setRelationship] = useState("");
+  const emergencyInformation = {
+    contactName: contactName,
+    phoneNumber: phoneNumber,
+    relationship: relationship,
+    email: email,
+  };
+  const handleSubmitEmergencyInformation = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3001/emergencyInformation", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(emergencyInformation),
+    })
+      .then((response) => response.json)
+      .then((data) => {
+        console.log("Successfully saved");
       })
       .catch((error) => {
         console.log(error);
@@ -106,21 +131,12 @@ function StudentRegistratiion() {
   };
   return (
     <>
-      {/* <div className="card">
-        <div className=" card-header bg-dark"></div>
-        <div className="card-body">
-          <div className="row">
-            <div className="col-12"></div>
-          </div>
-        </div>
-        <div className="card-footer"></div>
-      </div> */}
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-0">
-        <a class="navbar-brand" href="#">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-0">
+        <a className="navbar-brand" href="#">
           Student Registration Form
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarNav"
@@ -128,41 +144,41 @@ function StudentRegistratiion() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
               <a
-                class="nav-link"
+                className="nav-link"
                 href="#"
                 onClick={handleShowPersonalInformation}
               >
-                <i class="fas fa-user"></i> Personal
+                <i className="fas fa-user"></i> Personal
               </a>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <a
-                class="nav-link"
+                className="nav-link"
                 href="#"
                 onClick={handleShowEducationalInformation}
               >
-                <i class="fas fa-graduation-cap"></i> Educational
+                <i className="fas fa-graduation-cap"></i> Educational
               </a>
             </li>
 
-            <li class="nav-item">
+            <li className="nav-item">
               <a
-                class="nav-link"
+                className="nav-link"
                 href="#"
                 onClick={handleShowEmergencyInformation}
               >
-                <i class="fas fa-ambulance"></i> Emergency
+                <i className="fas fa-ambulance"></i> Emergency
               </a>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <a
-                class="nav-link"
+                className="nav-link"
                 href="#"
                 onClick={handleShowAdditionalInformation}
               >
@@ -272,8 +288,6 @@ function StudentRegistratiion() {
               <div className="card-footer">
                 <button
                   type="submit"
-                  data-bs-toggle="modal"
-                  data-bs-target="#successModal"
                   className="btn bg-dark text-white"
                   onClick={handleSubmitPersonalInformation}
                 >
@@ -349,7 +363,6 @@ function StudentRegistratiion() {
                   />
                 </div>
                 <button
-                  type="submit"
                   className="btn bg-dark text-white"
                   onClick={handleSubmitEducationalInformation}
                 >
@@ -380,6 +393,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="emergency-contact-name"
                     name="emergency-contact-name"
+                    onChange={(e) => setContactName(e.target.value)}
                   />
                   <label htmlFor="emergency-contact-relationship">
                     <i className="fas fa-users"></i> Relationship
@@ -389,6 +403,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="emergency-contact-relationship"
                     name="emergency-contact-relationship"
+                    onChange={(e) => setRelationship(e.target.value)}
                   />
                   <label htmlFor="emergency-contact-number">
                     <i className="fas fa-phone"></i> Phone Number
@@ -398,6 +413,7 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="emergency-contact-number"
                     name="emergency-contact-number"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                   <label htmlFor="emergency-contact-email">
                     <i className="fas fa-envelope"></i> Email
@@ -407,10 +423,14 @@ function StudentRegistratiion() {
                     className="form-control"
                     id="emergency-contact-email"
                     name="emergency-contact-email"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="btn btn-dark">
-                  <i className="fas fa-save"></i> Save
+                <button
+                  onClick={handleSubmitEmergencyInformation}
+                  className="btn btn-dark"
+                >
+                  <i className="fas fa-save"></i> Save Emergency Information
                 </button>
               </form>
             </div>

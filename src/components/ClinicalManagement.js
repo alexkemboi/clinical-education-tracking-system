@@ -15,12 +15,12 @@ function ClinicalManagement() {
   return (
     <>
       <div className="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
-          <a class="navbar-brand" href="#">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
+          <a className="navbar-brand" href="#">
             Clinicals Rotation Management
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarNav"
@@ -28,26 +28,26 @@ function ClinicalManagement() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#"
                   onClick={handleShowClinicalRotation}
                 >
-                  <i class="fas fa-stethoscope"></i> Clinical Rotation Placement
+                  <i className="fas fa-stethoscope"></i> Clinical Rotation Placement
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link"
+                  className="nav-link"
                   href="#"
                   onClick={handleShowEvaluationAssessment}
                 >
-                  <i class="fas fa-chart-bar"></i> Evaluation and Assessment
+                  <i className="fas fa-chart-bar"></i> Evaluation and Assessment
                 </a>
               </li>
             </ul>
@@ -55,14 +55,14 @@ function ClinicalManagement() {
         </nav>
 
         {showClinicalRotation && (
-          <div class="card">
-            <div class="card-header bg-dark text-white">
+          <div className="card">
+            <div className="card-header bg-dark text-white">
               <h6>
                 <i className="fas fa-clipboard-list"></i> Clinical Rotation
                 placement
               </h6>
             </div>
-            <div class="card-body">
+            <div className="card-body">
               <form>
                 <div className="form-group">
                   <div className="form-group">
@@ -74,7 +74,7 @@ function ClinicalManagement() {
                       id="rotation-type"
                       name="rotation-type"
                     >
-                      <label for="rotation-area">Rotation Area:</label>
+                      <label htmlFor="rotation-area">Rotation Area:</label>
                       <option value="internal-medicine">
                         Internal Medicine
                       </option>
@@ -198,21 +198,21 @@ function ClinicalManagement() {
 
         {showEvaluationAssessment && (
           <div>
-            <div class="card">
-              <div class="card-header bg-dark text-white">
+            <div className="card">
+              <div className="card-header bg-dark text-white">
                 {" "}
                 <h4>
                   {" "}
-                  <i class="fas fa-user-md"></i>Evaluation and Assessment Form
+                  <i className="fas fa-user-md"></i>Evaluation and Assessment Form
                 </h4>
               </div>
-              <div class="card-body">
+              <div className="card-body">
                 <form>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="rotation">
-                      Rotation Area <i class="fas fa-asterisk text-danger"></i>
+                      Rotation Area <i className="fas fa-asterisk text-danger"></i>
                     </label>
-                    <select class="form-control" id="rotation" required>
+                    <select className="form-control" id="rotation" required>
                       <option value="">Select Rotation Area</option>
                       <option value="Internal Medicine">
                         Internal Medicine
@@ -224,11 +224,11 @@ function ClinicalManagement() {
                     </select>
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="objective">
-                      Objective <i class="fas fa-asterisk text-danger"></i>
+                      Objective <i className="fas fa-asterisk text-danger"></i>
                     </label>
-                    <select class="form-control" id="objective" required>
+                    <select className="form-control" id="objective" required>
                       <option value="">Select Objective</option>
                       <option value="Develop an understanding of common medical conditions such as hypertension, diabetes, and COPD">
                         Develop an understanding of common medical conditions
@@ -267,13 +267,13 @@ function ClinicalManagement() {
                     </select>
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="performance-rating">
                       Performance Rating{" "}
-                      <i class="fas fa-asterisk text-danger"></i>
+                      <i className="fas fa-asterisk text-danger"></i>
                     </label>
                     <select
-                      class="form-control"
+                      className="form-control"
                       id="performance-rating"
                       required
                     >
@@ -288,19 +288,19 @@ function ClinicalManagement() {
                     </select>
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="feedback">
-                      Feedback <i class="fas fa-asterisk text-danger"></i>
+                      Feedback <i className="fas fa-asterisk text-danger"></i>
                     </label>
                     <textarea
-                      class="form-control"
+                      className="form-control"
                       id="feedback"
                       rows="3"
                       required
                     ></textarea>
                   </div>
 
-                  <button type="submit" class="btn btn-dark">
+                  <button type="submit" className="btn btn-dark">
                     Submit
                   </button>
                 </form>
