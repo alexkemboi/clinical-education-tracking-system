@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Signup from "./components/Signup";
+import SuccessModal from "./components/Success";
 import Dashboard from "./components/Dashboard";
 const LoginPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -29,6 +30,9 @@ const LoginPage = () => {
         if (data.length > 0) {
           setShowDashboard(true);
           setShowLoginForm(false);
+          {
+            <SuccessModal />;
+          }
         } else {
           setShowDashboard(false);
           setShowLoginForm(true);
