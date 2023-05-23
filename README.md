@@ -1,7 +1,7 @@
-####Project Overview
+Project Overview
 The project is created using Create React App, which is a popular tool for quickly setting up a React application.
 
-###Available Scripts
+Available Scripts
 In the project directory, you can run the following scripts using npm:
 
 npm start: Runs the app in development mode and opens it in the browser at http://localhost:3000.
