@@ -75,7 +75,9 @@ body, html{
     margin-bottom: 0;
     color: #fff;
   }
-  
+  .title-bar {
+    height: 20px; /* Adjust the height as desired */
+  }
   
 
   

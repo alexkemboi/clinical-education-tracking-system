@@ -16,7 +16,7 @@ function ClinicalManagement() {
     <>
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand ml-3" href="#">
             Clinicals Rotation Management
           </a>
           <button
@@ -63,135 +63,62 @@ function ClinicalManagement() {
               </h6>
             </div>
             <div className="card-body">
-              <form>
-                <div className="form-group">
-                  <div className="form-group">
-                    <label htmlFor="rotation-type">
-                      <i className="fas fa-check-double"></i> Rotation Type:
-                    </label>
-                    <select
-                      className="form-control"
-                      id="rotation-type"
-                      name="rotation-type"
-                    >
-                      <label htmlFor="rotation-area">Rotation Area:</label>
-                      <option value="internal-medicine">
-                        Internal Medicine
-                      </option>
-                      <option value="pediatrics">Pediatrics</option>
-                      <option value="ob-gyn">Obstetrics and Gynecology</option>
-                      <option value="surgery">Surgery</option>
-                      <option value="psychiatry">Psychiatry</option>
-                      <option value="emergency-medicine">
-                        Emergency Medicine
-                      </option>
-                      <option value="family-medicine">Family Medicine</option>
-                      <option value="neurology">Neurology</option>
-                      <option value="cardiology">Cardiology</option>
-                      <option value="oncology">Oncology</option>
-                      <option value="radiology">Radiology</option>
-                      <option value="infectious-diseases">
-                        Infectious Diseases
-                      </option>
-                      <option value="geriatrics">Geriatrics</option>
-                      <option value="endocrinology">Endocrinology</option>
-                      <option value="pulmonology">Pulmonology</option>
-                      <option value="nephrology">Nephrology</option>
-                      <option value="hematology-oncology">
-                        Hematology/Oncology
-                      </option>
-                      <option value="dermatology">Dermatology</option>
-                      <option value="ophthalmology">Ophthalmology</option>
-                      <option value="otolaryngology">Otolaryngology</option>
-                      <option value="Inpatient">Inpatient</option>
-                      <option value="Outpatient">Outpatient</option>
-                      <option value="Specialty">Specialty</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="start-date">
-                      <i className="fas fa-calendar-alt"></i> Start Date:
-                    </label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="start-date"
-                      name="start-date"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="end-date">
-                      <i className="fas fa-calendar-alt"></i> End Date:
-                    </label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="end-date"
-                      name="end-date"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="location">
-                      <i className="fas fa-map-marker-alt"></i> Location:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="location"
-                      name="location"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="preceptor">
-                      <i className="fas fa-user"></i> Preceptor:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="preceptor"
-                      name="preceptor"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="preceptor-title">
-                      <i className="fas fa-user-tie"></i> Preceptor Title:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="preceptor-title"
-                      name="preceptor-title"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="preceptor-email">
-                      <i className="fas fa-envelope"></i> Preceptor Email:
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="preceptor-email"
-                      name="preceptor-email"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="notes">
-                      <i className="fas fa-notes-medical"></i> Notes:
-                    </label>
-                    <textarea
-                      className="form-control"
-                      id="notes"
-                      name="notes"
-                    ></textarea>
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-dark">
-                  <i className="fas fa-save"></i> Submit Request
-                </button>
-              </form>
+            <table className="table table-striped">
+            <thead className="thead-dark">
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Rotation Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Location</th>
+                <th>Preceptor</th>
+                <th>Submit</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="tr-light">
+                <td>1</td>
+                <td>ALEX KEMBOI</td>
+                <td>
+                  <select class="form-control" id="rotation-type" name="rotation-type">
+                    <option value="internal-medicine">Internal Medicine</option>
+                    <option value="pediatrics">Pediatrics</option>
+                    <option value="ob-gyn">Obstetrics and Gynecology</option>
+                    <option value="surgery">Surgery</option>
+                    <option value="psychiatry">Psychiatry</option>
+                    <option value="emergency-medicine">Emergency Medicine</option>
+                    <option value="family-medicine">Family Medicine</option>
+                    <option value="neurology">Neurology</option>
+                    <option value="cardiology">Cardiology</option>
+                    <option value="oncology">Oncology</option>
+                    <option value="radiology">Radiology</option>
+                    <option value="infectious-diseases">Infectious Diseases</option>
+                    <option value="geriatrics">Geriatrics</option>
+                    <option value="endocrinology">Endocrinology</option>
+                    <option value="pulmonology">Pulmonology</option>
+                    <option value="nephrology">Nephrology</option>
+                    <option value="hematology-oncology">Hematology/Oncology</option>
+                    <option value="dermatology">Dermatology</option>
+                    <option value="ophthalmology">Ophthalmology</option>
+                    <option value="otolaryngology">Otolaryngology</option>
+                    <option value="Inpatient">Inpatient</option>
+                    <option value="Outpatient">Outpatient</option>
+                    <option value="Specialty">Specialty</option>
+                  </select>
+                </td>
+                <td><input type="date" class="form-control" id="start-date" name="start-date"/></td>
+                <td><input type="date" class="form-control" id="end-date" name="end-date"/></td>
+                <td><input type="text" class="form-control" id="location" name="location"/></td>
+                <td><input type="text" class="form-control" id="preceptor" name="preceptor"/></td>
+                <td><button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Submit Request</button></td>
+                <td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button></td>
+                <td><button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button></td>
+              </tr>
+            </tbody>
+            </table>
             </div>
           </div>
         )}
@@ -208,6 +135,22 @@ function ClinicalManagement() {
               </div>
               <div className="card-body">
                 <form>
+                <div className="form-group">
+                    <label htmlFor="student">
+                      Select student <i className="fas fa-asterisk text-danger"></i>
+                    </label>
+                    <select className="form-control" id="student" required>
+                      <option value="">Select student </option>
+                      <option value="">
+                        ALEX KEMBOI
+                      </option>
+                      <option value="">
+                        KAMALA JEROP</option>
+                      <option value="">
+                      KEN KEMBOI
+                      </option>
+                    </select>
+                  </div>
                   <div className="form-group">
                     <label htmlFor="rotation">
                       Rotation Area <i className="fas fa-asterisk text-danger"></i>
