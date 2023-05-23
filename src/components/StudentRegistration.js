@@ -7,7 +7,7 @@ function StudentRegistratiion() {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [showPersonalInformation, setShowPersonalInformation] = useState(false);
+  const [showPersonalInformation, setShowPersonalInformation] = useState(true);
   const [showEducationalInformation, setShowEducationalInformation] =
     useState(false);
   const [showEmergencyInformation, setShowEmergencyInformation] =

@@ -31,7 +31,7 @@ body, html{
     color: #fff;
     padding: 10px;
   }
-  .account {
+  /* .account {
     display: inline-block;
     margin-left: auto;
     margin-right: 10px;
@@ -39,11 +39,43 @@ body, html{
     border-radius: 50%;
     background-color: #f2f2f2;
     cursor: pointer;
+  } */
+  .card-header {
+    padding: 15px;
   }
+  
+  .card-title {
+    margin-bottom: 0;
+  }
+  
+  .text-light {
+    color: #fff;
+  }
+  
+  .text-warning {
+    color: #ffc107;
+  }
+  
+  .account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #000;
+  }
+  
   .account i {
-    font-size: 24px;
+    font-size: 20px;
   }
-
+  
+  h5 {
+    margin-bottom: 0;
+    color: #fff;
+  }
+  
   
 
   

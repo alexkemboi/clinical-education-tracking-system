@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 function ClinicalManagement() {
-  const [showClinicalRotation, setShowClinicalRotation] = useState(false);
+  const [showClinicalRotation, setShowClinicalRotation] = useState(true);
   const [showEvaluationAssessment, setShowEvaluationAssessment] =
     useState(false);
   const handleShowClinicalRotation = () => {

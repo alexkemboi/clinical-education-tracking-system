@@ -4,35 +4,51 @@ import LoginPage from "../LoginPage";
 import ClinicalManagement from "./ClinicalManagement";
 import StudentRegistratiion from "./StudentRegistration";
 import Home from "./Home";
+import Clinicals from "./Clinicals";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showDashboard, setShowDashboard] = useState(true);
   const [showStudentForm, setShowStudentForm] = useState(false);
   const [showClinicalManagement, setShowClinicalManagement] = useState(false);
-  const [showHome, setShowHome] = useState(true);
+  const [showHome, setShowHome] = useState(false);
+  const [showClinicals,setShowClinicals]=useState(true);
   function handleLogout() {
     setShowLoginForm(true);
     setShowDashboard(false);
+    setShowClinicals(false);
   }
   function handleShowStudentForm() {
     setShowStudentForm(true);
     setShowClinicalManagement(false);
     setShowLoginForm(false);
     setShowHome(false);
+    setShowClinicals(false);
   }
   function handleClinicalManagement() {
     setShowClinicalManagement(true);
     setShowLoginForm(false);
     setShowStudentForm(false);
     setShowHome(false);
+    setShowClinicals(false);
   }
   function handleHome() {
     setShowClinicalManagement(false);
     setShowLoginForm(false);
     setShowStudentForm(false);
     setShowHome(true);
+    setShowClinicals(false);
   }
+  function handleClinicals() {
+    setShowClinicalManagement(false);
+    setShowLoginForm(false);
+    setShowStudentForm(false);
+    setShowClinicals(true);
+    setShowHome(false);
+  }
+
 
   return (
     <>
@@ -41,44 +57,41 @@ function Dashboard() {
           <div className="row">
             <div className="col-lg-12">
               <div className="card ">
-                <div className="card-header bg-secondary">
+              <div className="card-header bg-dark">
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="card-title">
-                        <div className="row">
-                          <div className="col-lg-10">
-                            <h4 className="text-light text-center">
-                              <i className="fas fa-stethoscope fa-2x text-warning"></i>
-                              Clinical Education Rotation System
-                            </h4>
-                          </div>
-                          <div className="col-lg-2">
-                            <div className="row">
-                              <div className="col-lg-3">
-                                <div className="account mr-0">
-                                  <i className="fas fa-user text-center"></i>
+                      <div class="title-bar bg-dark text-light">
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-lg-6">
+                               
+                                  <h4> <i className="fas fa-stethoscope fa-2x text-secondary"></i>Clinical Education Rotation Tracking System</h4>
                                 </div>
-                              </div>
-                              <div className="col-lg-9">
-                                <h5>Full Name</h5>
+                                <div class="col-lg-6 text-right">
+                                  <div class="user-profile">
+                                    <i class="fas fa-user fa-2x m-3"></i>
+                                    <span class="username">John Doe</span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div className="card-body bg-dark">
                   <section>
                     <div className="row">
-                      <div className="col-2 sidebar text-light bg-dark">
+                      <div className="col-2 sidebar text-light bg-dark d-none d-md-block ">
                         <ul className="nav flex-column">
                           <li className="nav-item">
                             <a
                               className="nav-link active"
                               href="#"
-                              onClick={handleHome}
+                              onClick={handleClinicals}
                             >
                               <i className="fas fa-home mr-2"></i>Home
                             </a>
@@ -104,7 +117,7 @@ function Dashboard() {
                             </a>
                           </li>
                           <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="#" onClick={handleHome}>
                               <i className="fas fa-file-alt mr-2"></i>Reports
                             </a>
                           </li>
@@ -134,6 +147,7 @@ function Dashboard() {
                                 <div className="col-lg-12">
                                   <div className="container-fluid vh-100 overflow-auto">
                                     {showHome && <Home />}
+                                    {showClinicals && <Clinicals/>}
                                     {showStudentForm && (
                                       <StudentRegistratiion />
                                     )}
@@ -150,8 +164,8 @@ function Dashboard() {
                     </div>
                   </section>
                 </div>
-                <div className="card-footer bg-secondary">
-                  <p className="card-text">Developped and managed by @ikonex</p>
+                <div className="card-footer bg-dark">
+                  <p className="card-text text-light text-center">Developped and managed by @ikonex</p>
                 </div>
               </div>
             </div>
