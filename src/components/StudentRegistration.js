@@ -14,7 +14,8 @@ function StudentRegistratiion() {
     useState(false);
   const [showAdditionalInformation, setShowAdditionalInformation] =
     useState(false);
-
+  const [successMessage,setShowSuccessMessage]=useState(false);
+  const [errorMessage,setShowErrorMessage]=useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ function StudentRegistratiion() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Successfully saved personal information");
+        setShowSuccessMessage(true);
       })
       .catch((error) => {
         console.log(error);
@@ -202,6 +204,7 @@ function StudentRegistratiion() {
                 <div className="row">
                   <div className="col-12">
                     <form>
+                      {successMessage&&<div><h6 className="text-success">Successfully saved personal information</h6></div>}
                       <div className="form-group">
                         <label htmlFor="first-name">
                           <i className="fas fa-signature"></i> First Name

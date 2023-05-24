@@ -63,62 +63,44 @@ function ClinicalManagement() {
               </h6>
             </div>
             <div className="card-body">
-            <table className="table table-striped table-responsive ">
-            <thead className="thead-dark">
-              <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Rotation Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Location</th>
-                <th>Preceptor</th>
-                <th>Submit</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="tr-light">
-                <td>1</td>
-                <td>ALEX KEMBOI</td>
-                <td>
-                  <select class="form-control" id="rotation-type" name="rotation-type">
-                    <option value="internal-medicine">Internal Medicine</option>
-                    <option value="pediatrics">Pediatrics</option>
-                    <option value="ob-gyn">Obstetrics and Gynecology</option>
-                    <option value="surgery">Surgery</option>
-                    <option value="psychiatry">Psychiatry</option>
-                    <option value="emergency-medicine">Emergency Medicine</option>
-                    <option value="family-medicine">Family Medicine</option>
-                    <option value="neurology">Neurology</option>
-                    <option value="cardiology">Cardiology</option>
-                    <option value="oncology">Oncology</option>
-                    <option value="radiology">Radiology</option>
-                    <option value="infectious-diseases">Infectious Diseases</option>
-                    <option value="geriatrics">Geriatrics</option>
-                    <option value="endocrinology">Endocrinology</option>
-                    <option value="pulmonology">Pulmonology</option>
-                    <option value="nephrology">Nephrology</option>
-                    <option value="hematology-oncology">Hematology/Oncology</option>
-                    <option value="dermatology">Dermatology</option>
-                    <option value="ophthalmology">Ophthalmology</option>
-                    <option value="otolaryngology">Otolaryngology</option>
-                    <option value="Inpatient">Inpatient</option>
-                    <option value="Outpatient">Outpatient</option>
-                    <option value="Specialty">Specialty</option>
-                  </select>
-                </td>
-                <td><input type="date" class="form-control" id="start-date" name="start-date"/></td>
-                <td><input type="date" class="form-control" id="end-date" name="end-date"/></td>
-                <td><input type="text" class="form-control" id="location" name="location"/></td>
-                <td><input type="text" class="form-control" id="preceptor" name="preceptor"/></td>
-                <td><button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Submit Request</button></td>
-                <td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button></td>
-                <td><button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button></td>
-              </tr>
-            </tbody>
-            </table>
+            <form>
+                <div className="form-group row">
+                <label htmlFor="student_name" className="col-sm-2 col-form-label">Student Name</label>
+                  <div className="col-sm-10">
+                    <select className="form-control mb-2" id="student_name" name="student_name">
+                      <option value="student_name">Student One</option>
+                    </select>
+                  </div>
+                  
+                  <label htmlFor="rotation-type" className="col-sm-2 col-form-label">Rotation Name</label>
+                  <div className="col-sm-10">
+                    <select className="form-control" id="rotation-type" name="rotation-type">
+                      <option value="internal-medicine">Internal Medicine</option>
+                      <option value="pediatrics">Pediatrics</option>
+                      {/* Add more options here */}
+                    </select>
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="start-date" className="col-sm-2 col-form-label">Start Date</label>
+                  <div className="col-sm-10">
+                    <input type="date" className="form-control" id="start-date" name="start-date" />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="end-date" className="col-sm-2 col-form-label">End Date</label>
+                  <div className="col-sm-10">
+                    <input type="date" className="form-control" id="end-date" name="end-date" />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <div className="col-sm-12">
+                    <button type="submit" className="btn btn-dark">
+                      <i className="fas fa-save"></i> Submit Placement
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         )}

@@ -54,34 +54,30 @@ function Dashboard() {
     <>
       {showDashboard && (
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
               <div className="card ">
-              <div className="card-header bg-dark">
-                    <div class="title-bar bg-dark text-light">
-                          <div className="row">
-                            <div className="col-lg-12">
-                              <div className="card-title">
-                              <div class="title-bar bg-dark text-light">
-                                    <div class="container">
-                                      <div class="row mb-3">
-                                        <div class="col-lg-6">                               
-                                          <h6> <i className="fas fa-stethoscope fa-2x text-secondary"></i>Clinical Education Rotation Tracking System</h6>
+                          <div className="card-header bg-dark">
+                                    <div className="title-bar bg-dark text-light">                                    
+                                      <div className="row">
+                                        <div className="col-6">                               
+                                          <h6> <i className="fas fa-stethoscope fa-2x text-warning"></i>Clinical Education Rotation Tracking System</h6>
                                         </div>
-                                        <div class="col-lg-6 text-right">
-                                          <div class="user-profile">
-                                            <i class="fas fa-user m-3"></i>
-                                            <span class="username">John Doe</span>
-                                          </div>
+                                        <div className="col-4">
+                                            <div className="input-group ">
+                                              <input type="text" className="form-control bg-light" placeholder="Search" aria-label="Search" aria-describedby="search-icon"/>
+                                              <div className="input-group-append">
+                                                <span className="input-group-text" id="search-icon"><i className="fas fa-search"></i></span>
+                                              </div>
+                                            </div>
                                         </div>
-                                      </div>
+                                          <div className="col-2">  
+                                              <div className="user-profile text-left">
+                                                <i className="fas fa-user fa-2x mr-1 "></i>
+                                                <span className="username">John Doe</span>
+                                              </div>
+                                          </div>                                     
+                                        </div>
                                     </div>
-                                  </div>
-                              </div>
-                            </div>
                           </div>
-                    </div>
-                </div>
 
                 <div className="card-body bg-light">
                   <section>
@@ -170,8 +166,6 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       )}
       {showLoginForm && <LoginPage />}
     </>

@@ -34,10 +34,10 @@ function Clinicals() {
             <tr key={item.id}>
               <td>{item.firstName+" "+item.secondName}</td>
               <td>{item.area_name}</td>
-              <td>{item.start_date}</td>
-              <td>{item.end_date}</td>
+              <td>{formatDate(item.start_date)}</td>
+              <td>{formatDate(item.end_date)}</td>
               <td className='text-warning'>{item.status}</td>
-              <td>{item.preceptor}</td>
+              <td>{item.supervisor_name}</td>
               <td>
                 <button className="btn btn-primary btn-sm mr-1">Edit</button>
                 <button className="btn btn-danger btn-sm">Delete</button>
@@ -48,6 +48,17 @@ function Clinicals() {
       </table>
     </>
   );
+  function formatDate(dateString) {
+    const dateObj = new Date(dateString);
+    const formattedDate = dateObj.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  
+    return formattedDate;
+  }
+  
 }
 
 export default Clinicals;

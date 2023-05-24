@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2023 at 04:08 PM
+-- Generation Time: May 24, 2023 at 04:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,13 +46,18 @@ CREATE TABLE `additional_information` (
 
 CREATE TABLE `clinical_rotations` (
   `id` int(11) NOT NULL,
-  `rotation_name` varchar(255) DEFAULT NULL,
+  `rotation_area_id` int(255) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `preceptor` varchar(255) DEFAULT NULL,
   `student_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clinical_rotations`
+--
+
+INSERT INTO `clinical_rotations` (`id`, `rotation_area_id`, `start_date`, `end_date`, `student_id`) VALUES
+(1, 4, '2022-11-01', '2022-11-30', 1);
 
 -- --------------------------------------------------------
 
@@ -114,7 +119,8 @@ CREATE TABLE `personal_information` (
 --
 
 INSERT INTO `personal_information` (`id`, `firstName`, `secondName`, `dob`, `gender`, `address`, `phone_number`, `email`) VALUES
-(1, 'ALEX', 'KEMBOI', '2023-05-08', 'Female', '100 eldoret', '0726837210', 'jepkogeifaith9@gmail.com');
+(1, 'ALEX', 'KEMBOI', '2023-05-08', 'Female', '100 eldoret', '0726837210', 'jepkogeifaith9@gmail.com'),
+(11, 'Kamala', 'Jerop', '2023-05-24', 'Female', '408-40200', '+254726837210', 'alex@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -206,7 +212,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `firstName`, `secondName`, `email`, `password`) VALUES
 (25, 'ALEX', 'KEMBOI', 'alexkemboi97@gmail.com', '1234'),
 (26, 'WALTER', 'KIBIWOTT', 'walter@gmail.com', '1234'),
-(27, 'kamala', 'jerop', 'jerop@yahoo.com', '123');
+(27, 'kamala', 'jerop', 'jerop@yahoo.com', '123'),
+(28, 'KEN', 'KEMBOI', 'ken@gmail.com', '1234');
 
 --
 -- Indexes for dumped tables
@@ -224,7 +231,8 @@ ALTER TABLE `additional_information`
 --
 ALTER TABLE `clinical_rotations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `fk_rotation_areas` (`rotation_area_id`) USING BTREE;
 
 --
 -- Indexes for table `educational_info`
@@ -273,13 +281,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `clinical_rotations`
 --
 ALTER TABLE `clinical_rotations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_information`
 --
 ALTER TABLE `personal_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rotation_areas`
@@ -297,7 +305,7 @@ ALTER TABLE `rotation_area_objectives`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
@@ -313,7 +321,8 @@ ALTER TABLE `additional_information`
 -- Constraints for table `clinical_rotations`
 --
 ALTER TABLE `clinical_rotations`
-  ADD CONSTRAINT `clinical_rotations_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `personal_information` (`id`);
+  ADD CONSTRAINT `clinical_rotations_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `personal_information` (`id`),
+  ADD CONSTRAINT `fk_rotation_areas` FOREIGN KEY (`rotation_area_id`) REFERENCES `rotation_areas` (`id`);
 
 --
 -- Constraints for table `educational_info`
