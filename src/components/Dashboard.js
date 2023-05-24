@@ -53,39 +53,40 @@ function Dashboard() {
   return (
     <>
       {showDashboard && (
-        <div className="container-fluid">
+        <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="card ">
               <div className="card-header bg-dark">
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="card-title">
-                      <div class="title-bar bg-dark text-light">
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-lg-6">
-                               
-                                  <h4> <i className="fas fa-stethoscope fa-2x text-secondary"></i>Clinical Education Rotation Tracking System</h4>
-                                </div>
-                                <div class="col-lg-6 text-right">
-                                  <div class="user-profile">
-                                    <i class="fas fa-user fa-2x m-3"></i>
-                                    <span class="username">John Doe</span>
+                    <div class="title-bar bg-dark text-light">
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="card-title">
+                              <div class="title-bar bg-dark text-light">
+                                    <div class="container">
+                                      <div class="row mb-3">
+                                        <div class="col-lg-6">                               
+                                          <h6> <i className="fas fa-stethoscope fa-2x text-secondary"></i>Clinical Education Rotation Tracking System</h6>
+                                        </div>
+                                        <div class="col-lg-6 text-right">
+                                          <div class="user-profile">
+                                            <i class="fas fa-user m-3"></i>
+                                            <span class="username">John Doe</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
                               </div>
                             </div>
                           </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
 
-                <div className="card-body bg-dark">
+                <div className="card-body bg-light">
                   <section>
                     <div className="row">
-                      <div className="col-2 sidebar text-light bg-dark d-none d-md-block ">
+                      <div className="col-2 sidebar text-light bg-light d-none d-md-block ">
                         <ul className="nav flex-column">
                           <li className="nav-item">
                             <a
@@ -139,13 +140,13 @@ function Dashboard() {
                         </ul>
                       </div>
 
-                      <div className="col-10 working-area bg-dark">
+                      <div className="col-10 working-area bg-light">
                         <div className="working-area-content">
                           <div className="card">
                             <div className="card-body">
                               <div className="row">
                                 <div className="col-lg-12">
-                                  <div className="container-fluid vh-100 overflow-auto">
+                                  <div className="container-fluid  overflow-auto">
                                     {showHome && <Home />}
                                     {showClinicals && <Clinicals/>}
                                     {showStudentForm && (

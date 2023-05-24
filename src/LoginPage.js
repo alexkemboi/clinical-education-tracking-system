@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Signup from "./components/Signup";
 import SuccessModal from "./components/Success";
 import Dashboard from "./components/Dashboard";
+import "./components/styles/Login.css";
 const LoginPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -13,6 +14,7 @@ const LoginPage = () => {
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage,setErrorMessage]=useState(false);
   function handleLogin(e) {
     e.preventDefault();
     fetch(
@@ -26,20 +28,19 @@ const LoginPage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data[0].email);
-        if (data.length > 0) {
+          if (data.length >0) {
+          console.log(data[0].email);
           setShowDashboard(true);
           setShowLoginForm(false);
-          {
-            <SuccessModal />;
-          }
-        } else {
-          setShowDashboard(false);
-          setShowLoginForm(true);
+          } else {
+          setErrorMessage(true);
+          setShowDashboard(false);       
+          //setShowLoginForm(true);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        
       });
 
     setShowSignUpForm(false);
@@ -58,6 +59,7 @@ const LoginPage = () => {
                 </div>
                 <div className="card-body">
                   <form className="form" id="loginForm">
+                  {errorMessage && <div className="error-container"><h6 className="error-message text-danger text-center">Invalid password or email</h6></div>}
                     <div className="form-group">
                       <label htmlFor="email">Email</label>
                       <div className="input-group">
@@ -126,7 +128,9 @@ const LoginPage = () => {
         </div>
       )}
       {showSignUpForm && <Signup />}
-      {showDashboard && <Dashboard />}
+      {showDashboard && <Dashboard  />}
+     
+    
     </>
   );
 };

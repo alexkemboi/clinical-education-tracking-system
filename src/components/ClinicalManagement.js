@@ -63,7 +63,7 @@ function ClinicalManagement() {
               </h6>
             </div>
             <div className="card-body">
-            <table className="table table-striped">
+            <table className="table table-striped table-responsive ">
             <thead className="thead-dark">
               <tr>
                 <th>Student ID</th>

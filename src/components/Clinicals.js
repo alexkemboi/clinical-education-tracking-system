@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+
 function Clinicals() {
+  const [clinicalRotations, setClinicalRotations] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/clinical_rotations')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setClinicalRotations(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <>
       <table className="table table-striped">
         <thead className="thead-dark">
-            <tr>
+          <tr>
             <th>Student Name</th>
             <th>Rotation Name</th>
             <th>Start Date</th>
@@ -12,36 +27,25 @@ function Clinicals() {
             <th>Status</th>
             <th>Supervisor</th>
             <th>Actions</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
-            <tr>
-            <td>John Doe</td>
-            <td>Cardiology</td>
-            <td>2023-05-01</td>
-            <td>2023-06-30</td>
-            <td>In Progress</td>
-            <td>Dr. Smith</td>
-            <td>
-                <button className="btn btn-primary btn-sm mr-3" onclick="editRotation(1)">Edit</button>
-                <button className="btn btn-danger btn-sm" onclick="deleteRotation(1)">Delete</button>
-            </td>
+          {clinicalRotations.map(item => (
+            <tr key={item.id}>
+              <td>{item.firstName+" "+item.secondName}</td>
+              <td>{item.area_name}</td>
+              <td>{item.start_date}</td>
+              <td>{item.end_date}</td>
+              <td className='text-warning'>{item.status}</td>
+              <td>{item.preceptor}</td>
+              <td>
+                <button className="btn btn-primary btn-sm mr-1">Edit</button>
+                <button className="btn btn-danger btn-sm">Delete</button>
+              </td>
             </tr>
-            <tr>
-            <td>Jane Smith</td>
-            <td>Orthopedics</td>
-            <td>2023-07-01</td>
-            <td>2023-08-31</td>
-            <td>Completed</td>
-            <td>Dr. Johnson</td>
-            <td>
-                <button className="btn btn-primary btn-sm mr-3" onclick="editRotation(2)">Edit</button>
-                <button className="btn btn-danger btn-sm " onclick="deleteRotation(2)">Delete</button>
-            </td>
-            </tr>   
+          ))}
         </tbody>
-        </table>
-
+      </table>
     </>
   );
 }

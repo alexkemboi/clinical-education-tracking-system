@@ -1,0 +1,21 @@
+/* .error-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .error-message {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    opacity: 1;
+    transition: all 0.3s ease;
+    transform: translateY(100%);
+  }
+  
+  .error-message.show {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+   */
