@@ -14,7 +14,7 @@ const LoginPage = () => {
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage,setErrorMessage]=useState(false);
+  const [errorMessage,setErrorMessage]=useState('');
   function handleLogin(e) {
     e.preventDefault();
     fetch(
@@ -33,13 +33,15 @@ const LoginPage = () => {
           setShowDashboard(true);
           setShowLoginForm(false);
           } else {
-          setErrorMessage(true);
+          setErrorMessage("Invalid Password or username");
           setShowDashboard(false);       
           //setShowLoginForm(true);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        //setShowLoginForm(true);
+        setErrorMessage("Server error");
         
       });
 
@@ -59,7 +61,7 @@ const LoginPage = () => {
                 </div>
                 <div className="card-body">
                   <form className="form" id="loginForm">
-                  {errorMessage && <div className="error-container"><h6 className="error-message text-danger text-center">Invalid password or email</h6></div>}
+                  {errorMessage && <div className="error-container"><h6 className="error-message text-danger text-center">{errorMessage}</h6></div>}
                     <div className="form-group">
                       <label htmlFor="email">Email</label>
                       <div className="input-group">

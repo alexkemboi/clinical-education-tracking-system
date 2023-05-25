@@ -165,7 +165,15 @@ app.get("/usersDetails", (req, res) => {
 
 // route to select the records from clinicals_rotation
 app.get('/clinical_rotations', (req, res) => {
-  const query = `SELECT *,rotation_areas.area_name, CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' WHEN clinical_rotations.start_date <= CURDATE() AND clinical_rotations.end_date >= CURDATE() THEN 'In Progress' ELSE 'Incomplete' END AS status FROM clinical_rotations INNER JOIN rotation_areas ON clinical_rotations.rotation_id = rotation_areas.id INNER JOIN personal_information ON clinical_rotations.student_id=personal_information.id; `;
+  const query = `SELECT *,rotation_areas.area_name, 
+  CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' 
+  WHEN clinical_rotations.start_date <= CURDATE() 
+  AND clinical_rotations.end_date >= CURDATE() 
+  THEN 'In Progress' ELSE 'Incomplete' END AS status 
+  FROM clinical_rotations INNER JOIN rotation_areas 
+  ON clinical_rotations.rotation_area_id = rotation_areas.id 
+  INNER JOIN personal_information 
+  ON clinical_rotations.student_id=personal_information.id`;
 
   connection.query(query, (error, results) => {
     if (error) {
@@ -177,7 +185,47 @@ app.get('/clinical_rotations', (req, res) => {
 });
 
 
+//select list of students from personal information
+app.get("/selectPersonalInformation", (req, res) => {
+  const query = `SELECT * FROM personal_information`;
 
+  connection.query(
+    query,
+    (error, results) => {
+      if (error) {
+        res
+          .status(500)
+          .json({ message: "Failed to select personal information data" });
+      } else {
+        res
+          .status(200)
+          .json(results);
+      }
+    }
+  );
+});
+
+
+
+//select list of students from personal information
+app.get("/selectRotationAreas", (req, res) => {
+  const query = `SELECT * FROM rotation_areas`;
+
+  connection.query(
+    query,
+    (error, results) => {
+      if (error) {
+        res
+          .status(500)
+          .json({ message: "Failed to select rotation areas" });
+      } else {
+        res
+          .status(200)
+          .json(results);
+      }
+    }
+  );
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

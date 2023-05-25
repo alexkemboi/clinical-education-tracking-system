@@ -131,6 +131,13 @@ function StudentRegistratiion() {
 
     setShowEmergencyInformation(false);
   };
+
+
+
+  const [studentId,setStudentId]=useState('');
+  const [rotationAreaId,setRotationAreaId]=useState('');
+  const [startRotationDate,setStartRotationDate]=useState('');
+  const [endRotationDate,setEndRotationDate]=useState('');
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-0">

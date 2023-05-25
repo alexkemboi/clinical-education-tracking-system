@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 function ClinicalManagement() {
   const [showClinicalRotation, setShowClinicalRotation] = useState(true);
   const [showEvaluationAssessment, setShowEvaluationAssessment] =
@@ -11,7 +11,38 @@ function ClinicalManagement() {
     setShowClinicalRotation(false);
     setShowEvaluationAssessment(true);
   };
+  const [personalInformation, setPersonalInformation] = useState([]);
+   useEffect(() => {
+    fetch('http://localhost:3001/selectPersonalInformation')
+      .then(response => response.json())
+      .then(data => {
+       // console.log(data);
+        setPersonalInformation(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
+  const [rotationAreas, setRotationAreas] = useState([]);
+   useEffect(() => {
+    fetch('http://localhost:3001/selectRotationAreas')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setRotationAreas(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+
+  const [studentId,setStudentId]=useState('');
+  const [rotationAreaId,setRotationAreaId]=useState('');
+  const [startRotationDate,setStartRotationDate]=useState('');
+  const [endRotationDate,setEndRotationDate]=useState('');
+console.log(studentId+rotationAreaId+startRotationDate+endRotationDate)
   return (
     <>
       <div className="container">
@@ -67,30 +98,28 @@ function ClinicalManagement() {
                 <div className="form-group row">
                 <label htmlFor="student_name" className="col-sm-2 col-form-label">Student Name</label>
                   <div className="col-sm-10">
-                    <select className="form-control mb-2" id="student_name" name="student_name">
-                      <option value="student_name">Student One</option>
+                    <select className="form-control mb-2" id="student_name" name="student_name" onChange={(e) => setStudentId(e.target.value)}>
+                        {personalInformation.map(item=>(<option value={item.id} key={item.id} >{item.id+" "+item.firstName+" "+item.secondName}</option>))}
                     </select>
                   </div>
                   
                   <label htmlFor="rotation-type" className="col-sm-2 col-form-label">Rotation Name</label>
                   <div className="col-sm-10">
-                    <select className="form-control" id="rotation-type" name="rotation-type">
-                      <option value="internal-medicine">Internal Medicine</option>
-                      <option value="pediatrics">Pediatrics</option>
-                      {/* Add more options here */}
+                    <select className="form-control" id="rotation-type" name="rotation-type" onChange={(e) => setRotationAreaId(e.target.value)}>
+                    { rotationAreas.map(item=>(<option value="internal-medicine"key={item.id} value={item.id} >{item.id+" "+item.area_name}</option>))}
                     </select>
                   </div>
                 </div>
                 <div className="form-group row">
                   <label htmlFor="start-date" className="col-sm-2 col-form-label">Start Date</label>
                   <div className="col-sm-10">
-                    <input type="date" className="form-control" id="start-date" name="start-date" />
+                    <input type="date" className="form-control" id="start-date" name="start-date"onChange={(e) => setStartRotationDate(e.target.value)} />
                   </div>
                 </div>
                 <div className="form-group row">
                   <label htmlFor="end-date" className="col-sm-2 col-form-label">End Date</label>
                   <div className="col-sm-10">
-                    <input type="date" className="form-control" id="end-date" name="end-date" />
+                    <input type="date" className="form-control" id="end-date" name="end-date" onChange={(e) => setEndRotationDate(e.target.value)} />
                   </div>
                 </div>
                 <div className="form-group row">

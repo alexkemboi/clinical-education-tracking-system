@@ -7,7 +7,7 @@ function Clinicals() {
     fetch('http://localhost:3001/clinical_rotations')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         setClinicalRotations(data);
       })
       .catch(error => {
