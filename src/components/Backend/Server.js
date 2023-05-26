@@ -207,7 +207,7 @@ app.get("/selectPersonalInformation", (req, res) => {
 
 
 
-//select list of students from personal information
+//select list of rotation areas
 app.get("/selectRotationAreas", (req, res) => {
   const query = `SELECT * FROM rotation_areas`;
 

@@ -17,11 +17,15 @@ function PlaceAllStudents(){
 
 
       useEffect(() => {
-        fetch('http://localhost:3001/RotationAreas')
+        fetch('http://localhost:3001/selectRotationAreas')
           .then(response => response.json())
           .then(data => {
            // console.log(data);
-            setRotationAreas(data);
+           let studentsId=[];
+           for(let i=0;i<data.length;i++){
+                studentsId=data.push(data[0].id)
+           }
+            setRotationAreas(studentsId);
           })
           .catch(error => {
             console.error(error);
@@ -29,7 +33,7 @@ function PlaceAllStudents(){
       }, []);
 
       useEffect(() => {
-        fetch('http://localhost:3001/selectClinicalRotations')
+        fetch('http://localhost:3001/clinical_rotations')
           .then(response => response.json())
           .then(data => {
            // console.log(data);
@@ -39,6 +43,33 @@ function PlaceAllStudents(){
             console.error(error);
           });
       }, []);
+      
+
+                const placeStudents =  () => {
+                    //console.log(rotationAreas);
+                    //console.log(clinicalRotations);
+                    console.log(students);
+                    findUnassignedAreasForStudents(students);
+                };
+                const findUnassignedAreas = (studentId) => {
+            const assignedAreas = clinicalRotations
+                .filter((rotation) => rotation.studentId === studentId)
+                .map((rotation) => rotation.rotationAreaId);
+
+            return rotationAreas.filter((rotationArea) => !assignedAreas.includes(rotationArea.id));
+            };
+
+            const findUnassignedAreasForStudents = (students) => {
+            const unassignedAreasForStudents = {};
+
+            students.forEach((studentId) => {
+                unassignedAreasForStudents[studentId] = findUnassignedAreas(studentId.id);
+            });
+            
+            return unassignedAreasForStudents;
+            };
+            console.log(findUnassignedAreasForStudents);
+
 return(
 <>
                <div className="card p-3 mb-2">
@@ -51,7 +82,7 @@ return(
                     <input type="checkbox" className="m-1"/>
                   </div>
                   <div className="col-4">
-                    <button className="btn btn-success form-control m-1">Place All Students</button>
+                    <button className="btn btn-success form-control m-1" onClick={placeStudents}>Place All Students</button>
                   </div>
                 </div>
               </div> 
