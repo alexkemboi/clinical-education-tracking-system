@@ -227,6 +227,24 @@ app.get("/selectRotationAreas", (req, res) => {
   );
 });
 
+
+// Handle POST request to insert clinical placement rotation  data
+app.post('/insertClinicalRotationData', (req, res) => {
+  const { studentId, rotationAreaId, startRotationDate, endRotationDate } = req.body;
+
+  // Insert the data into the database
+  const query = 'INSERT INTO clinical_rotations (rotation_area_id, start_date, end_date, student_id) VALUES (?, ?, ?, ?)';
+  connection.query(query, [ rotationAreaId, startRotationDate, endRotationDate,studentId], (error, results) => {
+    if (error) {
+      console.error('Error inserting data:', error);
+      res.status(500).json({ error: 'Failed to insert data' });
+    } else {
+      res.status(200).json({ message: 'Data inserted successfully' });
+    }
+  });
+});
+
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
