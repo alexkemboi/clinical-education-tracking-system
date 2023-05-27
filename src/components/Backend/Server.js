@@ -4,6 +4,9 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 
+
+
+
 app.use(bodyParser.json());
 app.use(cors());
 const connection = mysql.createConnection({
@@ -45,30 +48,6 @@ app.post("/users", (req, res) => {
         res.status(500).json({ message: "Failed to insert user data" });
       } else {
         res.status(200).json({ message: "User data inserted successfully" });
-      }
-    }
-  );
-});
-app.post("/personalInformation", (req, res) => {
-  console.log(req.body);
-  const { firstName, lastName, dob, gender, address, phoneNumber, email } =
-    req.body;
-  console.log(req.body);
-  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email )
-                VALUES (?, ?, ?, ?,?,?,?)`;
-
-  connection.query(
-    query,
-    [firstName, lastName, dob, gender, address, phoneNumber, email],
-    (error, results) => {
-      if (error) {
-        res
-          .status(500)
-          .json({ message: "Failed to insert user personal information data" });
-      } else {
-        res
-          .status(200)
-          .json({ message: "Personal data inserted successfully" });
       }
     }
   );
@@ -161,10 +140,8 @@ app.get("/usersDetails", (req, res) => {
   });
 });
 
-
-
 // route to select the records from clinicals_rotation
-app.get('/clinical_rotations', (req, res) => {
+app.get("/clinical_rotations", (req, res) => {
   const query = `SELECT *,rotation_areas.area_name, 
   CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' 
   WHEN clinical_rotations.start_date <= CURDATE() 
@@ -177,73 +154,62 @@ app.get('/clinical_rotations', (req, res) => {
 
   connection.query(query, (error, results) => {
     if (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
       res.status(200).json(results);
     }
   });
 });
 
-
 //select list of students from personal information
 app.get("/selectPersonalInformation", (req, res) => {
   const query = `SELECT * FROM personal_information`;
 
-  connection.query(
-    query,
-    (error, results) => {
-      if (error) {
-        res
-          .status(500)
-          .json({ message: "Failed to select personal information data" });
-      } else {
-        res
-          .status(200)
-          .json(results);
-      }
+  connection.query(query, (error, results) => {
+    if (error) {
+      res
+        .status(500)
+        .json({ message: "Failed to select personal information data" });
+    } else {
+      res.status(200).json(results);
     }
-  );
+  });
 });
-
-
 
 //select list of rotation areas
 app.get("/selectRotationAreas", (req, res) => {
   const query = `SELECT * FROM rotation_areas`;
 
-  connection.query(
-    query,
-    (error, results) => {
-      if (error) {
-        res
-          .status(500)
-          .json({ message: "Failed to select rotation areas" });
-      } else {
-        res
-          .status(200)
-          .json(results);
-      }
-    }
-  );
-});
-
-
-// Handle POST request to insert clinical placement rotation  data
-app.post('/insertClinicalRotationData', (req, res) => {
-  const { studentId, rotationAreaId, startRotationDate, endRotationDate } = req.body;
-
-  // Insert the data into the database
-  const query = 'INSERT INTO clinical_rotations (rotation_area_id, start_date, end_date, student_id) VALUES (?, ?, ?, ?)';
-  connection.query(query, [ rotationAreaId, startRotationDate, endRotationDate,studentId], (error, results) => {
+  connection.query(query, (error, results) => {
     if (error) {
-      console.error('Error inserting data:', error);
-      res.status(500).json({ error: 'Failed to insert data' });
+      res.status(500).json({ message: "Failed to select rotation areas" });
     } else {
-      res.status(200).json({ message: 'Data inserted successfully' });
+      res.status(200).json(results);
     }
   });
 });
 
+// Handle POST request to insert clinical placement rotation  data
+app.post("/insertClinicalRotationData", (req, res) => {
+  const { studentId, rotationAreaId, startRotationDate, endRotationDate } =
+    req.body;
+
+  // Insert the data into the database
+  const query =
+    "INSERT INTO clinical_rotations (rotation_area_id, start_date, end_date, student_id) VALUES (?, ?, ?, ?)";
+  connection.query(
+    query,
+    [rotationAreaId, startRotationDate, endRotationDate, studentId],
+    (error, results) => {
+      if (error) {
+        console.error("Error inserting data:", error);
+        res.status(500).json({ error: "Failed to insert data" });
+      } else {
+        res.status(200).json({ message: "Data inserted successfully" });
+      }
+    }
+  );
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

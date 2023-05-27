@@ -1,82 +1,26 @@
-import React, { useState,useEffect } from "react";
-import PlaceAllStudents from './PlaceAllStudents'
+import React, { useState, useEffect } from "react";
+import PlaceAllStudents from "./PlaceAllStudents";
+import RotationPlacement from "./RotationPlacement";
+import Evaluation from "./Evaluation";
 function ClinicalManagement() {
-  const [showClinicalRotation, setShowClinicalRotation] = useState(true);
+  const [showClinicalRotation, setShowClinicalRotation] = useState(false);
   const [showEvaluationAssessment, setShowEvaluationAssessment] =
-    useState(false);
+    useState(true);
+  const [showPlaceAllStudents, setShowPlaceAllStudents] = useState(false);
   const handleShowClinicalRotation = () => {
     setShowClinicalRotation(true);
     setShowEvaluationAssessment(false);
+    setShowPlaceAllStudents(false);
   };
   const handleShowEvaluationAssessment = () => {
-    setShowClinicalRotation(false);
     setShowEvaluationAssessment(true);
+    setShowClinicalRotation(false);
+    setShowPlaceAllStudents(false);
   };
-  const [personalInformation, setPersonalInformation] = useState([]);
-   useEffect(() => {
-    fetch('http://localhost:3001/selectPersonalInformation')
-      .then(response => response.json())
-      .then(data => {
-       // console.log(data);
-        setPersonalInformation(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
-  const [rotationAreas, setRotationAreas] = useState([]);
-   useEffect(() => {
-    fetch('http://localhost:3001/selectRotationAreas')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setRotationAreas(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
-  const [studentId,setStudentId]=useState('');
-  const [rotationAreaId,setRotationAreaId]=useState('');
-  const [startRotationDate,setStartRotationDate]=useState('');
-  const [endRotationDate,setEndRotationDate]=useState('');
-  const [successMessage,setSuccessMessage]=useState('');
-  const handleRotationPlacementSubmit = async (e) => {
-    e.preventDefault();
-
-    const data = {
-      studentId,
-      rotationAreaId,
-      startRotationDate,
-      endRotationDate
-    };
-
-    try {
-      const response = await fetch('http://localhost:3001/insertClinicalRotationData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        console.log('Data inserted successfully');
-        setSuccessMessage('Student placed successfully')
-        // Reset the form
-        setStudentId('');
-        setRotationAreaId('');
-        setStartRotationDate('');
-        setEndRotationDate('');
-      } else {
-        console.log('Failed to insert data');
-        setSuccessMessage('Failed to place student')
-      }
-    } catch (error) {
-      console.log('Error:', error);
-    }
+  const handleShowPlaceAllStudents = () => {
+    setShowPlaceAllStudents(true);
+    setShowClinicalRotation(false);
+    setShowEvaluationAssessment(false);
   };
 
   return (
@@ -105,9 +49,21 @@ function ClinicalManagement() {
                   href="#"
                   onClick={handleShowClinicalRotation}
                 >
-                  <i className="fas fa-stethoscope"></i> Clinical Rotation Placement
+                  <i className="fas fa-stethoscope"></i>
+                  Placements
                 </a>
               </li>
+
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="#"
+                  onClick={handleShowPlaceAllStudents}
+                >
+                  <i className="fas fa-chart-pie"></i> All Placements
+                </a>
+              </li>
+
               <li className="nav-item">
                 <a
                   className="nav-link"
@@ -120,187 +76,9 @@ function ClinicalManagement() {
             </ul>
           </div>
         </nav>
-
-        {showClinicalRotation && (
-          <div className="card">
-            <div className="card-header bg-dark text-white">
-              <h6>
-                <i className="fas fa-clipboard-list"></i> Clinical Rotation
-                placement
-              </h6>
-            </div>
-            <div className="card-body">
-            {successMessage&&<h6 className="text-center text-warning">{successMessage}</h6>}
-             <PlaceAllStudents/>               
-            <form className="card p-2">
-                <div className="form-group row">
-                
-                <label htmlFor="student_name" className="col-sm-2 col-form-label">Student Name</label>
-                  <div className="col-sm-10">
-                    <select className="form-control mb-2" id="student_name" name="student_name" onChange={(e) => setStudentId(e.target.value)}>
-                        {personalInformation.map(item=>(<option value={item.id} key={item.id} >{item.id+" "+item.firstName+" "+item.secondName}</option>))}
-                    </select>
-                  </div>
-                  
-                  <label htmlFor="rotation-type" className="col-sm-2 col-form-label">Rotation Name</label>
-                  <div className="col-sm-10">
-                    <select className="form-control" id="rotation-type" name="rotation-type" onChange={(e) => setRotationAreaId(e.target.value)}>
-                    { rotationAreas.map(item=>(<option key={item.id} value={item.id} >{item.id+" "+item.area_name}</option>))}
-                    </select>
-                  </div>
-                </div>
-                <div className="form-group row">
-                  <label htmlFor="start-date" className="col-sm-2 col-form-label">Start Date</label>
-                  <div className="col-sm-10">
-                    <input type="date" className="form-control" id="start-date" name="start-date" value={startRotationDate} onChange={(e) => setStartRotationDate(e.target.value)} />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  <label htmlFor="end-date" className="col-sm-2 col-form-label">End Date</label>
-                  <div className="col-sm-10">
-                    <input type="date" className="form-control" id="end-date" name="end-date" value={endRotationDate} onChange={(e) => setEndRotationDate(e.target.value)} />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  <div className="col-sm-12">
-                    <button onClick={handleRotationPlacementSubmit} className="btn btn-dark">
-                      <i className="fas fa-save"></i> Submit Placement
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {showEvaluationAssessment && (
-          <div>
-            <div className="card">
-              <div className="card-header bg-dark text-white">
-                {" "}
-                <h4>
-                  {" "}
-                  <i className="fas fa-user-md"></i>Evaluation and Assessment Form
-                </h4>
-              </div>
-              <div className="card-body">
-                <form>
-                <div className="form-group">
-                    <label htmlFor="student">
-                      Select student <i className="fas fa-asterisk text-danger"></i>
-                    </label>
-                    <select className="form-control" id="student" required>
-                      <option value="">Select student </option>
-                      <option value="">
-                        ALEX KEMBOI
-                      </option>
-                      <option value="">
-                        KAMALA JEROP</option>
-                      <option value="">
-                      KEN KEMBOI
-                      </option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="rotation">
-                      Rotation Area <i className="fas fa-asterisk text-danger"></i>
-                    </label>
-                    <select className="form-control" id="rotation" required>
-                      <option value="">Select Rotation Area</option>
-                      <option value="Internal Medicine">
-                        Internal Medicine
-                      </option>
-                      <option value="Pediatrics">Pediatrics</option>
-                      <option value="Obstetrics and Gynecology">
-                        Obstetrics and Gynecology
-                      </option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="objective">
-                      Objective <i className="fas fa-asterisk text-danger"></i>
-                    </label>
-                    <select className="form-control" id="objective" required>
-                      <option value="">Select Objective</option>
-                      <option value="Develop an understanding of common medical conditions such as hypertension, diabetes, and COPD">
-                        Develop an understanding of common medical conditions
-                        such as hypertension, diabetes, and COPD
-                      </option>
-                      <option value="Learn to manage acute medical conditions in hospitalized patients">
-                        Learn to manage acute medical conditions in hospitalized
-                        patients
-                      </option>
-                      <option value="Learn to interpret laboratory results and diagnostic imaging studies">
-                        Learn to interpret laboratory results and diagnostic
-                        imaging studies
-                      </option>
-                      <option value="Develop an understanding of child development from infancy to adolescence">
-                        Develop an understanding of child development from
-                        infancy to adolescence
-                      </option>
-                      <option value="Learn to manage common pediatric conditions such as asthma, otitis media, and gastroenteritis">
-                        Learn to manage common pediatric conditions such as
-                        asthma, otitis media, and gastroenteritis
-                      </option>
-                      <option value="Develop skills in communicating with children and families">
-                        Develop skills in communicating with children and
-                        families
-                      </option>
-                      <option value="Develop an understanding of female reproductive anatomy and physiology">
-                        Develop an understanding of female reproductive anatomy
-                        and physiology
-                      </option>
-                      <option value="Learn to manage normal and high-risk pregnancies">
-                        Learn to manage normal and high-risk pregnancies
-                      </option>
-                      <option value="Develop skills in conducting pelvic exams and pap smears">
-                        Develop skills in conducting pelvic exams and pap smears
-                      </option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="performance-rating">
-                      Performance Rating{" "}
-                      <i className="fas fa-asterisk text-danger"></i>
-                    </label>
-                    <select
-                      className="form-control"
-                      id="performance-rating"
-                      required
-                    >
-                      <option value="">Select Performance Rating</option>
-                      <option value="Excellent">Excellent</option>
-                      <option value="Good">Good</option>
-                      <option value="Satisfactory">Satisfactory</option>
-                      <option value="Needs Improvement">
-                        Needs Improvement
-                      </option>
-                      <option value="Unsatisfactory">Unsatisfactory</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="feedback">
-                      Feedback <i className="fas fa-asterisk text-danger"></i>
-                    </label>
-                    <textarea
-                      className="form-control"
-                      id="feedback"
-                      rows="3"
-                      required
-                    ></textarea>
-                  </div>
-
-                  <button type="submit" className="btn btn-dark">
-                    Submit
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        )}
+        {showClinicalRotation && <RotationPlacement />}
+        {showPlaceAllStudents && <PlaceAllStudents />}
+        {showEvaluationAssessment && <Evaluation />}
       </div>
     </>
   );
