@@ -48,6 +48,9 @@ function Dashboard() {
     setShowClinicals(true);
     setShowHome(false);
   }
+  function handleSearch(){
+    
+  }
 
   return (
     <>
@@ -72,6 +75,9 @@ function Dashboard() {
                         placeholder="Search"
                         aria-label="Search"
                         aria-describedby="search-icon"
+                        onChange={(e) => {
+                          handleSearch(e.target.value);
+                        }}
                       />
                       <div className="input-group-append">
                         <span className="input-group-text" id="search-icon">

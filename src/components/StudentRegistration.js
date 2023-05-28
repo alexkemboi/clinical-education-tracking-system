@@ -14,8 +14,8 @@ function StudentRegistratiion() {
     useState(false);
   const [showAdditionalInformation, setShowAdditionalInformation] =
     useState(false);
-  const [successMessage,setShowSuccessMessage]=useState(false);
-  const [errorMessage,setShowErrorMessage]=useState(false);
+  const [successMessage, setShowSuccessMessage] = useState(false);
+  const [errorMessage, setShowErrorMessage] = useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -132,9 +132,6 @@ function StudentRegistratiion() {
     setShowEmergencyInformation(false);
   };
 
-
-
- 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-0">
@@ -208,7 +205,13 @@ function StudentRegistratiion() {
                 <div className="row">
                   <div className="col-12">
                     <form>
-                      {successMessage&&<div><h6 className="text-success">Successfully saved personal information</h6></div>}
+                      {successMessage && (
+                        <div>
+                          <h6 className="text-success">
+                            Successfully saved personal information
+                          </h6>
+                        </div>
+                      )}
                       <div className="form-group">
                         <div className="row">
                           <div className="col-6">
@@ -223,44 +226,51 @@ function StudentRegistratiion() {
                               onChange={(e) => setFirstName(e.target.value)}
                             />
                           </div>
-                          <div className="col-6">                            
-                              <label htmlFor="last-name">
-                                <i className="fas fa-signature"></i> Last Name
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="last-name"
-                                name="last-name"
-                                onChange={(e) => setLastName(e.target.value)}
-                              />
+                          <div className="col-6">
+                            <label htmlFor="last-name">
+                              <i className="fas fa-signature"></i> Last Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="last-name"
+                              name="last-name"
+                              onChange={(e) => setLastName(e.target.value)}
+                            />
                           </div>
                         </div>
-                        <label htmlFor="dob">
-                          <i className="fas fa-calendar-alt"></i> Date of Birth
-                        </label>
-                        <input
-                          type="date"
-                          className="form-control"
-                          id="dob"
-                          name="dob"
-                          value={dob}
-                          onChange={(e) => setDob(e.target.value)}
-                        />
-                        <label htmlFor="gender">
-                          <i className="fas fa-venus-mars"></i> Gender
-                        </label>
-                        <select
-                          className="form-control"
-                          id="gender"
-                          name="gender"
-                          value={gender}
-                          onChange={(e) => setGender(e.target.value)}
-                        >
-                          <option>Male</option>
-                          <option>Female</option>
-                          <option>Other</option>
-                        </select>
+                        <div className="row">
+                          <div className="col-6">
+                            <label htmlFor="dob">
+                              <i className="fas fa-calendar-alt"></i> Date of
+                              Birth
+                            </label>
+                            <input
+                              type="date"
+                              className="form-control"
+                              id="dob"
+                              name="dob"
+                              value={dob}
+                              onChange={(e) => setDob(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-6">
+                            <label htmlFor="gender">
+                              <i className="fas fa-venus-mars"></i> Gender
+                            </label>
+                            <select
+                              className="form-control"
+                              id="gender"
+                              name="gender"
+                              value={gender}
+                              onChange={(e) => setGender(e.target.value)}
+                            >
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>Other</option>
+                            </select>
+                          </div>
+                        </div>
                         <label htmlFor="address">
                           <i className="fas fa-map-marker-alt"></i> Address
                         </label>
@@ -273,17 +283,17 @@ function StudentRegistratiion() {
                         ></textarea>
                         <div className="row">
                           <div className="col-6">
-                              <label htmlFor="phone-number">
-                                <i className="fas fa-phone"></i> Phone Number
-                              </label>
-                              <input
-                                type="tel"
-                                className="form-control"
-                                id="phone-number"
-                                name="phone-number"
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                              />
+                            <label htmlFor="phone-number">
+                              <i className="fas fa-phone"></i> Phone Number
+                            </label>
+                            <input
+                              type="tel"
+                              className="form-control"
+                              id="phone-number"
+                              name="phone-number"
+                              value={phoneNumber}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
                           </div>
                           <div className="col-6">
                             <label htmlFor="email">
@@ -303,7 +313,6 @@ function StudentRegistratiion() {
                     </form>
                   </div>
                 </div>
-               
               </div>
               <div className="card-footer">
                 <button

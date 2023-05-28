@@ -106,17 +106,16 @@ app.post("/personalInformation", (req, res) => {
 
 app.delete("/deleteRotations/:id", (req, res) => {
   const id = req.params.id;
-
+  console.log(id);
   // Delete data from the rotations table using the provided ID
-  const deleteQuery = "DELETE FROM clinical_rotations WHERE id = ?";
-
-  connection.query(deleteQuery, [id], (error, results) => {
+  const deleteQuery = "DELETE FROM `clinical_rotations` WHERE `id`=?";
+  connection.query(deleteQuery, id, (error, results) => {
     if (error) {
       console.error("Error deleting rotation:", error);
       res.status(500).json({ error: "Failed to delete rotation" });
       return;
     }
-
+    console.log(`Rotation with ID ${id} deleted successfully`);
     res.json({ message: `Rotation with ID ${id} deleted successfully` });
   });
 });
@@ -184,16 +183,33 @@ app.get("/usersDetails", (req, res) => {
 });
 
 // route to select the records from clinicals_rotation
+app.get("/selectClinical_rotations", (req, res) => {
+  const query = `SELECT * FROM clinical_rotations `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+// route to select the records from clinicals_rotation
 app.get("/clinical_rotations", (req, res) => {
-  const query = `SELECT *,rotation_areas.area_name, 
-  CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' 
-  WHEN clinical_rotations.start_date <= CURDATE() 
-  AND clinical_rotations.end_date >= CURDATE() 
-  THEN 'In Progress' ELSE 'Incomplete' END AS status 
-  FROM clinical_rotations INNER JOIN rotation_areas 
-  ON clinical_rotations.rotation_area_id = rotation_areas.id 
-  INNER JOIN personal_information 
-  ON clinical_rotations.student_id=personal_information.id`;
+  const query = `SELECT *,clinical_rotations.id, rotation_area_id, start_date, end_date, student_id,rotation_areas.area_name, 
+                  CASE WHEN clinical_rotations.end_date < CURDATE() 
+                  THEN 'Completed' 
+                  WHEN clinical_rotations.start_date <= CURDATE() 
+                  AND clinical_rotations.end_date >= CURDATE() 
+                  THEN 'In Progress' 
+                  ELSE 'Incomplete' 
+                  END AS status 
+                  FROM clinical_rotations 
+                  INNER JOIN rotation_areas 
+                  ON clinical_rotations.rotation_area_id = rotation_areas.id 
+                  INNER JOIN personal_information 
+                  ON clinical_rotations.student_id=personal_information.id`;
 
   connection.query(query, (error, results) => {
     if (error) {

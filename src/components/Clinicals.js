@@ -7,7 +7,7 @@ function Clinicals() {
     fetch("http://localhost:3001/clinical_rotations")
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
+        console.log(data);
         setClinicalRotations(data);
       })
       .catch((error) => {
@@ -18,7 +18,7 @@ function Clinicals() {
     // Filter out the row with the given id and update the state
     const updatedRotations = clinicalRotations.filter((item) => item.id !== id);
     setClinicalRotations(updatedRotations);
-
+    //console.log(clinicalRotations);
     // Send delete request to the backend
     fetch(`http://localhost:3001/deleteRotations/${id}`, {
       method: "DELETE",
