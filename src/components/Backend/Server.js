@@ -4,9 +4,6 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 
-
-
-
 app.use(bodyParser.json());
 app.use(cors());
 const connection = mysql.createConnection({
@@ -31,6 +28,35 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
+});
+
+// Set your app credentials
+const credentials = {
+  apiKey: "6c30b78bdcc04f80b5e426ee276efa72b5cef23a1463a56d40caed01876ff5ad",
+  username: "alexkemboi97",
+};
+// Initialize the SDK
+const AfricasTalking = require("africastalking")(credentials);
+
+// Get the SMS service
+const sms = AfricasTalking.SMS;
+
+function sendMessage(message, phone) {
+  const options = {
+    // Set the numbers you want to send to in international format
+    to: [`${phone}`, "+254702173740"],
+    // Set your message
+    message: `${message}`,
+    // Set your shortCode or senderId
+    //from: "XXYYZZ",
+  };
+  // That’s it, hit send and we’ll take care of the rest
+  sms.send(options).then(console.log).catch(console.log);
+}
+
+app.post("/SendSms", (req, res) => {
+  console.log(req.body);
+  sendMessage(req.body.message, req.body.phone);
 });
 
 app.post("/users", (req, res) => {
@@ -76,6 +102,23 @@ app.post("/personalInformation", (req, res) => {
       }
     }
   );
+});
+
+app.delete("/deleteRotations/:id", (req, res) => {
+  const id = req.params.id;
+
+  // Delete data from the rotations table using the provided ID
+  const deleteQuery = "DELETE FROM clinical_rotations WHERE id = ?";
+
+  connection.query(deleteQuery, [id], (error, results) => {
+    if (error) {
+      console.error("Error deleting rotation:", error);
+      res.status(500).json({ error: "Failed to delete rotation" });
+      return;
+    }
+
+    res.json({ message: `Rotation with ID ${id} deleted successfully` });
+  });
 });
 
 app.post("/educationalInformation", (req, res) => {

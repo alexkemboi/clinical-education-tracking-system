@@ -7,13 +7,8 @@ function RotationPlacement() {
   const [rotationAreaId, setRotationAreaId] = useState("");
   const [startRotationDate, setStartRotationDate] = useState("");
   const [endRotationDate, setEndRotationDate] = useState("");
-  // // Initialize the SDK
-  // const AfricasTalking = require("africastalking")(credentials);
-  // const africastalking = AfricasTalking({
-  //   apiKey: "sandbox",
-  //   username:
-  //     "e551a40ece6c30dd2ec136b8de4f030c257c3f23cf31a61b69cc27b19a0bad08",
-  // });
+  const [studentphoneNumber, setPhoneNumber] = useState("");
+  const [rotation_area_name, setRotationAreaName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +18,6 @@ function RotationPlacement() {
         );
         const personalInfoData = await personalInfoResponse.json();
         setPersonalInformation(personalInfoData);
-        // console.log(personalInfoData);
       } catch (error) {
         console.error(error);
       }
@@ -34,7 +28,6 @@ function RotationPlacement() {
         );
         const rotationAreasData = await rotationAreasResponse.json();
         setRotationAreas(rotationAreasData);
-        console.log(rotationAreasData);
       } catch (error) {
         console.error(error);
       }
@@ -42,9 +35,22 @@ function RotationPlacement() {
 
     fetchData();
   }, []);
+  const smsValues = () => {
+    for (let i = 0; i < personalInformation.length; i++) {
+      if (personalInformation[i].id == studentId) {
+        setPhoneNumber(personalInformation[i].phone_number);
+      }
+    }
 
+    for (let i = 0; i < rotationAreas.length; i++) {
+      if (rotationAreas[i].id == rotationAreaId) {
+        setRotationAreaName(rotationAreas[i].area_name);
+      }
+    }
+  };
   const handleRotationPlacementSubmit = async (e) => {
     e.preventDefault();
+
     const data = {
       studentId,
       rotationAreaId,
@@ -66,11 +72,12 @@ function RotationPlacement() {
       if (response.ok) {
         console.log("Data inserted successfully");
         setSuccessMessage("Student placed successfully");
-        // Reset the form
-        setStudentId("");
-        setRotationAreaId("");
-        setStartRotationDate("");
-        setEndRotationDate("");
+
+        // // Reset the form
+        // setStudentId("");
+        // setRotationAreaId("");
+        // setStartRotationDate("");
+        // setEndRotationDate("");
       } else {
         console.log("Failed to insert data");
         setSuccessMessage("Failed to place student");
@@ -78,17 +85,45 @@ function RotationPlacement() {
     } catch (error) {
       console.log("Error:", error);
     }
-    // try {
-    //   const result = await africastalking.SMS.send({
-    //     to: "+254726837210",
-    //     message: `Hey AT Ninja! Wassup...You have been placed at rotation area ${rotationAreaId}`,
-    //     from: "IKONEX",
-    //   });
-    //   console.log(result);
-    // } catch (ex) {
-    //   console.error(ex);
-    // }
+    sendSms("+254762564630", "Surgery", endRotationDate, startRotationDate);
   };
+
+  const sendSms = async (
+    phone,
+    rotation_area,
+    endRotationDate,
+    startRotationDate
+  ) => {
+    console.log(personalInformation);
+    console.log(rotationAreas);
+
+    const smsData = {
+      phone: phone,
+      rotation_area: rotation_area,
+      message: `Hi ${studentId} you have been placed in the ${rotationAreaId} rotation area from ${startRotationDate} to ${endRotationDate}.Thank you`,
+    };
+    console.log(smsData);
+    try {
+      const response = await fetch("http://localhost:3001/SendSms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(smsData),
+      });
+
+      if (response.ok) {
+        console.log("Sms sent successfully");
+        setSuccessMessage("Sms sent successfully");
+      } else {
+        console.log("Failed to send sms");
+        setSuccessMessage("Failed to send sms");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
   return (
     <>
       <div className="card">
@@ -117,9 +152,13 @@ function RotationPlacement() {
                   {personalInformation.length === 0 ? (
                     <option>Loading...</option>
                   ) : (
-                    personalInformation.map((item) => (
-                      <option value={item.id} key={item.id}>
-                        {item.id + " " + item.firstName + " " + item.secondName}
+                    personalInformation.map((studentIdData) => (
+                      <option value={studentIdData.id} key={studentIdData.id}>
+                        {studentIdData.id +
+                          " " +
+                          studentIdData.firstName +
+                          " " +
+                          studentIdData.secondName}
                       </option>
                     ))
                   )}
