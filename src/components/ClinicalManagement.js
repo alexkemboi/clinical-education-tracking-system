@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PlaceAllStudents from "./PlaceAllStudents";
 import RotationPlacement from "./RotationPlacement";
-import Evaluation from "./Evaluation";
+import SupervisorAssessment from "./SupervisorAssessment";
 function ClinicalManagement() {
   const [showClinicalRotation, setShowClinicalRotation] = useState(false);
   const [showEvaluationAssessment, setShowEvaluationAssessment] =
@@ -78,7 +78,7 @@ function ClinicalManagement() {
         </nav>
         {showClinicalRotation && <RotationPlacement />}
         {showPlaceAllStudents && <PlaceAllStudents />}
-        {showEvaluationAssessment && <Evaluation />}
+        {showEvaluationAssessment && <SupervisorAssessment />}
       </div>
     </>
   );

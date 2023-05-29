@@ -7,6 +7,7 @@ import Home from "./Home";
 import Clinicals from "./Clinicals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { userName } from "../LoginPage";
+import SupervisorAssessment from './SupervisorAssessment';
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -149,19 +150,18 @@ function Dashboard() {
                   </div>
 
                   <div className="col-10 working-area bg-light">
-                    <div className="working-area-content">
+                    <div className="working-area-content ">
                       <div className="card">
-                        <div className="card-body">
+                        <div className="card-body container-fluid  overflow-auto">
                           <div className="row">
                             <div className="col-lg-12">
-                              <div className="container-fluid  overflow-auto">
+                             
                                 {showHome && <Home />}
                                 {showClinicals && <Clinicals />}
                                 {showStudentForm && <StudentRegistratiion />}
                                 {showClinicalManagement && (
                                   <ClinicalManagement />
                                 )}
-                              </div>
                             </div>
                           </div>
                         </div>

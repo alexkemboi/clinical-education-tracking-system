@@ -44,9 +44,10 @@ const sms = AfricasTalking.SMS;
 function sendMessage(message, phone) {
   const options = {
     // Set the numbers you want to send to in international format
-    to: [`${phone}`, "+254702173740"],
+    to: [`${phone}`],
     // Set your message
     message: `${message}`,
+    //message:'Hi Collins ,this is a sample text.Thank You.',
     // Set your shortCode or senderId
     //from: "XXYYZZ",
   };
@@ -235,6 +236,22 @@ app.get("/selectPersonalInformation", (req, res) => {
   });
 });
 
+
+//select list of students from personal information
+app.get("/selectStudentDetails/:id", (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM personal_information WHERE id=?`;
+
+  connection.query(query,id, (error, results) => {
+    if (error) {
+      res
+        .status(500)
+        .json({ message: "Failed to select student information data" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
 //select list of rotation areas
 app.get("/selectRotationAreas", (req, res) => {
   const query = `SELECT * FROM rotation_areas`;
@@ -269,7 +286,21 @@ app.post("/insertClinicalRotationData", (req, res) => {
     }
   );
 });
+app.post('/insertClinicalEvaluationData', (req, res) => {
+  const evaluationData = req.body;
+  console.log(evaluationData);
+  // Insert the data into the MySQL table
+  connection.query('INSERT INTO evaluation SET ?', evaluationData, (error, results) => {
+    if (error) {
+      console.error('Error inserting data into MySQL:', error);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
+    }
 
+    // Return a success response
+    res.json({ message: 'Data inserted successfully' });
+  });
+});
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

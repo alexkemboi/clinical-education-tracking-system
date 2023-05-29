@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
-import SelfAssessment from "./components/StudentSelfAssessment";
-import SupervisorAssessment from "./components/SupervisorAssessment";
 import "./components/styles/Login.css";
 export let userName = "Daniel MOI";
 
@@ -141,9 +139,8 @@ const LoginPage = () => {
         </div>
       )}
       {showSignUpForm && <Signup />}
-      {/* {showDashboard && <Dashboard />} */}
+      {showDashboard && <Dashboard />}
       {/* {showDashboard && <SelfAssessment />} */}
-      {showDashboard && <SupervisorAssessment />}
     </>
   );
 };

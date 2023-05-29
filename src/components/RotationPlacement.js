@@ -7,9 +7,6 @@ function RotationPlacement() {
   const [rotationAreaId, setRotationAreaId] = useState("");
   const [startRotationDate, setStartRotationDate] = useState("");
   const [endRotationDate, setEndRotationDate] = useState("");
-  const [studentphoneNumber, setPhoneNumber] = useState("");
-  const [rotation_area_name, setRotationAreaName] = useState("");
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,22 +32,28 @@ function RotationPlacement() {
 
     fetchData();
   }, []);
-  const smsValues = () => {
-    for (let i = 0; i < personalInformation.length; i++) {
-      if (personalInformation[i].id == studentId) {
-        setPhoneNumber(personalInformation[i].phone_number);
-      }
-    }
-
-    for (let i = 0; i < rotationAreas.length; i++) {
-      if (rotationAreas[i].id == rotationAreaId) {
-        setRotationAreaName(rotationAreas[i].area_name);
-      }
-    }
-  };
+ 
   const handleRotationPlacementSubmit = async (e) => {
+    let studentPhone='';
+    let studentFirstName='';
+    let studentRotationName='';
     e.preventDefault();
-
+    console.log(personalInformation[0]);
+    console.log(rotationAreas[0]);    
+    console.log(studentId+" "+rotationAreaId);
+    for(let i=0;i<personalInformation.length;i++){
+      if(personalInformation[i].id==studentId){
+      studentPhone=personalInformation[i].phone_number;
+      studentFirstName=personalInformation[i].firstName
+        
+      }
+    }
+    for(let i=0;i<rotationAreas.length;i++){
+      if(rotationAreas[i].id==rotationAreaId){
+        studentRotationName=rotationAreas[i].area_name;
+        
+      }
+    }
     const data = {
       studentId,
       rotationAreaId,
@@ -85,24 +88,22 @@ function RotationPlacement() {
     } catch (error) {
       console.log("Error:", error);
     }
-    sendSms("+254762564630", "Surgery", endRotationDate, startRotationDate);
+    sendSms(studentPhone,studentFirstName, studentRotationName, endRotationDate, startRotationDate);
   };
 
   const sendSms = async (
     phone,
-    rotation_area,
+    studentFirstName,
+    studentRotationName,
     endRotationDate,
     startRotationDate
-  ) => {
-    console.log(personalInformation);
-    console.log(rotationAreas);
+  ) => {   
 
     const smsData = {
       phone: phone,
-      rotation_area: rotation_area,
-      message: `Hi ${studentId} you have been placed in the ${rotationAreaId} rotation area from ${startRotationDate} to ${endRotationDate}.Thank you`,
+      studentRotationName: studentRotationName,
+      message: `Hi ${studentFirstName} you have been placed in the ${studentRotationName} rotation area from ${startRotationDate} to ${endRotationDate}.Thank you`,
     };
-    console.log(smsData);
     try {
       const response = await fetch("http://localhost:3001/SendSms", {
         method: "POST",
@@ -115,6 +116,9 @@ function RotationPlacement() {
       if (response.ok) {
         console.log("Sms sent successfully");
         setSuccessMessage("Sms sent successfully");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
       } else {
         console.log("Failed to send sms");
         setSuccessMessage("Failed to send sms");
@@ -135,7 +139,7 @@ function RotationPlacement() {
         </div>
         <div className="card-body">
           {successMessage && (
-            <h6 className="text-center text-warning">{successMessage}</h6>
+            <h6 className="text-center text-success">{successMessage}</h6>
           )}
           <form className="card p-2">
             <div className="form-group row">
