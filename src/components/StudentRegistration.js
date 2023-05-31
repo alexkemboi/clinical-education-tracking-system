@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StudentSelftAssessment from "./StudentSelfAssessment";
+import ClinicalRotationForm from "./ClinicalRotationLogForm";
 function StudentRegistratiion() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,6 +19,7 @@ function StudentRegistratiion() {
   const [successMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setShowErrorMessage] = useState(false);
   const [selfAssessment, setShowSelfAssessment] = useState(false);
+  const [showActivitiesLogForm, setShowActivitiesLogForm]=useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -108,7 +110,7 @@ function StudentRegistratiion() {
   const handleShowPersonalInformation = () => {
     setShowPersonalInformation(true);
     setShowEducationalInformation(false);
-
+    setShowActivitiesLogForm(false);
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
@@ -116,7 +118,7 @@ function StudentRegistratiion() {
   const handleShowEducationalInformation = () => {
     setShowEducationalInformation(true);
     setShowPersonalInformation(false);
-
+    setShowActivitiesLogForm(false);
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
@@ -126,7 +128,7 @@ function StudentRegistratiion() {
     setShowEmergencyInformation(true);
     setShowPersonalInformation(false);
     setShowEducationalInformation(false);
-
+    setShowActivitiesLogForm(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
   };
@@ -134,7 +136,7 @@ function StudentRegistratiion() {
     setShowAdditionalInformation(true);
     setShowPersonalInformation(false);
     setShowEducationalInformation(false);
-
+    setShowActivitiesLogForm(false);
     setShowEmergencyInformation(false);
     setShowSelfAssessment(false);
   };
@@ -144,6 +146,16 @@ function StudentRegistratiion() {
     setShowEducationalInformation(false);
     setShowEmergencyInformation(false);
     setShowSelfAssessment(true);
+    setShowActivitiesLogForm(false);
+  };
+  const handleShowActivitiesLogForm = () => {
+    setShowAdditionalInformation(false);
+    setShowPersonalInformation(false);
+    setShowEducationalInformation(false);
+    setShowEmergencyInformation(false);
+    setShowSelfAssessment(false);
+    setShowActivitiesLogForm(true);
+    
   };
   return (
     <>
@@ -182,7 +194,18 @@ function StudentRegistratiion() {
                 <i className="fas fa-graduation-cap"></i> Self Assessment
               </a>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#"
+                onClick={handleShowActivitiesLogForm}
+              >
+                <i className="fas fa-graduation-cap"></i> Activities Log Form
+              </a>
+            </li>
+
+            {/* 
+            <li className="nav-item">
               <a
                 className="nav-link"
                 href="#"
@@ -597,6 +620,7 @@ function StudentRegistratiion() {
         </div>
       )}
       {selfAssessment && <StudentSelftAssessment />}
+      {showActivitiesLogForm&&<ClinicalRotationForm/>}
     </>
   );
 }

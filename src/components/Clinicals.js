@@ -88,7 +88,7 @@ function Clinicals() {
   return (
     <>
       <div className="row">
-        <div className="col-12">
+        <div className="col-12  bg-dark p-2 mb-1 rounded">
           <div className="input-group p-1">
             <input
               type="text"

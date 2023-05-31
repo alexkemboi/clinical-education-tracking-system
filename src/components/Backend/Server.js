@@ -59,7 +59,24 @@ app.post("/SendSms", (req, res) => {
   console.log(req.body);
   sendMessage(req.body.message, req.body.phone);
 });
+app.post('/insertLogData', (req, res) => {
+  const formData = req.body;
 
+  // Insert the form data into the logtable
+  const sql = 'INSERT INTO logtable SET ?';
+
+  connection.query(sql, formData, (err, result) => {
+    if (err) {
+      console.error('Error inserting data into logtable: ' + err.stack);
+      res.status(500).json({ error: 'An error occurred while saving the data.' });
+      return;
+    }
+
+    // Data inserted successfully
+    console.log('Data inserted into logtable with ID: ' + result.insertId);
+    res.status(200).json({ message: 'Data saved successfully.' });
+  });
+});
 app.post("/users", (req, res) => {
   console.log(req.body);
   const { firstName, secondName, email, password } = req.body;
