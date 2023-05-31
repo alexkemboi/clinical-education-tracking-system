@@ -195,6 +195,39 @@ app.get("/selectClinical_rotations", (req, res) => {
     }
   });
 });
+app.get("/personal_information", (req, res) => {
+  const query = `SELECT * FROM personal_information`;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get("/supervisors", (req, res) => {
+  const query = `SELECT * FROM supervisors`;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get("/evaluations", (req, res) => {
+  const query = `SELECT * FROM evaluation`;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
 // route to select the records from clinicals_rotation
 app.get("/searchClinicalRotations/:id", (req, res) => {
   const id = req.params.id;
@@ -331,6 +364,20 @@ app.post("/insertClinicalEvaluationData", (req, res) => {
     }
   );
 });
+
+
+app.get('/rotation-areas', async (req, res) => {
+  try {
+   const [rows] = await connection.query('SELECT * FROM rotation_areas');
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    console.error('Error executing MySQL query:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

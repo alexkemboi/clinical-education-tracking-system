@@ -93,7 +93,7 @@ function Clinicals() {
             <input
               type="text"
               className="form-control bg-light"
-              placeholder="Search by rotation id"
+              placeholder="Search by id"
               aria-label="Search"
               aria-describedby="search-icon"
               onChange={(e) => {
@@ -135,10 +135,10 @@ function Clinicals() {
                 key={index + 1}
                 className={`page-item${
                   currentPage === index + 1 ? " active" : ""
-                }`}
+                } text-center`}
                 onClick={() => setCurrentPage(index + 1)}
               >
-                <button className="page-link">{index + 1}</button>
+                <button className="page-link text-center btn-sm">{index + 1}</button>
               </li>
             ))}
           </ul>
