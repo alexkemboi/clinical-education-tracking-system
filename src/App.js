@@ -3,8 +3,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <LoginPage/>
-      
+      <LoginPage />
     </>
   );
 }

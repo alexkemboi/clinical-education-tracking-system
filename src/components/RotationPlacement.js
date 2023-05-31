@@ -77,10 +77,10 @@ function RotationPlacement() {
         setSuccessMessage("Student placed successfully");
 
         // // Reset the form
-        // setStudentId("");
-        // setRotationAreaId("");
-        // setStartRotationDate("");
-        // setEndRotationDate("");
+        setStudentId("");
+        setRotationAreaId("");
+        setStartRotationDate("");
+        setEndRotationDate("");
       } else {
         console.log("Failed to insert data");
         setSuccessMessage("Failed to place student");

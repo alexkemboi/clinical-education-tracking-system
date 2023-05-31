@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/DashboardStyles.css";
 import LoginPage from "../LoginPage";
 import ClinicalManagement from "./ClinicalManagement";
@@ -7,7 +7,7 @@ import Home from "./Home";
 import Clinicals from "./Clinicals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { userName } from "../LoginPage";
-import SupervisorAssessment from './SupervisorAssessment';
+import SupervisorAssessment from "./SupervisorAssessment";
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -49,9 +49,6 @@ function Dashboard() {
     setShowClinicals(true);
     setShowHome(false);
   }
-  function handleSearch(){
-    
-  }
 
   return (
     <>
@@ -68,25 +65,7 @@ function Dashboard() {
                       Clinical Education Rotation Tracking System
                     </h6>
                   </div>
-                  <div className="col-4">
-                    <div className="input-group ">
-                      <input
-                        type="text"
-                        className="form-control bg-light"
-                        placeholder="Search"
-                        aria-label="Search"
-                        aria-describedby="search-icon"
-                        onChange={(e) => {
-                          handleSearch(e.target.value);
-                        }}
-                      />
-                      <div className="input-group-append">
-                        <span className="input-group-text" id="search-icon">
-                          <i className="fas fa-search"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="col-4"></div>
                   <div className="col-2">
                     <div className="user-profile text-left">
                       <i className="fas fa-user fa-2x mr-1 "></i>
@@ -101,7 +80,7 @@ function Dashboard() {
               <section>
                 <div className="row">
                   <div className="col-2 sidebar text-light bg-light d-none d-md-block ">
-                    <ul className="nav flex-column">
+                    <ul className="nav flex-column p-10">
                       <li className="nav-item">
                         <a
                           className="nav-link active"
@@ -137,11 +116,6 @@ function Dashboard() {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
-                          <i className="fas fa-cog mr-2"></i>Settings
-                        </a>
-                      </li>
-                      <li className="nav-item">
                         <a className="nav-link" href="#" onClick={handleLogout}>
                           <i className="fas fa-sign-out-alt mr-2"></i>Log out
                         </a>
@@ -155,13 +129,10 @@ function Dashboard() {
                         <div className="card-body container-fluid  overflow-auto">
                           <div className="row">
                             <div className="col-lg-12">
-                             
-                                {showHome && <Home />}
-                                {showClinicals && <Clinicals />}
-                                {showStudentForm && <StudentRegistratiion />}
-                                {showClinicalManagement && (
-                                  <ClinicalManagement />
-                                )}
+                              {showHome && <Home />}
+                              {showClinicals && <Clinicals />}
+                              {showStudentForm && <StudentRegistratiion />}
+                              {showClinicalManagement && <ClinicalManagement />}
                             </div>
                           </div>
                         </div>
@@ -173,7 +144,7 @@ function Dashboard() {
             </div>
             <div className="card-footer bg-dark">
               <p className="card-text text-light text-center">
-                Developped and managed by @ikonex
+                Developped and managed by @Sylyvia
               </p>
             </div>
           </div>

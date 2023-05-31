@@ -195,6 +195,33 @@ app.get("/selectClinical_rotations", (req, res) => {
     }
   });
 });
+// route to select the records from clinicals_rotation
+app.get("/searchClinicalRotations/:id", (req, res) => {
+  const id = req.params.id;
+  // The search term entered by the user
+
+  const query = `SELECT *, clinical_rotations.id, rotation_area_id, start_date, end_date, student_id, rotation_areas.area_name, 
+    CASE
+      WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' 
+      WHEN clinical_rotations.start_date <= CURDATE() AND clinical_rotations.end_date >= CURDATE() THEN 'In Progress' 
+      ELSE 'Incomplete' 
+    END AS status 
+    FROM clinical_rotations 
+    INNER JOIN rotation_areas ON clinical_rotations.rotation_area_id = rotation_areas.id 
+    INNER JOIN personal_information ON clinical_rotations.student_id = personal_information.id 
+    WHERE clinical_rotations.id like ? 
+        
+      `;
+  // Add wildcard characters to the search term
+
+  connection.query(query, id, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
 
 // route to select the records from clinicals_rotation
 app.get("/clinical_rotations", (req, res) => {
@@ -236,13 +263,12 @@ app.get("/selectPersonalInformation", (req, res) => {
   });
 });
 
-
 //select list of students from personal information
 app.get("/selectStudentDetails/:id", (req, res) => {
   const id = req.params.id;
   const query = `SELECT * FROM personal_information WHERE id=?`;
 
-  connection.query(query,id, (error, results) => {
+  connection.query(query, id, (error, results) => {
     if (error) {
       res
         .status(500)
@@ -286,20 +312,24 @@ app.post("/insertClinicalRotationData", (req, res) => {
     }
   );
 });
-app.post('/insertClinicalEvaluationData', (req, res) => {
+app.post("/insertClinicalEvaluationData", (req, res) => {
   const evaluationData = req.body;
   console.log(evaluationData);
   // Insert the data into the MySQL table
-  connection.query('INSERT INTO evaluation SET ?', evaluationData, (error, results) => {
-    if (error) {
-      console.error('Error inserting data into MySQL:', error);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
-    }
+  connection.query(
+    "INSERT INTO evaluation SET ?",
+    evaluationData,
+    (error, results) => {
+      if (error) {
+        console.error("Error inserting data into MySQL:", error);
+        res.status(500).json({ error: "An error occurred" });
+        return;
+      }
 
-    // Return a success response
-    res.json({ message: 'Data inserted successfully' });
-  });
+      // Return a success response
+      res.json({ message: "Data inserted successfully" });
+    }
+  );
 });
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

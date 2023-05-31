@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 function Clinicals() {
   const [clinicalRotations, setClinicalRotations] = useState([]);
-
+  const [message, setMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
   useEffect(() => {
     fetch("http://localhost:3001/clinical_rotations")
       .then((response) => response.json())
@@ -14,6 +15,14 @@ function Clinicals() {
         console.error(error);
       });
   }, []);
+  // Calculate the index range for the current page
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = clinicalRotations.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+
   const handleDelete = (id) => {
     // Filter out the row with the given id and update the state
     const updatedRotations = clinicalRotations.filter((item) => item.id !== id);
@@ -38,41 +47,103 @@ function Clinicals() {
         // Handle error or display error message
       });
   };
+  const renderClinicalRotations = () => {
+    return currentRecords.map((item) => (
+      <tr key={item.id}>
+        <td>{item.firstName + " " + item.secondName}</td>
+        <td>{item.area_name}</td>
+        <td>{formatDate(item.start_date)}</td>
+        <td>{formatDate(item.end_date)}</td>
+        <td className="text-warning">{item.status}</td>
+        <td>{item.supervisor_name}</td>
+        <td>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => handleDelete(item.id)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    ));
+  };
+  function handleSearch(id) {
+    try {
+      fetch(`http://localhost:3001/searchClinicalRotations/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setClinicalRotations(data);
+          data.legth == 0
+            ? setMessage("No similar record found")
+            : setMessage(`${data.length} records found`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
-      <table className="table table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>Student Name</th>
-            <th>Rotation Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Supervisor</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clinicalRotations.map((item) => (
-            <tr key={item.id}>
-              <td>{item.firstName + " " + item.secondName}</td>
-              <td>{item.area_name}</td>
-              <td>{formatDate(item.start_date)}</td>
-              <td>{formatDate(item.end_date)}</td>
-              <td className="text-warning">{item.status}</td>
-              <td>{item.supervisor_name}</td>
-              <td>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="row">
+        <div className="col-12">
+          <div className="input-group p-1">
+            <input
+              type="text"
+              className="form-control bg-light"
+              placeholder="Search by rotation id"
+              aria-label="Search"
+              aria-describedby="search-icon"
+              onChange={(e) => {
+                handleSearch(e.target.value);
+              }}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text" id="search-icon">
+                <i className="fas fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {message && <h6 className="text-success">{message}</h6>}
+      <div>
+        <table className="table table-striped">
+          <thead className="thead-dark">
+            <tr>
+              <th>Student Name</th>
+              <th>Rotation Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th>Supervisor</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>{renderClinicalRotations()}</tbody>
+        </table>
+
+        {/* Pagination */}
+        <nav>
+          <ul className="pagination">
+            {Array.from({
+              length: Math.ceil(clinicalRotations.length / recordsPerPage),
+            }).map((_, index) => (
+              <li
+                key={index + 1}
+                className={`page-item${
+                  currentPage === index + 1 ? " active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                <button className="page-link">{index + 1}</button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </>
   );
   function formatDate(dateString) {

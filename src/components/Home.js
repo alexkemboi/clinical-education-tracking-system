@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <div className="container-fluid">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mt-0">
           <a className="navbar-brand" href="#">
             Clinicals Rotation Reports
           </a>
@@ -23,47 +23,27 @@ function Home() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                 
-                >
+                <a className="nav-link" href="#">
                   <i className="fas fa-stethoscope"></i> Clinical Rotations
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                 
-                >
+                <a className="nav-link" href="#">
                   <i className="fas fa-chart-bar"></i> Evaluation and Assessment
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                  
-                >
+                <a className="nav-link" href="#">
                   <i className="fas fa-chart-bar"></i>Students
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                  
-                >
-                  <i className="fas fa-chart-bar"></i>Preceptors
+                <a className="nav-link" href="#">
+                  <i className="fas fa-chart-bar"></i>Supervisors
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="#"
-                  
-                >
+                <a className="nav-link" href="#">
                   <i className="fas fa-chart-bar"></i> Data Visualizations
                 </a>
               </li>
@@ -78,11 +58,11 @@ function Home() {
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-user-graduate icon"></i>
+                        <div className="card-header bg-success">
+                          <div className="card-title text-center">
+                            <i className="fas fa-user-graduate icon fa-2x"></i>
                           </div>
-                          <div className="card-title">
+                          <div className="card-title text-center">
                             <h4>Total Students</h4>
                           </div>
                         </div>
@@ -92,28 +72,28 @@ function Home() {
 
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-check icon"></i>
-                            <h4>Completed Courses</h4>
+                        <div className="card-header bg-dark">
+                          <div className="card-title text-center">
+                            <i className="fas fa-check icon fa-2x  text-white"></i>
+                            <h4 className="text-white">Total rotation Areas</h4>
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="value">1250</div>
+                          <div className="value text-center">1250</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-exclamation-circle icon"></i>
-                            <h4>Pending Courses</h4>
+                        <div className="card-header bg-warning">
+                          <div className="card-title text-center">
+                            <i className="fas fa-exclamation-circle icon fa-2x"></i>
+                            <h4>Completed Rotations</h4>
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="value">750</div>
+                          <div className="value text-center">750</div>
                         </div>
                       </div>
                     </div>
@@ -121,86 +101,42 @@ function Home() {
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-user-graduate icon"></i>
-                            <h4>Rotation areas</h4>
+                        <div className="card-header bg-dark">
+                          <div className="card-title text-center">
+                            <i className="fas fa-user-graduate icon fa-2x  text-white"></i>
+                            <h4 className="text-white">Total supervisors</h4>
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="value">3</div>
+                          <div className="value text-center">3</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-check icon"></i>
-                            <h4>Successfull students</h4>
+                        <div className="card-header bg-warning">
+                          <div className="card-title text-center">
+                            <i className="fas fa-check icon fa-2x"></i>
+                            <h4>Pending Rotations</h4>
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="value">1250</div>
+                          <div className="value text-center">1250</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="col-lg-4">
                       <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-exclamation-circle icon"></i>
-                            <h4>Pending Courses</h4>
+                        <div className="card-header bg-success">
+                          <div className="card-title text-center">
+                            <i className="fas fa-exclamation-circle icon fa-2x"></i>
+                            <h4>Total Hospitals</h4>
                           </div>
                         </div>
                         <div className="card-body">
-                          <div className="value">750</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-lg-4">
-                      <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-user-graduate icon"></i>
-                            <h4>Total Students</h4>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="value">250</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-4">
-                      <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-check icon"></i>
-                            <h4>Completed Courses</h4>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="value">1250</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-4">
-                      <div className="card mt-3">
-                        <div className="card-header">
-                          <div className="card-title">
-                            <i className="fas fa-exclamation-circle icon"></i>
-                          </div>
-                          <h4>Pending Courses</h4>
-                        </div>
-                        <div className="card-body">
-                          <div className="value">750</div>
+                          <div className="value text-center">750</div>
                         </div>
                       </div>
                     </div>

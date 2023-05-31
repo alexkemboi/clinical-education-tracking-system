@@ -1,36 +1,35 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 function SupervisorAssessment() {
-const [successMessage,setSuccessMessage]=useState('');
-const handleFormSubmit=(event)=> {
-  event.preventDefault();
-  // Get form data
-  const formData = new FormData(event.currentTarget);
-  const evaluationData = Object.fromEntries(formData.entries());
-  console.log(evaluationData);
-  // Send POST request to server
-  fetch('http://localhost:3001/insertClinicalEvaluationData', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(evaluationData),
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle response from server (e.g., show success message)
-      console.log(data);
-      setSuccessMessage("Sucessfully evaluated");
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 10000);
-      
+  const [successMessage, setSuccessMessage] = useState("");
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Get form data
+    const formData = new FormData(event.currentTarget);
+    const evaluationData = Object.fromEntries(formData.entries());
+    console.log(evaluationData);
+    // Send POST request to server
+    fetch("http://localhost:3001/insertClinicalEvaluationData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(evaluationData),
     })
-    .catch(error => {
-      // Handle error
-      console.error(error);
-      setSuccessMessage('Error while evaluating');
-    });
-}
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response from server (e.g., show success message)
+        console.log(data);
+        setSuccessMessage("Sucessfully evaluated");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 10000);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error(error);
+        setSuccessMessage("Error while evaluating");
+      });
+  };
 
   return (
     <>
@@ -43,7 +42,9 @@ const handleFormSubmit=(event)=> {
                 <h4 className="mb-0">Supervisor Assessment</h4>
               </div>
               <div className="card-body">
-                {successMessage&&<h6 className="text-success text-center">{successMessage}</h6> }
+                {successMessage && (
+                  <h6 className="text-success text-center">{successMessage}</h6>
+                )}
                 <div className="form-group">
                   <label htmlFor="date">Date:</label>
                   <input
@@ -54,25 +55,31 @@ const handleFormSubmit=(event)=> {
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="rotation">Rotation Area:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="rotationId"
-                    name="rotationId"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="studentName">Student Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="studentId"
-                    name="studentId"
-                    required
-                  />
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label htmlFor="rotation">Rotation Area:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="rotationId"
+                        name="rotationId"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label htmlFor="studentName">Student Name:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="studentId"
+                        name="studentId"
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="row">
                   <div className="col-6">
@@ -87,7 +94,7 @@ const handleFormSubmit=(event)=> {
                       />
                     </div>
                   </div>
-                   <div className="col-6">                    
+                  <div className="col-6">
                     <div className="form-group">
                       <label htmlFor="time_out">Time Out</label>
                       <input
@@ -97,8 +104,8 @@ const handleFormSubmit=(event)=> {
                         name="timeOut"
                         required
                       />
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="feedback">Feedback:</label>
@@ -106,38 +113,43 @@ const handleFormSubmit=(event)=> {
                     className="form-control"
                     id="feedback"
                     name="feedback"
-                    rows="4"
+                    rows="2"
                     required
                   ></textarea>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="rating">Rating (1-10):</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="rating"
-                    name="rating"
-                    min="1"
-                    max="10"
-                    required
-                  />
+                <div className="row">
+                  <div className="col-4">
+                    <div className="form-group">
+                      <label htmlFor="rating">Rating (1-10):</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="rating"
+                        name="rating"
+                        min="1"
+                        max="10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-4">
+                    <div className="form-group">
+                      <label htmlFor="supervisorName">Your Name:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="supervisorId"
+                        name="supervisorId"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-4">
+                    <button type="submit" className="btn btn-dark">
+                      Submit
+                    </button>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="supervisorName">Your Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="supervisorId"
-                    name="supervisorId"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-dark"
-                >
-                  Submit
-                </button>
               </div>
             </div>
           </form>

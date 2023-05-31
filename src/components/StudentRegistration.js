@@ -1,4 +1,5 @@
 import { useState } from "react";
+import StudentSelftAssessment from "./StudentSelfAssessment";
 function StudentRegistratiion() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,6 +17,7 @@ function StudentRegistratiion() {
     useState(false);
   const [successMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setShowErrorMessage] = useState(false);
+  const [selfAssessment, setShowSelfAssessment] = useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -51,6 +53,7 @@ function StudentRegistratiion() {
   const [fieldStudy, setFieldStudy] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   const educationalInformation = {
     institutionName: institutionName,
     degree: degree,
@@ -108,6 +111,7 @@ function StudentRegistratiion() {
 
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
+    setShowSelfAssessment(false);
   };
   const handleShowEducationalInformation = () => {
     setShowEducationalInformation(true);
@@ -115,6 +119,7 @@ function StudentRegistratiion() {
 
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
+    setShowSelfAssessment(false);
   };
 
   const handleShowEmergencyInformation = () => {
@@ -123,6 +128,7 @@ function StudentRegistratiion() {
     setShowEducationalInformation(false);
 
     setShowAdditionalInformation(false);
+    setShowSelfAssessment(false);
   };
   const handleShowAdditionalInformation = () => {
     setShowAdditionalInformation(true);
@@ -130,8 +136,15 @@ function StudentRegistratiion() {
     setShowEducationalInformation(false);
 
     setShowEmergencyInformation(false);
+    setShowSelfAssessment(false);
   };
-
+  const handleShowSelfAssessment = () => {
+    setShowAdditionalInformation(false);
+    setShowPersonalInformation(false);
+    setShowEducationalInformation(false);
+    setShowEmergencyInformation(false);
+    setShowSelfAssessment(true);
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-0">
@@ -164,6 +177,15 @@ function StudentRegistratiion() {
               <a
                 className="nav-link"
                 href="#"
+                onClick={handleShowSelfAssessment}
+              >
+                <i className="fas fa-graduation-cap"></i> Self Assessment
+              </a>
+            </li>
+            {/* <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#"
                 onClick={handleShowEducationalInformation}
               >
                 <i className="fas fa-graduation-cap"></i> Educational
@@ -187,7 +209,7 @@ function StudentRegistratiion() {
               >
                 <i className="fas fa-info-circle"></i> Additional
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>
@@ -271,16 +293,7 @@ function StudentRegistratiion() {
                             </select>
                           </div>
                         </div>
-                        <label htmlFor="address">
-                          <i className="fas fa-map-marker-alt"></i> Address
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="address"
-                          name="address"
-                          value={address}
-                          onChange={(e) => setAddress(e.target.value)}
-                        ></textarea>
+
                         <div className="row">
                           <div className="col-6">
                             <label htmlFor="phone-number">
@@ -315,13 +328,30 @@ function StudentRegistratiion() {
                 </div>
               </div>
               <div className="card-footer">
-                <button
-                  type="submit"
-                  className="btn bg-dark text-white"
-                  onClick={handleSubmitPersonalInformation}
-                >
-                  <i className="fas fa-save"></i> Save personal information
-                </button>
+                <div className="row">
+                  <div className="col-6">
+                    {" "}
+                    <label htmlFor="address">
+                      <i className="fas fa-map-marker-alt"></i> Address
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="address"
+                      name="address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    ></textarea>
+                  </div>
+                  <div className="col-6">
+                    <button
+                      type="submit"
+                      className="btn bg-dark text-white"
+                      onClick={handleSubmitPersonalInformation}
+                    >
+                      <i className="fas fa-save"></i> Save personal information
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -566,6 +596,7 @@ function StudentRegistratiion() {
           </div>
         </div>
       )}
+      {selfAssessment && <StudentSelftAssessment />}
     </>
   );
 }
