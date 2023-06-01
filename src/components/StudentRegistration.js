@@ -19,7 +19,7 @@ function StudentRegistratiion() {
   const [successMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setShowErrorMessage] = useState(false);
   const [selfAssessment, setShowSelfAssessment] = useState(false);
-  const [showActivitiesLogForm, setShowActivitiesLogForm]=useState(false);
+  const [showActivitiesLogForm, setShowActivitiesLogForm] = useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -155,11 +155,10 @@ function StudentRegistratiion() {
     setShowEmergencyInformation(false);
     setShowSelfAssessment(false);
     setShowActivitiesLogForm(true);
-    
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-0">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-1 roundend">
         <a className="navbar-brand" href="#">
           Student Registration Form
         </a>
@@ -620,7 +619,7 @@ function StudentRegistratiion() {
         </div>
       )}
       {selfAssessment && <StudentSelftAssessment />}
-      {showActivitiesLogForm&&<ClinicalRotationForm/>}
+      {showActivitiesLogForm && <ClinicalRotationForm />}
     </>
   );
 }

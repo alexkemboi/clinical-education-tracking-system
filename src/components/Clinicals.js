@@ -87,9 +87,17 @@ function Clinicals() {
   }
   return (
     <>
+      {" "}
       <div className="row">
-        <div className="col-12  bg-dark p-2 mb-1 rounded">
-          <div className="input-group p-1">
+        <div className="col-12">
+          <div className="bg-dark rounded">
+            <h6 className="text-light">Clinical rotations</h6>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <div className="input-group">
             <input
               type="text"
               className="form-control bg-light"
@@ -138,7 +146,9 @@ function Clinicals() {
                 } text-center`}
                 onClick={() => setCurrentPage(index + 1)}
               >
-                <button className="page-link text-center btn-sm">{index + 1}</button>
+                <button className="page-link text-center btn-sm">
+                  {index + 1}
+                </button>
               </li>
             ))}
           </ul>

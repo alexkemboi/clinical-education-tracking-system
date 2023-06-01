@@ -59,22 +59,24 @@ app.post("/SendSms", (req, res) => {
   console.log(req.body);
   sendMessage(req.body.message, req.body.phone);
 });
-app.post('/insertLogData', (req, res) => {
+app.post("/insertLogData", (req, res) => {
   const formData = req.body;
 
   // Insert the form data into the logtable
-  const sql = 'INSERT INTO logtable SET ?';
+  const sql = "INSERT INTO logtable SET ?";
 
   connection.query(sql, formData, (err, result) => {
     if (err) {
-      console.error('Error inserting data into logtable: ' + err.stack);
-      res.status(500).json({ error: 'An error occurred while saving the data.' });
+      console.error("Error inserting data into logtable: " + err.stack);
+      res
+        .status(500)
+        .json({ error: "An error occurred while saving the data." });
       return;
     }
 
     // Data inserted successfully
-    console.log('Data inserted into logtable with ID: ' + result.insertId);
-    res.status(200).json({ message: 'Data saved successfully.' });
+    console.log("Data inserted into logtable with ID: " + result.insertId);
+    res.status(200).json({ message: "Data saved successfully." });
   });
 });
 app.post("/users", (req, res) => {
@@ -382,18 +384,16 @@ app.post("/insertClinicalEvaluationData", (req, res) => {
   );
 });
 
-
-app.get('/rotation-areas', async (req, res) => {
+app.get("/rotation-areas", async (req, res) => {
   try {
-   const [rows] = await connection.query('SELECT * FROM rotation_areas');
+    const [rows] = await connection.query("SELECT * FROM rotation_areas");
     connection.release();
     res.json(rows);
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error executing MySQL query:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
-
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

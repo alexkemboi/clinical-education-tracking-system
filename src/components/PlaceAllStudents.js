@@ -41,43 +41,66 @@ function PlaceAllStudents() {
     fetchData();
   }, []);
   function handlePlaceStudents() {
-    // console.log(studentsData);
-    // console.log(clinicalRotationsData);
-    // console.log(rotationAreasData);
-    for (let i = 0; i < studentsData.length; i++) {
-      for (let j = 0; j, j < rotationAreasData.length; j++) {
-        const data = {
-          studentId: studentsData[i].id,
-          rotationAreaId: rotationAreasData[i].id,
-          startRotationDate,
-          endRotationDate,
-        };
-        console.log(data);
-        try {
-          const response = fetch(
-            "http://localhost:3001/insertClinicalRotationData",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            }
-          );
+    console.log(studentsData);
+    console.log(clinicalRotationsData);
+    console.log(rotationAreasData);
 
-          if (response.ok) {
-            console.log("Data inserted successfully");
-            setSuccessMessage("Student placed successfully");
-            // // Reset the form
-            setStudentId("");
-            setRotationAreaId("");
-            setStartRotationDate("");
-            setEndRotationDate("");
+    const remainingRotationAreas = rotationAreasData.filter((rotationArea) => {
+      // Filter out rotation areas that have already been placed for any student
+      return !clinicalRotationsData.some(
+        (clinicalRotation) =>
+          clinicalRotation.rotationAreaId === rotationArea.id
+      );
+    });
+
+    for (let i = 0; i < studentsData.length; i++) {
+      // Check if there are remaining rotation areas available
+      if (remainingRotationAreas.length === 0) {
+        console.log("No more rotation areas available for placement");
+        break;
+      }
+
+      // Randomly select a rotation area from the remaining areas
+      const randomIndex = Math.floor(
+        Math.random() * remainingRotationAreas.length
+      );
+      const selectedRotationArea = remainingRotationAreas[randomIndex];
+
+      const data = {
+        studentId: studentsData[i].id,
+        rotationAreaId: selectedRotationArea.id,
+        startRotationDate,
+        endRotationDate,
+      };
+      console.log(data);
+
+      try {
+        const response = fetch(
+          "http://localhost:3001/insertClinicalRotationData",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
           }
-        } catch (error) {
-          setSuccessMessage("Failed to place student");
-          console.log("Error:", error);
+        );
+
+        if (response.ok) {
+          console.log("Data inserted successfully");
+          setSuccessMessage("Student placed successfully");
+          // // // Reset the form
+          // setStudentId("");
+          // setRotationAreaId("");
+          // setStartRotationDate("");
+          // setEndRotationDate("");
+
+          // Remove the selected rotation area from the remaining areas
+          remainingRotationAreas.splice(randomIndex, 1);
         }
+      } catch (error) {
+        setSuccessMessage("Failed to place student");
+        console.log("Error:", error);
       }
     }
   }

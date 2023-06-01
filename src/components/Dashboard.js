@@ -7,7 +7,7 @@ import Home from "./Home";
 import Clinicals from "./Clinicals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { userName } from "../LoginPage";
-import SupervisorAssessment from "./SupervisorAssessment";
+import StudentDashboard from "./StudentDashboard";
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -16,6 +16,11 @@ function Dashboard() {
   const [showClinicalManagement, setShowClinicalManagement] = useState(false);
   const [showHome, setShowHome] = useState(false);
   const [showClinicals, setShowClinicals] = useState(true);
+  const [showStudentDashboard, setShowStudentDashboard] = useState(false);
+  const handleShowStudentDashboard = () => {
+    setShowStudentDashboard(true);
+    setShowDashboard(false);
+  };
   function handleLogout() {
     setShowLoginForm(true);
     setShowDashboard(false);
@@ -59,7 +64,7 @@ function Dashboard() {
               <div className="title-bar bg-dark text-light">
                 <div className="row">
                   <div className="col-6">
-                    <h6>
+                    <h6 onClick={handleShowStudentDashboard}>
                       {" "}
                       <i className="fas fa-stethoscope fa-2x text-warning"></i>
                       Clinical Education Rotation Tracking System
@@ -68,7 +73,7 @@ function Dashboard() {
                   <div className="col-4"></div>
                   <div className="col-2">
                     <div className="user-profile text-left">
-                      <i className="fas fa-user fa-2x mr-1 "></i>
+                      <i className="fas fa-user text-warning mr-1 "></i>
                       <span className="username">{userName.toUpperCase()}</span>
                     </div>
                   </div>
@@ -142,8 +147,8 @@ function Dashboard() {
                 </div>
               </section>
             </div>
-            <div className="card-footer bg-dark">
-              <p className="card-text text-light text-center">
+            <div className="card-footer bg-warning ">
+              <p className="card-text text-dark text-center">
                 Developped and managed by @Sylyvia
               </p>
             </div>
@@ -151,6 +156,7 @@ function Dashboard() {
         </div>
       )}
       {showLoginForm && <LoginPage />}
+      {showStudentDashboard && <StudentDashboard />}
     </>
   );
 }
