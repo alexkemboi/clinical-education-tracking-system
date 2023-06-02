@@ -3,6 +3,7 @@ import StudentSelftAssessment from "./StudentSelfAssessment";
 import ClinicalRotationForm from "./ClinicalRotationLogForm";
 import Clinicals from "./Clinicals";
 import StudentsList from './StudentsList';
+import Results from "./Results";
 function StudentRegistratiion() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,6 +25,7 @@ function StudentRegistratiion() {
   const [showActivitiesLogForm, setShowActivitiesLogForm] = useState(false);
   const [showClinicalRoations,setShowClinicalRotations]=useState(true);
   const [showStudentList,setShowStudentList]=useState(false);
+  const [showStudentResults,setShowStudentResults]=useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -184,6 +186,18 @@ const handleShowClinicalRoations=(e)=>{
     setShowStudentList(true);
     setShowClinicalRotations(false);
   };
+  const handleShowStudentResults=()=>{
+    setShowAdditionalInformation(false);
+    setShowPersonalInformation(false);
+    setShowEducationalInformation(false);
+    setShowEmergencyInformation(false);
+    setShowSelfAssessment(false);
+    setShowActivitiesLogForm(false);
+    setShowStudentList(false);
+    setShowClinicalRotations(false);
+    setShowStudentResults(true)
+
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-1 roundend">
@@ -237,6 +251,15 @@ const handleShowClinicalRoations=(e)=>{
                 onClick={handleShowStudentList}
               >
                 <i className="fas fa-graduation-cap"></i>Students List
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#"
+                onClick={handleShowStudentResults}
+              >
+                <i className="fas fa-graduation-cap"></i>Results
               </a>
             </li>
 
@@ -659,6 +682,7 @@ const handleShowClinicalRoations=(e)=>{
       {showActivitiesLogForm && <ClinicalRotationForm />}
       {showClinicalRoations&&<Clinicals/>}
       {showStudentList&&<StudentsList/>}
+      {showStudentResults&&<Results/>}
     </>
   );
 }

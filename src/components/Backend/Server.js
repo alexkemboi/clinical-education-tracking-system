@@ -245,6 +245,23 @@ app.post("/educationalInformation", (req, res) => {
     }
   );
 });
+
+app.get('/results', (req, res) => {
+  const query = `SELECT pi.Id, pi.firstName, pi.secondName,
+    CASE WHEN SUM(e.rating) > 50 THEN 'Passed' ELSE 'Failed' END AS grade
+    FROM personal_information pi
+    JOIN evaluation e ON e.studentId = pi.id
+    GROUP BY pi.firstName`;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error executing the SQL query:', err);
+      res.status(500).json({ error: 'Failed to fetch results' });
+      return;
+    }
+    res.json(results);
+  });
+});
 app.post("/emergencyInformation", (req, res) => {
   console.log(req.body);
   const { contactName, relationship, phoneNumber, email } = req.body;

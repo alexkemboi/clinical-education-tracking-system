@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./styles/DashboardStyles.css";
 import LoginPage from "../LoginPage";
 import ClinicalManagement from "./ClinicalManagement";
-import StudentRegistratiion from "./StudentRegistration";
+import Results from "./Results";
 import Home from "./Home";
 import Clinicals from "./Clinicals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { userName } from "../LoginPage";
 import StudentDashboard from "./StudentDashboard";
+import { Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -136,7 +140,7 @@ function Dashboard() {
                             <div className="col-lg-12">
                               {showHome && <Home />}
                               {showClinicals && <Clinicals />}
-                              {showStudentForm && <StudentRegistratiion />}
+                              {showStudentForm && <Results/>}
                               {showClinicalManagement && <ClinicalManagement />}
                             </div>
                           </div>
