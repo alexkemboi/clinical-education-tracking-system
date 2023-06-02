@@ -50,7 +50,7 @@ const EvaluationList = () => {
         </div>
       </div>
       <div className="table-responsive">
-        <table className="table table-bordered">
+        <table className="table table-bordered table-striped">
           <thead className="thead-dark">
             <tr>
               {/* <th>Evaluation ID</th>

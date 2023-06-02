@@ -79,6 +79,58 @@ app.post("/insertLogData", (req, res) => {
     res.status(200).json({ message: "Data saved successfully." });
   });
 });
+// Define the POST route for supervisor registration
+app.post('/registerSuperVisor', (req, res) => {
+  console.log(req.body);
+  const { name, rotationId, phoneNumber, address,email } = req.body;
+
+  const query = `INSERT INTO supervisors (name, rotationId, phone,email, address)
+                VALUES (?,?, ?, ?, ?)`;
+
+  connection.query(
+    query,
+    [name, rotationId, phoneNumber,email, address],
+    (error, results) => {
+      if (error) {
+        console.error('Failed to insert supervisor data:', error);
+        res.status(500).json({ message: 'Failed to insert supervisor data' });
+      } else {
+        console.log('Supervisor data inserted successfully');
+        res.status(200).json({ message: 'Supervisor data inserted successfully' });
+      }
+    }
+  );
+});
+// Define the POST route for assessment submission
+app.post('/selfAssessments', (req, res) => {
+  const {
+    date,
+    reportingTime,
+    timeLeft,
+    rotation,
+    lessonsLearned,
+    improvements,
+    rating,
+    name
+  } = req.body;
+
+  const query = `INSERT INTO logtable (date, reportingTime, timeLeft, rotation, lessonsLearned, improvements, rating, name)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  connection.query(
+    query,
+    [date, reportingTime, timeLeft, rotation, lessonsLearned, improvements, rating, name],
+    (error, results) => {
+      if (error) {
+        console.error('Failed to insert assessment data:', error);
+        res.status(500).json({ message: 'Failed to insert assessment data' });
+      } else {
+        console.log('Assessment data inserted successfully');
+        res.status(200).json({ message: 'Assessment data inserted successfully' });
+      }
+    }
+  );
+});
 app.post("/users", (req, res) => {
   console.log(req.body);
   const { firstName, secondName, email, password } = req.body;

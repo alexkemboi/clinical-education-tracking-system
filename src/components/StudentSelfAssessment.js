@@ -1,17 +1,56 @@
-import React from "react";
+import React,{useState} from "react";
 
 function SelfAssessment() {
+  const [showSuccessMessage,setShowSuccessMessage]=useState('');
+    const [formData, setFormData] = useState({
+      date: '',
+      reportingTime: '',
+      timeLeft: '',
+      rotation: '',
+      lessonsLearned: '',
+      improvements: '',
+      rating: '',
+      name: ''
+    });
+  
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFormData({ ...formData, [name]: value });
+    };
+  
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      console.log(formData)
+      try {
+        const response = await fetch('http://localhost:3001/selfAssessments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+          console.log('Assessment submitted successfully');
+          setShowSuccessMessage('Assessment submitted successfully');
+        } else {
+          console.error('Failed to submit assessment');
+          setShowSuccessMessage('Failed to submit assessment');
+        }
+      } catch (error) {
+        console.error('Failed to submit assessment:', error);
+      }}
   return (
     <>
       <div className="row">
         <div className="col-12 m-auto">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="card">
               <div className="card-header bg-dark text-white text-center">
                 <i className="fas fa-user-md fa-3x"></i>
-                <h4 className="mb-0">Rotation Area Self-Assessment</h4>
+                <h4 className="mb-0">Rotation Area Self assessment and Log</h4>
               </div>
               <div className="card-body">
+                {showSuccessMessage&&<h4 className="text-success">{showSuccessMessage}</h4>}
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
@@ -22,6 +61,7 @@ function SelfAssessment() {
                         id="date"
                         name="date"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="form-group">
@@ -32,6 +72,7 @@ function SelfAssessment() {
                         id="reportingTime"
                         name="reportingTime"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="form-group">
@@ -42,6 +83,7 @@ function SelfAssessment() {
                         id="timeLeft"
                         name="timeLeft"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="form-group">
@@ -52,6 +94,7 @@ function SelfAssessment() {
                         id="rotation"
                         name="rotation"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -64,6 +107,7 @@ function SelfAssessment() {
                         name="lessonsLearned"
                         rows="4"
                         required
+                        onChange={handleInputChange}
                       ></textarea>
                     </div>
                     <div className="form-group">
@@ -76,6 +120,7 @@ function SelfAssessment() {
                         name="improvements"
                         rows="4"
                         required
+                        onChange={handleInputChange}
                       ></textarea>
                     </div>
                   </div>
@@ -92,6 +137,7 @@ function SelfAssessment() {
                         min="1"
                         max="10"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -104,6 +150,7 @@ function SelfAssessment() {
                         id="name"
                         name="name"
                         required
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>

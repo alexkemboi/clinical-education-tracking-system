@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LoginPage from "../LoginPage";
 import StudentRegistratiion from "./StudentRegistration";
+import SupervisorsPanel from "./SupervisorsPanel";
 const StudentDashboard = () => {
   const [showHome, setShowHome] = useState(true);
   const [showStudentPortal, setShowStudentPortal] = useState(false);
@@ -16,6 +17,7 @@ const StudentDashboard = () => {
     setShowHome(false);
     setShowStudentPortal(true);
     setShowLogin(false);
+    setShowSupervisorDashboard(false);
   };
   const handleshowLogin = () => {
     setShowHome(false);
@@ -28,7 +30,7 @@ const StudentDashboard = () => {
     setShowHome(false);
     setShowStudentPortal(false);
     setShowLogin(false);
-    setShowStudentDashboard(false);
+    setShowStudentPortal(false);
   };
   return (
     <>
@@ -107,14 +109,15 @@ const StudentDashboard = () => {
                         <div className="col-lg-6">
                           <div className="feature">
                             <i className="fas fa-file"></i>
-                            <p className="lead">
+                              <h4>Track and Manage Rotations</h4>
+                            <p>
                               Effortlessly manage and track clinical rotations
                               for healthcare education.
                             </p>
                           </div>
                           <div className="feature">
                             <i className="fas fa-calendar-check text-center"></i>
-                            <h4>Manage Rotations</h4>
+                            <h4>Schedule Rotations</h4>
                             <p>
                               Efficiently manage and schedule clinical rotations
                               for students or trainees.
@@ -140,48 +143,11 @@ const StudentDashboard = () => {
                         </div>
                       </div>
                     </div>
-                  </section>
-
-                  {/* <section className="features py-5">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-lg-4">
-                          <div className="feature">
-                            <i className="bi bi-calendar-check"></i>
-                            <h4>Manage Rotations</h4>
-                            <p>
-                              Efficiently manage and schedule clinical rotations
-                              for students or trainees.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-4">
-                          <div className="feature">
-                            <i className="bi bi-person-lines-fill"></i>
-                            <h4>Track Attendance</h4>
-                            <p>
-                              Track attendance and hours spent by students
-                              during their rotations.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-4">
-                          <div className="feature">
-                            <i className="bi bi-file-earmark-text"></i>
-                            <h4>Generate Reports</h4>
-                            <p>
-                              Generate comprehensive reports on student
-                              performance and rotation history.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section> */}
+                  </section>                 
                 </div>
               )}
-              {/* {<LoginPage />} */}
               {showStudentPortal && <StudentRegistratiion />}
+              {showSupervisorDashboard&&<SupervisorsPanel/>}
             </div>
             <div className="card-footer bg-warning">
               <footer className="footer  py-4">
