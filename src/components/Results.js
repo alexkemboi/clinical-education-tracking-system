@@ -11,8 +11,7 @@ const Results = () => {
     // ];
   const [studentData,setStudentData]=useState([]);
     const getGradeStatus = (grade) => {
-      const passThreshold = 60;
-      return grade >= passThreshold ? (
+      return grade == "Passed"? (
         <FontAwesomeIcon icon={faCheckCircle} className="text-success" />
       ) : (
         <FontAwesomeIcon icon={faTimesCircle} className="text-danger" />

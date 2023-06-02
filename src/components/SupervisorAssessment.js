@@ -58,7 +58,7 @@ function SupervisorAssessment() {
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
-                      <label htmlFor="rotation">Rotation Area:</label>
+                      <label htmlFor="rotation">Rotation Id:</label>
                       <input
                         type="text"
                         className="form-control"
@@ -70,12 +70,13 @@ function SupervisorAssessment() {
                   </div>
                   <div className="col-6">
                     <div className="form-group">
-                      <label htmlFor="studentName">Student Name:</label>
+                      <label htmlFor="studentName">Student Id:</label>
                       <input
                         type="text"
                         className="form-control"
                         id="studentId"
                         name="studentId"
+                        placeholder="e.g 1"
                         required
                       />
                     </div>
