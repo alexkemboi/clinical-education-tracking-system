@@ -98,6 +98,7 @@ function PlaceAllStudents() {
           // Remove the selected rotation area from the remaining areas
           remainingRotationAreas.splice(randomIndex, 1);
         }
+        setSuccessMessage("Students placed successfully");
       } catch (error) {
         setSuccessMessage("Failed to place student");
         console.log("Error:", error);
@@ -110,7 +111,7 @@ function PlaceAllStudents() {
       <div className="card p-3 mb-2">
         <div className="bg-dark p-2 rounded">
           <h6 className="text-warning ">
-            To place all students check the checkbox below
+            This will place all the students...
           </h6>
         </div>
         <div className="row p-2">

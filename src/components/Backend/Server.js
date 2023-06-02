@@ -101,6 +101,37 @@ app.post('/registerSuperVisor', (req, res) => {
     }
   );
 });
+app.get('/count', (req, res) => {
+  connection.query(
+      `SELECT 
+          table_name,
+          table_rows
+      FROM 
+          information_schema.tables
+      WHERE 
+          table_schema = 'clinicaleducationtrackingsystem'
+          AND table_name IN (
+              'additional_information',
+              'clinical_rotations',
+              'educational_info',
+              'emergency_info',
+              'evaluation',
+              'logtable',
+              'personal_information',
+              'rotation_areas',
+              'rotation_area_objectives',
+              'supervisors',
+              'users'
+          );`,
+      (error, results) => {
+          if (error) {
+              res.status(500).send('Error executing the query.');
+          } else {
+              res.json(results);
+          }
+      }
+  );
+});
 // Define the POST route for assessment submission
 app.post('/selfAssessments', (req, res) => {
   const {

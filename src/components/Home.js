@@ -45,6 +45,81 @@ function Home() {
     setShowSupervisor(false);
     setShowVisual(true);
   };
+  const [additionalInfoCount, setAdditionalInfoCount] = useState('');
+  const [clinicalRotationsCount, setClinicalRotationsCount] = useState('');
+  const [educationalInfoCount, setEducationalInfoCount] = useState('');
+  const [emergencyInfoCount, setEmergencyInfoCount] = useState('');
+  const [evaluationCount, setEvaluationCount] = useState('');
+  const [logTableCount, setLogTableCount] = useState('');
+  const [personalInfoCount, setPersonalInfoCount] = useState('');
+  const [rotationAreasCount, setRotationAreasCount] = useState('');
+  const [rotationAreaObjectivesCount, setRotationAreaObjectivesCount] = useState('');
+  const [supervisorsCount, setSupervisorsCount] = useState('');
+  const [usersCount, setUsersCount] = useState('');
+
+  // Function to fetch the data from the API
+async function fetchData() {
+  try {
+    const response = await fetch('http://localhost:3001/count');
+    if (!response.ok) {
+      throw new Error('Error fetching the data.');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Function to assign the results to variables
+async function assignVariables() {
+  try {
+    const data = await fetchData();    
+    // Assign each result to a variable
+    const additionalInfoCount = data.find(table => table.table_name === 'additional_information').table_rows;
+    const clinicalRotationsCount = data.find(table => table.table_name === 'clinical_rotations').table_rows;
+    const educationalInfoCount = data.find(table => table.table_name === 'educational_info').table_rows;
+    const emergencyInfoCount = data.find(table => table.table_name === 'emergency_info').table_rows;
+    const evaluationCount = data.find(table => table.table_name === 'evaluation').table_rows;
+    const logTableCount = data.find(table => table.table_name === 'logtable').table_rows;
+    const personalInfoCount = data.find(table => table.table_name === 'personal_information').table_rows;
+    const rotationAreasCount = data.find(table => table.table_name === 'rotation_areas').table_rows;
+    const rotationAreaObjectivesCount = data.find(table => table.table_name === 'rotation_area_objectives').table_rows;
+    const supervisorsCount = data.find(table => table.table_name === 'supervisors').table_rows;
+    const usersCount = data.find(table => table.table_name === 'users').table_rows;
+    setAdditionalInfoCount(data.find((table) => table.table_name === 'additional_information').table_rows);
+    setClinicalRotationsCount(data.find((table) => table.table_name === 'clinical_rotations').table_rows);
+    setEducationalInfoCount(data.find((table) => table.table_name === 'educational_info').table_rows);
+    setEmergencyInfoCount(data.find((table) => table.table_name === 'emergency_info').table_rows);
+    setEvaluationCount(data.find((table) => table.table_name === 'evaluation').table_rows);
+    setLogTableCount(data.find((table) => table.table_name === 'logtable').table_rows);
+    setPersonalInfoCount(data.find((table) => table.table_name === 'personal_information').table_rows);
+    setRotationAreasCount(data.find((table) => table.table_name === 'rotation_areas').table_rows);
+    setRotationAreaObjectivesCount(data.find((table) => table.table_name === 'rotation_area_objectives').table_rows);
+    setSupervisorsCount(data.find((table) => table.table_name === 'supervisors').table_rows);
+    setUsersCount(data.find((table) => table.table_name === 'users').table_rows);
+  
+    // // Print the variables
+    // console.log('Additional Information Count:', additionalInfoCount);
+    // console.log('Clinical Rotations Count:', clinicalRotationsCount);
+    // console.log('Educational Info Count:', educationalInfoCount);
+    // console.log('Emergency Info Count:', emergencyInfoCount);
+    // console.log('Evaluation Count:', evaluationCount);
+    // console.log('Log Table Count:', logTableCount);
+    // console.log('Personal Information Count:', personalInfoCount);
+    // console.log('Rotation Areas Count:', rotationAreasCount);
+    // console.log('Rotation Area Objectives Count:', rotationAreaObjectivesCount);
+    // console.log('Supervisors Count:', supervisorsCount);
+    // console.log('Users Count:', usersCount);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Call the function to assign the variables
+assignVariables();
+
   return (
     <>
       <div className="container-fluid">
@@ -118,7 +193,7 @@ function Home() {
                               <h4>Total Students</h4>
                             </div>
                           </div>
-                          <div className="card-body text-center">250</div>
+                          <div className="card-body text-center">{personalInfoCount}</div>
                         </div>
                       </div>
 
@@ -133,7 +208,7 @@ function Home() {
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">5</div>
+                            <div className="value text-center">{rotationAreasCount}</div>
                           </div>
                         </div>
                       </div>
@@ -147,7 +222,7 @@ function Home() {
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">4</div>
+                            <div className="value text-center">{clinicalRotationsCount}</div>
                           </div>
                         </div>
                       </div>
@@ -162,7 +237,7 @@ function Home() {
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">7</div>
+                            <div className="value text-center">{supervisorsCount}</div>
                           </div>
                         </div>
                       </div>
@@ -176,7 +251,7 @@ function Home() {
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">20</div>
+                            <div className="value text-center">7</div>
                           </div>
                         </div>
                       </div>
@@ -186,11 +261,11 @@ function Home() {
                           <div className="card-header bg-tertiary">
                             <div className="card-title text-center">
                               <i className="fas fa-hospital icon fa-2x"></i>
-                              <h4>Total Hospitals</h4>
+                              <h4>Total Users</h4>
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">5</div>
+                            <div className="value text-center">{usersCount}</div>
                           </div>
                         </div>
                       </div>

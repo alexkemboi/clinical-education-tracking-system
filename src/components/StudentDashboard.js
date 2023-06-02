@@ -43,7 +43,7 @@ const StudentDashboard = () => {
                   <nav className="navbar navbar-expand-lg navbar-light text-light">
                     <h4 className="text-white">
                       <i className="fas fa-stethoscope fa-2x text-warning"></i>
-                      CERTS Student Dashboard
+                      CERTS Rotation Tracking system
                     </h4>
                     <button
                       className="navbar-toggler"
