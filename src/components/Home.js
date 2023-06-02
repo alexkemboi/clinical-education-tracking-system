@@ -76,17 +76,6 @@ async function assignVariables() {
   try {
     const data = await fetchData();    
     // Assign each result to a variable
-    const additionalInfoCount = data.find(table => table.table_name === 'additional_information').table_rows;
-    const clinicalRotationsCount = data.find(table => table.table_name === 'clinical_rotations').table_rows;
-    const educationalInfoCount = data.find(table => table.table_name === 'educational_info').table_rows;
-    const emergencyInfoCount = data.find(table => table.table_name === 'emergency_info').table_rows;
-    const evaluationCount = data.find(table => table.table_name === 'evaluation').table_rows;
-    const logTableCount = data.find(table => table.table_name === 'logtable').table_rows;
-    const personalInfoCount = data.find(table => table.table_name === 'personal_information').table_rows;
-    const rotationAreasCount = data.find(table => table.table_name === 'rotation_areas').table_rows;
-    const rotationAreaObjectivesCount = data.find(table => table.table_name === 'rotation_area_objectives').table_rows;
-    const supervisorsCount = data.find(table => table.table_name === 'supervisors').table_rows;
-    const usersCount = data.find(table => table.table_name === 'users').table_rows;
     setAdditionalInfoCount(data.find((table) => table.table_name === 'additional_information').table_rows);
     setClinicalRotationsCount(data.find((table) => table.table_name === 'clinical_rotations').table_rows);
     setEducationalInfoCount(data.find((table) => table.table_name === 'educational_info').table_rows);

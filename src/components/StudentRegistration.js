@@ -2,6 +2,7 @@ import { useState } from "react";
 import StudentSelftAssessment from "./StudentSelfAssessment";
 import ClinicalRotationForm from "./ClinicalRotationLogForm";
 import Clinicals from "./Clinicals";
+import StudentsList from './StudentsList';
 function StudentRegistratiion() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,6 +23,7 @@ function StudentRegistratiion() {
   const [selfAssessment, setShowSelfAssessment] = useState(false);
   const [showActivitiesLogForm, setShowActivitiesLogForm] = useState(false);
   const [showClinicalRoations,setShowClinicalRotations]=useState(true);
+  const [showStudentList,setShowStudentList]=useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -117,6 +119,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
+    setShowStudentList(false);
 }
   const handleShowPersonalInformation = () => {
     setShowClinicalRotations(false);
@@ -126,6 +129,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowEmergencyInformation(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
+    setShowStudentList(false);
   };
   const handleShowEducationalInformation = () => {
     setShowEducationalInformation(true);
@@ -160,6 +164,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowEmergencyInformation(false);
     setShowSelfAssessment(true);
     setShowActivitiesLogForm(false);
+    setShowStudentList(false);
   };
   const handleShowActivitiesLogForm = () => {
     setShowAdditionalInformation(false);
@@ -168,6 +173,16 @@ const handleShowClinicalRoations=(e)=>{
     setShowEmergencyInformation(false);
     setShowSelfAssessment(false);
     setShowActivitiesLogForm(true);
+  };
+  const handleShowStudentList = () => {
+    setShowAdditionalInformation(false);
+    setShowPersonalInformation(false);
+    setShowEducationalInformation(false);
+    setShowEmergencyInformation(false);
+    setShowSelfAssessment(false);
+    setShowActivitiesLogForm(false);
+    setShowStudentList(true);
+    setShowClinicalRotations(false);
   };
   return (
     <>
@@ -194,7 +209,7 @@ const handleShowClinicalRoations=(e)=>{
                 href="#"
                 onClick={handleShowPersonalInformation}
               >
-                <i className="fas fa-user"></i> Personal
+                <i className="fas fa-user"></i> Add new
               </a>
             </li>
             <li className="nav-item">
@@ -203,7 +218,7 @@ const handleShowClinicalRoations=(e)=>{
                 href="#"
                 onClick={handleShowClinicalRoations}
               >
-                <i className="fas fa-user"></i> Schedules
+                <i className="fas fa-user"></i> View Schedules
               </a>
             </li>
             <li className="nav-item">
@@ -213,6 +228,15 @@ const handleShowClinicalRoations=(e)=>{
                 onClick={handleShowSelfAssessment}
               >
                 <i className="fas fa-graduation-cap"></i>Activities Log form
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#"
+                onClick={handleShowStudentList}
+              >
+                <i className="fas fa-graduation-cap"></i>Students List
               </a>
             </li>
 
@@ -634,6 +658,7 @@ const handleShowClinicalRoations=(e)=>{
       {selfAssessment && <StudentSelftAssessment />}
       {showActivitiesLogForm && <ClinicalRotationForm />}
       {showClinicalRoations&&<Clinicals/>}
+      {showStudentList&&<StudentsList/>}
     </>
   );
 }

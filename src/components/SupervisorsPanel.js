@@ -136,7 +136,7 @@ const SupervisorsPanel = () => {
           <label htmlFor="address" className="form-label">Address:</label>
           <input type="text" id="address" className="form-control" value={address} onChange={handleAddressChange} />
         </div>
-        <button type="submit" className="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-dark">Register</button>
       </form>)}
       {showEvaluationPage&&(<EvaluationList/>)}
       {showAssessmentPage&&(<SupervisorAssessment/>)}
