@@ -255,8 +255,9 @@ app.get("/searchClinicalRotations/:id", (req, res) => {
   const query = `SELECT *, clinical_rotations.id, rotation_area_id, start_date, end_date, student_id, rotation_areas.area_name, 
     CASE
       WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' 
-      WHEN clinical_rotations.start_date <= CURDATE() AND clinical_rotations.end_date >= CURDATE() THEN 'In Progress' 
-      ELSE 'Incomplete' 
+      WHEN clinical_rotations.start_date <= CURDATE() AND 
+      clinical_rotations.end_date >= CURDATE() THEN 'In Progress' 
+      ELSE 'Pending' 
     END AS status 
     FROM clinical_rotations 
     INNER JOIN rotation_areas ON clinical_rotations.rotation_area_id = rotation_areas.id 

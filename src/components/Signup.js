@@ -5,6 +5,7 @@ import * as bootstrap from "bootstrap";
 function Signup() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(true);
+  const [showSuccessMessage, setShowSuccessMessage] = useState("");
   function handleLogin() {
     setShowLoginForm(true);
     setShowSignUpForm(false);
@@ -32,21 +33,12 @@ function Signup() {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        setShowSuccessMessage("You have successfully signed up");
         return response.json();
       })
       .then((data) => {
         console.log(data.message);
         if (data) {
-          const form = document.querySelector("form");
-          form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            // Your form submission code here
-            // Show the success modal
-            const successModal = new bootstrap.Modal(
-              document.getElementById("successModal")
-            );
-            successModal.show();
-          });
         }
       })
       .catch((error) => {
@@ -69,6 +61,9 @@ function Signup() {
                   </h4>
                 </div>
                 <div className="card-body">
+                  {showSuccessMessage && (
+                    <h6 className="text-success">{showSuccessMessage}</h6>
+                  )}
                   <div className="form-group">
                     <label htmlFor="firstName">
                       <i className="fas fa-user"></i> First Name:

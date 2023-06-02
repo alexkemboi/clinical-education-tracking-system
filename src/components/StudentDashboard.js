@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import LoginPage from "../LoginPage";
 import StudentRegistratiion from "./StudentRegistration";
-import Dashboard from "./Dashboard";
 const StudentDashboard = () => {
   const [showHome, setShowHome] = useState(true);
   const [showStudentPortal, setShowStudentPortal] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showStudentDashboard, setShowStudentDashboard] = useState(true);
+  const [showSupervisorDashboard, setShowSupervisorDashboard] = useState(false);
   const handleShowHome = () => {
     setShowHome(true);
     setShowStudentPortal(false);
@@ -21,6 +21,13 @@ const StudentDashboard = () => {
     setShowHome(false);
     setShowStudentPortal(false);
     setShowLogin(true);
+    setShowStudentDashboard(false);
+  };
+  const handleShowSuperisorPortal = () => {
+    setShowSupervisorDashboard(true);
+    setShowHome(false);
+    setShowStudentPortal(false);
+    setShowLogin(false);
     setShowStudentDashboard(false);
   };
   return (
@@ -64,7 +71,16 @@ const StudentDashboard = () => {
                             href="#"
                             onClick={handleShowStudentPortal}
                           >
-                            Student portal
+                            Student
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className="nav-link text-light"
+                            href="#"
+                            onClick={handleShowSuperisorPortal}
+                          >
+                            supervisor
                           </a>
                         </li>
                         <li className="nav-item">
@@ -85,35 +101,53 @@ const StudentDashboard = () => {
             <div className="card-body">
               {showHome && (
                 <div>
-                  <section class="hero bg-light text-warning py-5">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <p class="lead">
-                            Effortlessly manage and track clinical rotations for
-                            healthcare education.
-                          </p>
-                          <a href="#" class="btn btn-light btn-lg">
-                            Get Started
-                          </a>
+                  <section className="hero bg-light text-dark py-5">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <div className="feature">
+                            <i className="fas fa-file"></i>
+                            <p className="lead">
+                              Effortlessly manage and track clinical rotations
+                              for healthcare education.
+                            </p>
+                          </div>
+                          <div className="feature">
+                            <i className="fas fa-calendar-check text-center"></i>
+                            <h4>Manage Rotations</h4>
+                            <p>
+                              Efficiently manage and schedule clinical rotations
+                              for students or trainees.
+                            </p>
+                          </div>
+                          <div className="feature">
+                            <i className="fas fa-file"></i>
+                            <h4>Generate Reports</h4>
+                            <p>
+                              Generate comprehensive reports on student
+                              performance and rotation history.
+                            </p>
+                          </div>
                         </div>
-                        <div class="col-6">
-                          <img
-                            src="./images/fx1_Irg.jpg"
-                            alt=".."
-                            class="img-fluid"
-                          />
+                        <div className="col-lg-6">
+                          <a href="#" target="_blank" rel="noopener noreferrer">
+                            <img
+                              alt="Clinical System Homepage"
+                              src="https://images.unsplash.com/photo-1576671081837-49000212a370?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1lZGljYWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                              className="img-fluid rounded"
+                            />
+                          </a>
                         </div>
                       </div>
                     </div>
                   </section>
 
-                  <section class="features py-5">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="feature">
-                            <i class="bi bi-calendar-check"></i>
+                  {/* <section className="features py-5">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-4">
+                          <div className="feature">
+                            <i className="bi bi-calendar-check"></i>
                             <h4>Manage Rotations</h4>
                             <p>
                               Efficiently manage and schedule clinical rotations
@@ -121,9 +155,9 @@ const StudentDashboard = () => {
                             </p>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="feature">
-                            <i class="bi bi-person-lines-fill"></i>
+                        <div className="col-lg-4">
+                          <div className="feature">
+                            <i className="bi bi-person-lines-fill"></i>
                             <h4>Track Attendance</h4>
                             <p>
                               Track attendance and hours spent by students
@@ -131,9 +165,9 @@ const StudentDashboard = () => {
                             </p>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="feature">
-                            <i class="bi bi-file-earmark-text"></i>
+                        <div className="col-lg-4">
+                          <div className="feature">
+                            <i className="bi bi-file-earmark-text"></i>
                             <h4>Generate Reports</h4>
                             <p>
                               Generate comprehensive reports on student
@@ -143,15 +177,15 @@ const StudentDashboard = () => {
                         </div>
                       </div>
                     </div>
-                  </section>
+                  </section> */}
                 </div>
               )}
               {/* {<LoginPage />} */}
               {showStudentPortal && <StudentRegistratiion />}
             </div>
             <div className="card-footer bg-warning">
-              <footer class="footer  py-4">
-                <div class="container text-center">
+              <footer className="footer  py-4">
+                <div className="container text-center">
                   <span>
                     &copy; 2023 Clinical Education Rotations Tracking System.
                     All rights reserved.
