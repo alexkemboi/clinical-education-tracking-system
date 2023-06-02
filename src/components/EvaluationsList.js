@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 const EvaluationList = () => {
   const [evaluations, setEvaluations] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [evaluationsPerPage] = useState(10);
+  const [evaluationsPerPage] = useState(20);
 
   useEffect(() => {
     fetch("http://localhost:3001/evaluations")

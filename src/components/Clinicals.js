@@ -90,8 +90,8 @@ function Clinicals() {
       {" "}
       <div className="row">
         <div className="col-12">
-          <div className="bg-dark rounded">
-            <h6 className="text-light">Clinical rotations</h6>
+          <div className=" rounded mt-1">
+            <h6 className="text-dark">Clinical rotations</h6>
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ function Clinicals() {
                 } text-center`}
                 onClick={() => setCurrentPage(index + 1)}
               >
-                <button className="page-link text-center btn-sm">
+                <button className="page-link text-center btn-sm bg-warning text-dark m-1 border-warning">
                   {index + 1}
                 </button>
               </li>

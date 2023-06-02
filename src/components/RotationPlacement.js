@@ -37,6 +37,7 @@ function RotationPlacement() {
     let studentPhone='';
     let studentFirstName='';
     let studentRotationName='';
+    let location='';
     e.preventDefault();
     console.log(personalInformation[0]);
     console.log(rotationAreas[0]);    
@@ -44,14 +45,15 @@ function RotationPlacement() {
     for(let i=0;i<personalInformation.length;i++){
       if(personalInformation[i].id==studentId){
       studentPhone=personalInformation[i].phone_number;
-      studentFirstName=personalInformation[i].firstName
+      studentFirstName=personalInformation[i].firstName;
+  
         
       }
     }
     for(let i=0;i<rotationAreas.length;i++){
       if(rotationAreas[i].id==rotationAreaId){
         studentRotationName=rotationAreas[i].area_name;
-        
+        location=rotationAreas[i].location;
       }
     }
     const data = {
@@ -88,7 +90,7 @@ function RotationPlacement() {
     } catch (error) {
       console.log("Error:", error);
     }
-    sendSms(studentPhone,studentFirstName, studentRotationName, endRotationDate, startRotationDate);
+    sendSms(studentPhone,studentFirstName, studentRotationName, endRotationDate, startRotationDate,location);
   };
 
   const sendSms = async (
@@ -96,13 +98,14 @@ function RotationPlacement() {
     studentFirstName,
     studentRotationName,
     endRotationDate,
-    startRotationDate
+    startRotationDate,
+    location
   ) => {   
 
     const smsData = {
       phone: phone,
       studentRotationName: studentRotationName,
-      message: `Hi ${studentFirstName} you have been placed in the ${studentRotationName} rotation area from ${startRotationDate} to ${endRotationDate}.Thank you`,
+      message: `Hi ${studentFirstName.toUpperCase()} you have been placed in the ${studentRotationName.toUpperCase()} rotation area located in ${location.toUpperCase()} from ${startRotationDate} to ${endRotationDate}.Thank you`,
     };
     try {
       const response = await fetch("http://localhost:3001/SendSms", {

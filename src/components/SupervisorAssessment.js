@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 function SupervisorAssessment() {
   const [successMessage, setSuccessMessage] = useState("");
+  const [personalInformation, setPersonalInformation] = useState([]);
+  const [rotationAreas, setRotationAreas] = useState([])
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // Get form data
     const formData = new FormData(event.currentTarget);
     const evaluationData = Object.fromEntries(formData.entries());
     console.log(evaluationData);
+   ;
     // Send POST request to server
     fetch("http://localhost:3001/insertClinicalEvaluationData", {
       method: "POST",
@@ -30,6 +33,31 @@ function SupervisorAssessment() {
         setSuccessMessage("Error while evaluating");
       });
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const personalInfoResponse = await fetch(
+          "http://localhost:3001/selectPersonalInformation"
+        );
+        const personalInfoData = await personalInfoResponse.json();
+        setPersonalInformation(personalInfoData);
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const rotationAreasResponse = await fetch(
+          "http://localhost:3001/selectRotationAreas"
+        );
+        const rotationAreasData = await rotationAreasResponse.json();
+        setRotationAreas(rotationAreasData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -59,26 +87,50 @@ function SupervisorAssessment() {
                   <div className="col-6">
                     <div className="form-group">
                       <label htmlFor="rotation">Rotation Id:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="rotationId"
-                        name="rotationId"
-                        required
-                      />
+                      <select
+                  className="form-control"
+                  id="rotationId"
+                  name="rotationId"
+                 required
+                >
+                  {rotationAreas.length === 0 ? (
+                    <option>Loading ...</option>
+                  ) : (
+                    rotationAreas.map((rotationAreaData) => (
+                      <option
+                        key={rotationAreaData.id}
+                        value={rotationAreaData.id}
+                      >
+                        {rotationAreaData.id + " " + rotationAreaData.area_name}
+                      </option>
+                    ))
+                  )}
+                </select>
                     </div>
                   </div>
                   <div className="col-6">
                     <div className="form-group">
                       <label htmlFor="studentName">Student Id:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="studentId"
-                        name="studentId"
-                        placeholder="e.g 1"
-                        required
-                      />
+                      <select
+                  className="form-control mb-2"
+                  id="studentId"
+                  name="studentId"
+                  required
+                >
+                  {personalInformation.length === 0 ? (
+                    <option>Loading...</option>
+                  ) : (
+                    personalInformation.map((studentIdData) => (
+                      <option value={studentIdData.id} key={studentIdData.id}>
+                        {studentIdData.id +
+                          " " +
+                          studentIdData.firstName +
+                          " " +
+                          studentIdData.secondName}
+                      </option>
+                    ))
+                  )}
+                </select>
                     </div>
                   </div>
                 </div>
@@ -135,7 +187,7 @@ function SupervisorAssessment() {
                   </div>
                   <div className="col-4">
                     <div className="form-group">
-                      <label htmlFor="supervisorName">Your Name:</label>
+                      <label htmlFor="supervisorName">Supervisors Id</label>
                       <input
                         type="text"
                         className="form-control"

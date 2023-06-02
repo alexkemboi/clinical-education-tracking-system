@@ -122,6 +122,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
     setShowStudentList(false);
+    setShowStudentResults(false);
 }
   const handleShowPersonalInformation = () => {
     setShowClinicalRotations(false);
@@ -132,6 +133,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
     setShowStudentList(false);
+    setShowStudentResults(false);
   };
   const handleShowEducationalInformation = () => {
     setShowEducationalInformation(true);
@@ -149,6 +151,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowActivitiesLogForm(false);
     setShowAdditionalInformation(false);
     setShowSelfAssessment(false);
+    setShowStudentResults(false);
   };
   const handleShowAdditionalInformation = () => {
     setShowAdditionalInformation(true);
@@ -167,6 +170,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowSelfAssessment(true);
     setShowActivitiesLogForm(false);
     setShowStudentList(false);
+    setShowStudentResults(false);
   };
   const handleShowActivitiesLogForm = () => {
     setShowAdditionalInformation(false);
@@ -175,6 +179,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowEmergencyInformation(false);
     setShowSelfAssessment(false);
     setShowActivitiesLogForm(true);
+    setShowStudentResults(false);
   };
   const handleShowStudentList = () => {
     setShowAdditionalInformation(false);
@@ -185,6 +190,7 @@ const handleShowClinicalRoations=(e)=>{
     setShowActivitiesLogForm(false);
     setShowStudentList(true);
     setShowClinicalRotations(false);
+    setShowStudentResults(false);
   };
   const handleShowStudentResults=()=>{
     setShowAdditionalInformation(false);

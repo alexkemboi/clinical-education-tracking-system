@@ -2,22 +2,29 @@ import React, { useState } from "react";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import "./components/styles/Login.css";
+import StudentDashboard from "./components/StudentDashboard";
 export let userName = "Daniel MOI";
 
 const LoginPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
+  const [userType,setUserType]=useState();
+  const [showStudentDashboard ,setShowStudentDashboard]=useState(false)
 
   function handleSignupClick() {
     setShowSignUpForm(true);
     setShowLoginForm(false);
     setShowDashboard(false);
   }
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
+  };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   function handleLogin(e) {
+    console.log(userType);
     e.preventDefault();
     fetch(
       `http://localhost:3001/usersDetails?email=${email}&password=${password}`,
@@ -34,8 +41,13 @@ const LoginPage = () => {
           console.log(data[0].email);
           userName = data[0].firstName + " " + data[0].secondName;
           console.log(userName);
-          setShowDashboard(true);
-          setShowLoginForm(false);
+          if(userType==1){
+            setShowDashboard(true);
+            setShowLoginForm(false);
+          }else if(userType=='2'){
+            setShowStudentDashboard(true);
+            setShowLoginForm(false);
+          }
         } else {
           setErrorMessage("Invalid Password or username");
           setShowDashboard(false);
@@ -71,6 +83,21 @@ const LoginPage = () => {
                         </h6>
                       </div>
                     )}
+                    <div className="form-group">
+                      <label htmlFor="user">User</label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-user"></i>
+                          </span>
+                        </div>
+                        <select className="form-control" value={userType} onChange={handleUserTypeChange}>
+                          <option value="1" key="1" >Administrator</option>
+                          <option value="2" key="2" >Student</option>
+                          <option value="2" key="3" >Supervisor</option>
+                        </select>
+                      </div>
+                    </div>
                     <div className="form-group">
                       <label htmlFor="email">Email</label>
                       <div className="input-group">
@@ -139,8 +166,8 @@ const LoginPage = () => {
         </div>
       )}
       {showSignUpForm && <Signup />}
-      {showDashboard && <Dashboard />}
-      {/* {showDashboard && <SelfAssessment />} */}
+      {showDashboard&&<Dashboard />}
+      {showStudentDashboard && <StudentDashboard />}
     </>
   );
 };

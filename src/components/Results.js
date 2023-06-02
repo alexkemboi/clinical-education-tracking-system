@@ -1,14 +1,7 @@
 import React, { useEffect,useState } from 'react';
-import { Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 const Results = () => {
-    // const studentData = [
-    //   { id: 1, name: 'John', grade: 80 },
-    //   { id: 2, name: 'Sarah', grade: 65 },
-    //   { id: 3, name: 'Michael', grade: 95 },
-    //   { id: 4, name: 'Emily', grade: 55 },
-    // ];
   const [studentData,setStudentData]=useState([]);
     const getGradeStatus = (grade) => {
       return grade == "Passed"? (
@@ -17,24 +10,26 @@ const Results = () => {
         <FontAwesomeIcon icon={faTimesCircle} className="text-danger" />
       );
     };
-    useEffect(()=>{
-        fetch('http://localhost:3001/results')
+    useEffect( ()=>{
+      const fetchData=async ()=>{
+       await fetch('http://localhost:3001/results')
   .then(response => response.json())
   .then(data => {
     // Process the data received from the API
-    console.log(data);
+    //console.log(data);
     setStudentData(data);
   })
   .catch(error => {
     // Handle any errors that occur during the request
     console.error(error);
   });
+      }
+      fetchData();
 
-
-    });
+    },[]);
     return (
       <div>
-        <h2>Results</h2>
+        <h5>Results</h5>
         <table className="table striped bordered hover">
           <thead className="thead">
             <tr>

@@ -6,8 +6,9 @@ const StudentsList = () => {
   const [students, setStudents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsPerPage] = useState(10); 
-  useEffect(() => {
-    fetch("http://localhost:3001/personal_information")
+  useEffect( () => {
+    const fetchStudentData=async ()=>{
+  await  fetch("http://localhost:3001/personal_information")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -15,7 +16,8 @@ const StudentsList = () => {
       })
       .catch((error) => {
         console.error(error);
-      });
+      });}
+      fetchStudentData();
   }, []);
   // Get current students
   const indexOfLastStudent = currentPage * studentsPerPage;
