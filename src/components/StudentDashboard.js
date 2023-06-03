@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import LoginPage from "../LoginPage";
 import StudentRegistratiion from "./StudentRegistration";
 import SupervisorsPanel from "./SupervisorsPanel";
+import { userName, systemUserType } from "../LoginPage";
 const StudentDashboard = () => {
   const [showHome, setShowHome] = useState(true);
   const [showStudentPortal, setShowStudentPortal] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showStudentDashboard, setShowStudentDashboard] = useState(true);
   const [showSupervisorDashboard, setShowSupervisorDashboard] = useState(false);
+  const [showLogoContainer, setShowLogoContainer] = useState(false);
+
+  const handleMouseOver = () => {
+    setShowLogoContainer(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowLogoContainer(false);
+  };
   const handleShowHome = () => {
     setShowHome(true);
     setShowStudentPortal(false);
@@ -67,32 +77,57 @@ const StudentDashboard = () => {
                             Home
                           </a>
                         </li>
-                        <li className="nav-item">
-                          <a
-                            className="nav-link text-light"
-                            href="#"
-                            onClick={handleShowStudentPortal}
-                          >
-                            Student
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className="nav-link text-light"
-                            href="#"
-                            onClick={handleShowSuperisorPortal}
-                          >
-                            supervisor
-                          </a>
-                        </li>
-                        <li className="nav-item">
+                        {systemUserType === "2" ? (
+                          <li className="nav-item">
+                            <a
+                              className="nav-link text-light"
+                              href="#"
+                              onClick={handleShowStudentPortal}
+                            >
+                              Student
+                            </a>
+                          </li>
+                        ) : null}
+                        {systemUserType === "3" ? (
+                          <li className="nav-item">
+                            <a
+                              className="nav-link text-light"
+                              href="#"
+                              onClick={handleShowSuperisorPortal}
+                            >
+                              Supervisor
+                            </a>
+                          </li>
+                        ) : null}
+                        <li
+                          className="nav-item"
+                          onMouseOver={handleMouseOver}
+                          onMouseLeave={handleMouseLeave}
+                        >
                           <a
                             className="nav-link text-light"
                             href="#"
                             onClick={handleshowLogin}
                           >
-                            Login
+                            <i className="fas fa-user text-warning mr-1"></i>
+                            Account
                           </a>
+                          {showLogoContainer && (
+                            <div className="container bg-warning">
+                              <ul>
+                                {userName !== "" ? <li>{userName}</li> : null}
+                                <li>
+                                  <a
+                                    className="nav-link text-dark"
+                                    href="#"
+                                    onClick={handleshowLogin}
+                                  >
+                                    {userName !== "" ? "Log out" : "Login"}
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          )}
                         </li>
                       </ul>
                     </div>
@@ -109,7 +144,7 @@ const StudentDashboard = () => {
                         <div className="col-lg-6">
                           <div className="feature">
                             <i className="fas fa-file"></i>
-                              <h4>Track and Manage Rotations</h4>
+                            <h4>Track and Manage Rotations</h4>
                             <p>
                               Effortlessly manage and track clinical rotations
                               for healthcare education.
@@ -143,11 +178,11 @@ const StudentDashboard = () => {
                         </div>
                       </div>
                     </div>
-                  </section>                 
+                  </section>
                 </div>
               )}
               {showStudentPortal && <StudentRegistratiion />}
-              {showSupervisorDashboard&&<SupervisorsPanel/>}
+              {showSupervisorDashboard && <SupervisorsPanel />}
             </div>
             <div className="card-footer bg-warning">
               <footer className="footer  py-4">

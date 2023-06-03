@@ -5,9 +5,9 @@ import ClinicalManagement from "./ClinicalManagement";
 import Home from "./Home";
 import Clinicals from "./Clinicals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { userName } from "../LoginPage";
+import { userName, systemUserType } from "../LoginPage";
 import StudentDashboard from "./StudentDashboard";
-import StudentRegistratiion from './StudentRegistration';
+import StudentRegistratiion from "./StudentRegistration";
 
 function Dashboard() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -16,7 +16,18 @@ function Dashboard() {
   const [showClinicalManagement, setShowClinicalManagement] = useState(false);
   const [showHome, setShowHome] = useState(false);
   const [showClinicals, setShowClinicals] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
   const [showStudentDashboard, setShowStudentDashboard] = useState(false);
+  const [showLogoContainer, setShowLogoContainer] = useState(false);
+
+  const handleMouseOver = () => {
+    setShowLogoContainer(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowLogoContainer(false);
+  };
+
   const handleShowStudentDashboard = () => {
     setShowStudentDashboard(true);
     setShowDashboard(false);
@@ -54,7 +65,11 @@ function Dashboard() {
     setShowClinicals(true);
     setShowHome(false);
   }
-
+  const handleshowLogin = () => {
+    setShowStudentPortal(false);
+    setShowLogin(true);
+    setShowStudentDashboard(false);
+  };
   return (
     <>
       {showDashboard && (
@@ -72,9 +87,29 @@ function Dashboard() {
                   </div>
                   <div className="col-4"></div>
                   <div className="col-2">
-                    <div className="user-profile text-left">
-                      <i className="fas fa-user text-warning mr-1 "></i>
-                      <span className="username">{userName.toUpperCase()}</span>
+                    <div
+                      className="nav-item"
+                      onMouseOver={handleMouseOver}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <a className="nav-link text-light" href="#">
+                        <i className="fas fa-user text-warning mr-1"></i>
+                        Account
+                      </a>
+                      {showLogoContainer && (
+                        <div className="container bg-warning">
+                          <div>
+                            {userName !== "" ? (
+                              <h6 className="text-dark">
+                                {userName.toUpperCase}
+                              </h6>
+                            ) : null}
+                            <h6 className="text-dark" onClick={handleLogout}>
+                              {userName !== "" ? "Log out" : "Login"}
+                            </h6>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -137,7 +172,7 @@ function Dashboard() {
                               {showHome && <Home />}
                               {showClinicals && <Clinicals />}
                               {showClinicalManagement && <ClinicalManagement />}
-                              {showStudentForm&&<StudentRegistratiion/>}
+                              {showStudentForm && <StudentRegistratiion />}
                             </div>
                           </div>
                         </div>
