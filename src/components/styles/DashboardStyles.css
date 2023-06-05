@@ -5,9 +5,9 @@ body, html{
   
   /* Style the sidebar */
   .sidebar .working-area-content {
-    height:90%;
-    max-height:auto;
-    position:relative;
+    height:100%;
+    max-height:100%;
+    position:absolute;
   }
 /* Style the links inside the sidebar */
   .sidebar a {
@@ -67,7 +67,7 @@ body, html{
     color: #fff;
   }
   .title-bar {
-    height: 30px; /* Adjust the height as desired */
+    height: auto; /* Adjust the height as desired */
   }
   
 

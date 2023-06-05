@@ -246,12 +246,13 @@ app.post("/educationalInformation", (req, res) => {
   );
 });
 
-app.get('/results', (req, res) => {
+app.get('/results/:id', (req, res) => {
+  const id = req.params.id;
   const query = `SELECT pi.Id, pi.firstName, pi.secondName,
-    CASE WHEN SUM(e.rating) > 50 THEN 'Passed' ELSE 'Failed' END AS grade
-    FROM personal_information pi
-    JOIN evaluation e ON e.studentId = pi.id
-    GROUP BY pi.firstName`;
+  SUM(e.rating) as totalMarks ,
+  CASE WHEN SUM(e.rating) > 50 THEN 'Passed' ELSE 'Failed' END AS grade 
+  FROM personal_information pi JOIN evaluation e ON e.studentId = pi.id 
+  WHERE pi.Id=${id} GROUP BY pi.firstName;`;
 
   connection.query(query, (err, results) => {
     if (err) {
@@ -287,7 +288,7 @@ app.post("/emergencyInformation", (req, res) => {
 
 app.get("/usersDetails", (req, res) => {
   const query =
-    "SELECT firstName, secondName, email,password FROM users WHERE email=? AND password=?";
+    "SELECT id,firstName, secondName FROM personal_information WHERE email=? AND password=?";
   const email = req.query.email;
   const password = req.query.password; // Assuming you will pass the user id as a query parameter
   console.log(email);
@@ -377,20 +378,10 @@ app.get("/searchClinicalRotations/:id", (req, res) => {
 });
 
 // route to select the records from clinicals_rotation
-app.get("/clinical_rotations", (req, res) => {
-  const query = `SELECT *,clinical_rotations.id, rotation_area_id, start_date, end_date, student_id,rotation_areas.area_name, 
-                  CASE WHEN clinical_rotations.end_date < CURDATE() 
-                  THEN 'Completed' 
-                  WHEN clinical_rotations.start_date <= CURDATE() 
-                  AND clinical_rotations.end_date >= CURDATE() 
-                  THEN 'In Progress' 
-                  ELSE 'Incomplete' 
-                  END AS status 
-                  FROM clinical_rotations 
-                  INNER JOIN rotation_areas 
-                  ON clinical_rotations.rotation_area_id = rotation_areas.id 
-                  INNER JOIN personal_information 
-                  ON clinical_rotations.student_id=personal_information.id`;
+app.get("/clinical_rotations/:id", (req, res) => {
+    const id = req.params.id;
+  const query = `SELECT personal_information.firstName,personal_information.secondName,clinical_rotations.id, rotation_area_id, start_date, end_date, student_id,rotation_areas.area_name, CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' WHEN clinical_rotations.start_date <= CURDATE() AND clinical_rotations.end_date >= CURDATE() THEN 'In Progress' ELSE 'Incomplete' END AS status FROM clinical_rotations INNER JOIN rotation_areas ON clinical_rotations.rotation_area_id = rotation_areas.id INNER JOIN personal_information 
+  ON clinical_rotations.student_id=personal_information.id WHERE personal_information.id=${id}`;
 
   connection.query(query, (error, results) => {
     if (error) {

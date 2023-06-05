@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import "./components/styles/Login.css";
 import StudentDashboard from "./components/StudentDashboard";
 export let userName = "";
+export  let studentIdNumber="";
 export let systemUserType = "";
 
 const LoginPage = () => {
@@ -40,22 +41,26 @@ const LoginPage = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.length > 0) {
-          console.log(data[0].email);
+          console.log(data[0].id);
 
           if (userType !== undefined) {
             if (userType == 1) {
               setShowDashboard(true);
               setShowLoginForm(false);
               userName = data[0].firstName + " " + data[0].secondName;
-              console.log(userName);
+              studentIdNumber=data[0].id;
+              console.log(data);
+              console.log(studentIdNumber)
             } else if (userType == "2" ||userType == "3") {
               setShowStudentDashboard(true);
               userName = data[0].firstName + " " + data[0].secondName;
               console.log(userName);
+              studentIdNumber=data[0].id;
               setShowLoginForm(false);
             }
           } else {
             userName = data[0].firstName + " " + data[0].secondName;
+            studentIdNumber=data[0].id;
             setErrorMessage("Invalid Password or username");
             setShowDashboard(false);
             //setShowLoginForm(true);

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { studentIdNumber } from "../LoginPage";
 function Clinicals() {
   const [clinicalRotations, setClinicalRotations] = useState([]);
   const [message, setMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   useEffect(() => {
-    fetch("http://localhost:3001/clinical_rotations")
+    fetch(`http://localhost:3001/clinical_rotations/${studentIdNumber}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

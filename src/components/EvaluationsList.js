@@ -7,27 +7,23 @@ import {
   Document,
   StyleSheet,
 } from "@react-pdf/renderer";
-
-import html2pdf from "html2pdf.js";
-import jsPDF from "jspdf";
-import Pagination from "./Pagination";
-
+import Pagination from 'react-js-pagination';
 const EvaluationList = () => {
   const [evaluations, setEvaluations] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [evaluationsPerPage] = useState(20);
   const evaluationTable = useRef(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [evaluationsPerPage] = useState(10); // Number of evaluations to show per page
 
-  const downloadAsPDF = () => {
-    console.log("working");
-    const table = evaluationTable.current;
-    const pdf = new jsPDF("p", "pt", "letter");
+  // Logic to determine the evaluations to display on the current page
+  const indexOfLastEvaluation = currentPage * evaluationsPerPage;
+  const indexOfFirstEvaluation = indexOfLastEvaluation - evaluationsPerPage;
+  const currentEvaluations = evaluations.slice(indexOfFirstEvaluation, indexOfLastEvaluation);
 
-    html2pdf()
-      .set({ jsPDF: pdf, html2canvas: window.html2canvas })
-      .from(table)
-      .save("table_data.pdf");
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
+
 
   useEffect(() => {
     fetch("http://localhost:3001/evaluations")
@@ -41,30 +37,107 @@ const EvaluationList = () => {
       });
   }, []);
 
-  // Get current evaluations
-  const indexOfLastEvaluation = currentPage * evaluationsPerPage;
-  const indexOfFirstEvaluation = indexOfLastEvaluation - evaluationsPerPage;
-  const currentEvaluations = evaluations.slice(
-    indexOfFirstEvaluation,
-    indexOfLastEvaluation
-  );
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  
   const PDFDocument = () => (
     <Document>
-      <Page>
-        <View style={styles.page}>
-          <Text>Table data goes here</Text>
+    <Page size="A4" style={styles.page}  >
+      <View style={styles.table} className="table table-bordered table-striped">
+        <View style={[styles.tableRow, styles.tableHeader]} className="thead-dark">
+          <View style={styles.tableCell}>
+            <Text>Rotation ID</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Student ID</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Supervisor ID</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Time In</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Time Out</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Feedback</Text>
+          </View>
+          <View style={styles.tableCell}>
+            <Text>Rating</Text>
+          </View>
         </View>
-      </Page>
-    </Document>
+
+        {evaluations.map((evaluation) => (
+          <View style={styles.tableRow} key={evaluation.evaluationId}>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.rotationId}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.studentId}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.supervisorId}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.timeIn}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.timeOut}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.feedback}</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>{evaluation.rating}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    </Page>
+  </Document>
   );
+  
+  // ...
+  
+  // Define the styles for your PDF document
   const styles = StyleSheet.create({
     page: {
-      fontFamily: "Helvetica",
-      padding: 30,
+      fontFamily: 'Helvetica',
+      fontSize: 12,
+      paddingTop: 30,
+      paddingLeft: 30,
+      paddingRight: 30,
+      paddingBottom: 30,
+    },
+    table: {
+      display: 'table',
+      width: '100%',
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#000',
+      marginBottom: 10,
+    },
+    tableRow: {
+      flexDirection: 'row',
+      borderBottomColor: '#000',
+      borderBottomWidth: 1,
+    },
+    tableHeader: {
+      backgroundColor: '#f0f0f0',
+      fontWeight: 'bold',
+    },
+    tableCell: {
+      margin: 'auto',
+      marginTop: 5,
+      marginBottom: 5,
+      // borderWidth: 1,
+      // borderColor: '#000',
+      padding: 5,
+      flex: 1,
     },
   });
+
+  
 
   return (
     <div className="container">
@@ -87,12 +160,14 @@ const EvaluationList = () => {
           </div>
         </div>
         <div className="col-4">
-          <button className="form-control bg-success" onClick={downloadAsPDF}>
-            Download PDF
-          </button>
+          <PDFDownloadLink document={<PDFDocument />} fileName="table_data.pdf" className="form-control bg-success">
+          {({ blob, url, loading, error }) =>
+            loading ? "Generating PDF..." : "Download PDF"
+          }
+        </PDFDownloadLink>
         </div>
       </div>
-      <div className="table-responsive">
+      <div className="table-responsive text-center">
         <table
           ref={evaluationTable}
           className="table table-bordered table-striped"
@@ -125,18 +200,18 @@ const EvaluationList = () => {
               </tr>
             ))}
           </tbody>
-        </table>
-        <PDFDownloadLink document={<PDFDocument />} fileName="table_data.pdf">
-          {({ blob, url, loading, error }) =>
-            loading ? "Generating PDF..." : "Download PDF"
-          }
-        </PDFDownloadLink>
+        </table>  
+        <Pagination 
+        className="text-center"
+        activePage={currentPage}
+        itemsCountPerPage={evaluationsPerPage}
+        totalItemsCount={evaluations.length}
+        pageRangeDisplayed={5} // Number of page links to display
+        onChange={handlePageChange}
+        itemClass="page-item"
+        linkClass="page-link"
+      />     
       </div>
-      <Pagination
-        evaluationsPerPage={evaluationsPerPage}
-        totalEvaluations={evaluations.length}
-        paginate={paginate}
-      />
     </div>
   );
 };

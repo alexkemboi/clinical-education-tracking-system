@@ -97,18 +97,16 @@ function Dashboard() {
                         Account
                       </a>
                       {showLogoContainer && (
-                        <div className="container bg-warning">
-                          <div>
-                            {userName !== "" ? (
+                          <div className="container bg-warning">
+                           
                               <h6 className="text-dark">
-                                {userName.toUpperCase}
+                              {userName !== "" ? userName : null}
                               </h6>
-                            ) : null}
+                           
                             <h6 className="text-dark" onClick={handleLogout}>
                               {userName !== "" ? "Log out" : "Login"}
                             </h6>
                           </div>
-                        </div>
                       )}
                     </div>
                   </div>

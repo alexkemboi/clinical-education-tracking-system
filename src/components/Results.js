@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { studentIdNumber } from '../LoginPage';
 const Results = () => {
   const [studentData,setStudentData]=useState([]);
     const getGradeStatus = (grade) => {
@@ -12,7 +13,7 @@ const Results = () => {
     };
     useEffect( ()=>{
       const fetchData=async ()=>{
-       await fetch('http://localhost:3001/results')
+       await fetch(`http://localhost:3001/results/${studentIdNumber}`)
   .then(response => response.json())
   .then(data => {
     // Process the data received from the API
@@ -35,6 +36,7 @@ const Results = () => {
             <tr>
               <th>Student ID</th>
               <th>Name</th>
+              <th>Total Marks</th>
               <th>Grade</th>
               <th>Status</th>
             </tr>
@@ -44,6 +46,7 @@ const Results = () => {
               <tr key={student.Id}>
                 <td>{student.Id}</td>
                 <td>{student.firstName +" "+student.secondName}</td>
+                <td>{student.totalMarks}</td>
                 <td>{student.grade}</td>
                 <td>{getGradeStatus(student.grade)}</td>
               </tr>
