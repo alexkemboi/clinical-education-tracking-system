@@ -50,7 +50,7 @@ function Signup() {
     <>
       {showSignUpForm && (
         <div className="row">
-          <div className="col-4 m-auto">
+          <div className="col-6 m-auto">
             <form className="container">
               <div className="card">
                 <div className="card-header bg-dark text-white text-center">
@@ -64,7 +64,9 @@ function Signup() {
                   {showSuccessMessage && (
                     <h6 className="text-success">{showSuccessMessage}</h6>
                   )}
-                  <div className="form-group">
+                  <div className="row">
+                    <div className="col-6">
+                    <div className="form-group">
                     <label htmlFor="firstName">
                       <i className="fas fa-user"></i> First Name:
                     </label>
@@ -76,6 +78,10 @@ function Signup() {
                       required
                     />
                   </div>
+
+                    </div>
+                    <div className="col-6">
+                    
                   <div className="form-group">
                     <label htmlFor="secondName">
                       <i className="fas fa-user"></i> Second Name:
@@ -88,6 +94,39 @@ function Signup() {
                       required
                     />
                   </div>
+                      </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-6">
+                    <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" class="form-control" id="dob" placeholder="Enter your date of birth"/>
+          </div>
+
+                    </div>
+                    <div className="col-6">
+                    <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select class="form-control" id="gender">
+              <option value="">Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+                      </div>
+                  </div>
+                 
+                
+         
+          <div class="form-group">
+            <label for="address">Postal Address:</label>
+            <textarea class="form-control" id="address" placeholder="Enter your postal address" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"/>
+          </div>
                   <div className="form-group">
                     <label htmlFor="email">
                       <i className="fas fa-envelope"></i> Email:
@@ -100,7 +139,9 @@ function Signup() {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="row">
+                    <div className="col-6">
+                    <div className="form-group">
                     <label htmlFor="password">
                       <i className="fas fa-lock"></i> Password:
                     </label>
@@ -112,7 +153,10 @@ function Signup() {
                       required
                     />
                   </div>
-                  <div className="form-group">
+
+                    </div>
+                    <div className="col-6">
+                    <div className="form-group">
                     <label htmlFor="confirm-password">
                       <i className="fas fa-lock"></i> Confirm Password:
                     </label>
@@ -124,6 +168,12 @@ function Signup() {
                       required
                     />
                   </div>
+                      
+                      </div>
+                  </div>
+                 
+                 
+               
                   <div className="form-group form-check">
                     <input
                       type="checkbox"
@@ -145,12 +195,12 @@ function Signup() {
                   </button>
                   <div>
                     <div className="row mt-4">
-                      <div className="col-8">
+                      <div className="col-6">
                         <p className="text-danger">Already registered?</p>
                       </div>
-                      <div className="col-4">
+                      <div className="col-6">
                         <button
-                          className="btn btn-warning"
+                          className="btn btn-warning mr-2"
                           onClick={handleLogin}
                         >
                           Back to login
