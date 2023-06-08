@@ -49,8 +49,8 @@ const LoginPage = () => {
               setShowLoginForm(false);
               userName = data[0].firstName + " " + data[0].secondName;
               studentIdNumber=data[0].id;
-              console.log(data);
               console.log(studentIdNumber)
+              console.log(data);
             } else if (userType == "2" ||userType == "3") {
               setShowStudentDashboard(true);
               userName = data[0].firstName + " " + data[0].secondName;

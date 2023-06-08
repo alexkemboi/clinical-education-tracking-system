@@ -51,7 +51,7 @@ const StudentsList = () => {
           </div>
         </div>
       </div>
-      <table className="table table-bordered">
+      <table className="table table-bordered table-responsive">
         <thead className="thead-dark">
           <tr>
             <th>ID</th>

@@ -26,6 +26,7 @@ function StudentRegistratiion() {
   const [showClinicalRoations,setShowClinicalRotations]=useState(true);
   const [showStudentList,setShowStudentList]=useState(false);
   const [showStudentResults,setShowStudentResults]=useState(false);
+  const [password,setPassword]=useState(false);
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ function StudentRegistratiion() {
       address: address,
       phoneNumber: phoneNumber,
       email: email,
+      password:password
     };
     fetch("http://localhost:3001/personalInformation", {
       method: "POST",

@@ -16,18 +16,27 @@ function Signup() {
     const secondName = document.getElementById("secondName").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-
-    fetch("http://localhost:3001/users", {
+    const dob=document.getElementById("dob").value;
+    const gender=document.getElementById("gender").value;
+    const address=document.getElementById("address").value;
+    const phone=document.getElementById("phone").value;
+    const signUpData={
+      firstName: firstName,
+      secondName: secondName,
+      email: email,
+      password: password,
+      dob:dob,
+      gender:gender,
+      address:address,
+      phone:phone
+    };
+    console.log(signUpData);
+    fetch("http://localhost:3001/personalInformation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        firstName: firstName,
-        secondName: secondName,
-        email: email,
-        password: password,
-      }),
+      body: JSON.stringify(signUpData),
     })
       .then((response) => {
         if (!response.ok) {
@@ -39,6 +48,7 @@ function Signup() {
       .then((data) => {
         console.log(data.message);
         if (data) {
+          setShowSuccessMessage("You have successfully signed up");
         }
       })
       .catch((error) => {

@@ -184,15 +184,15 @@ app.post("/users", (req, res) => {
 
 app.post("/personalInformation", (req, res) => {
   console.log(req.body);
-  const { firstName, lastName, dob, gender, address, phoneNumber, email } =
+  const { firstName, secondName,email,password, dob, gender, address, phone } =
     req.body;
   console.log(req.body);
-  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email )
-                VALUES (?, ?, ?, ?,?,?,?)`;
+  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email,password )
+                VALUES (?, ?, ?, ?,?,?,?,?)`;
 
   connection.query(
     query,
-    [firstName, lastName, dob, gender, address, phoneNumber, email],
+    [ firstName, secondName,dob,gender,address,phone,email,password],
     (error, results) => {
       if (error) {
         res
