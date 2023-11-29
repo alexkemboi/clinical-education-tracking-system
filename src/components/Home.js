@@ -174,21 +174,21 @@ assignVariables();
                     <div className="row">
                       <div className="col-lg-4">
                         <div className="card mt-3">
-                          <div className="card-header bg-tertiary">
+                          <div className="card-header bg-success">
                             <div className="card-title text-center">
                               <i className="fas fa-user-graduate icon fa-2x"></i>
                             </div>
                             <div className="card-title text-center">
-                              <h4>Total Students</h4>
+                              <h4 className="value text-center fw-bold fs-3">Total Students</h4>
                             </div>
                           </div>
-                          <div className="card-body text-center">{personalInfoCount}</div>
+                          <div className="card-body text-center value fw-bold fs-3">{personalInfoCount}20</div>
                         </div>
                       </div>
 
                       <div className="col-lg-4">
                         <div className="card mt-3">
-                          <div className="card-header bg-dark">
+                          <div className="card-header bg-warning">
                             <div className="card-title text-center">
                               <i className="fas fa-check icon fa-2x  text-white"></i>
                               <h4 className="text-white">
@@ -197,7 +197,7 @@ assignVariables();
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">{rotationAreasCount}</div>
+                            <div className="value text-center fw-bold fs-3">{rotationAreasCount}8</div>
                           </div>
                         </div>
                       </div>
@@ -211,7 +211,7 @@ assignVariables();
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">{clinicalRotationsCount}</div>
+                            <div className="value text-center fw-bold fs-3">{clinicalRotationsCount}2</div>
                           </div>
                         </div>
                       </div>
@@ -219,14 +219,14 @@ assignVariables();
                     <div className="row">
                       <div className="col-lg-4">
                         <div className="card mt-3">
-                          <div className="card-header bg-dark">
+                          <div className="card-header bg-warning">
                             <div className="card-title text-center">
                               <i className="fas fa-user-graduate icon fa-2x  text-white"></i>
                               <h4 className="text-white">Total supervisors</h4>
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">{supervisorsCount}</div>
+                            <div className="value text-center fw-bold fs-3">{supervisorsCount}10</div>
                           </div>
                         </div>
                       </div>
@@ -240,21 +240,21 @@ assignVariables();
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">7</div>
+                            <div className="value text-center fw-bold fs-3">7</div>
                           </div>
                         </div>
                       </div>
 
                       <div className="col-lg-4">
                         <div className="card mt-3">
-                          <div className="card-header bg-tertiary">
+                          <div className="card-header bg-success">
                             <div className="card-title text-center">
                               <i className="fas fa-hospital icon fa-2x"></i>
                               <h4>Total Users</h4>
                             </div>
                           </div>
                           <div className="card-body">
-                            <div className="value text-center">{usersCount}</div>
+                            <div className="value text-center fw-bold fs-3">{usersCount}5</div>
                           </div>
                         </div>
                       </div>

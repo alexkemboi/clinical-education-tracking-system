@@ -93,17 +93,17 @@ function Dashboard() {
                       onMouseLeave={handleMouseLeave}
                     >
                       <a className="nav-link text-light" href="#">
-                        <i className="fas fa-user text-warning mr-1"></i>
+                        <i className="fas fa-user text-light mr-1"></i>
                         Account
                       </a>
                       {showLogoContainer && (
-                          <div className="container bg-warning">
+                          <div className="container bg-dark">
                            
-                              <h6 className="text-dark">
+                              <h6 className="text-light">
                               {userName !== "" ? userName : null}
                               </h6>
                            
-                            <h6 className="text-dark" onClick={handleLogout}>
+                            <h6 className="text-light" onClick={handleLogout}>
                               {userName !== "" ? "Log out" : "Login"}
                             </h6>
                           </div>
@@ -182,7 +182,7 @@ function Dashboard() {
             </div>
             <div className="card-footer bg-warning ">
               <p className="card-text text-dark text-center">
-                Developped and managed by @Sylyvia
+                Developped and managed by MedConnect
               </p>
             </div>
           </div>

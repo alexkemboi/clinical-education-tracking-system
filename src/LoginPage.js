@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
-  const [userType, setUserType] = useState("2");
+  const [userType, setUserType] = useState("1");
   const [showStudentDashboard, setShowStudentDashboard] = useState(false);
 
   function handleSignupClick() {
@@ -90,8 +90,11 @@ const LoginPage = () => {
             <div className="col-md-6 col-lg-4">
               <div className="card">
                 <div className="card-header bg-dark text-white text-center">
-                  <i className="fas fa-user-md fa-3x"></i>
-                  <h4 className="mb-0"> Clinical Education Tracking System</h4>
+                  <i className="fas fa-user-md text-warning fa-3x"></i>
+                  <h4 className="mb-0 font-weight-bold" style={{ fontSize: '2rem' }}>
+  MedConnect System
+</h4>
+
                 </div>
                 <div className="card-body">
                   <form className="form" id="loginForm">
@@ -173,7 +176,7 @@ const LoginPage = () => {
                     <div className="row mt-4">
                       <div className="col-8">
                         {" "}
-                        <label className="text-danger text-center">
+                        <label className="text-primary text-center">
                           Don't you have an account?
                         </label>
                       </div>

@@ -1,10 +1,11 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
-
+const bodyParser = require('body-parser');
+const { async } = require("q");
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 const connection = mysql.createConnection({
   host: "localhost",
@@ -44,7 +45,8 @@ const sms = AfricasTalking.SMS;
 function sendMessage(message, phone) {
   const options = {
     // Set the numbers you want to send to in international format
-    to: [`${phone}`],
+    //to: [`${phone}`],
+    to: phone,
     // Set your message
     message: `${message}`,
     //message:'Hi Collins ,this is a sample text.Thank You.',
@@ -60,88 +62,107 @@ app.post("/SendSms", (req, res) => {
  sendMessage(req.body.message, req.body.phone);
 });
 
+const phone_numbers = [
+  "+254708798182",
+  "+254727418023",
+  "+254736818058",
+  "+254753303033",
+  "+254727106405",
+  "+254753303033",
+  "+254716759636",
+  "+254727106405",
+  "+254716800998",
+  "+254720987311",
+  "+254708798182",
+  "+254708798182",
+  "+254727418023",
+  "+254702173740",
+  "+254795684343",
+  "+254762564630"
+]
 
 
 
 
+//sendMessage("Heartfelt Thanks for Your Review of MedConnect System Presentation.Thank you",phone_numbers)
 
 
-app.post('/ussd', (req, res) => {
-  let { text, phoneNumber } = req.body;
-  let response = '';
-      text='';
-  if (text === '') {
-    // This is the first request. Ask for the user's first name.
-    response = `CON Hi, it's Alex Kemboi. Please provide your First Name:`;
-  } else if (text === '1') {
-    // User entered their first name. Save the name and ask for the second name.
-    response = `CON Thank you. Now, please provide your Second Name:`;
-  } else if (text === '2') {
-    // User entered their second name. Save the name and ask for the date of birth.
-    response = `CON Great! Next, please provide your Date of Birth (YYYY-MM-DD):`;
-  } else if (text === '3') {
-    // User entered their date of birth. Save the data and ask for the gender.
-    response = `CON Excellent! Now, please provide your Gender (M/F):`;
-  } else if (text === '4') {
-    // User entered their gender. Save the data and ask for the address.
-    response = `CON Thank you! Please provide your Address:`;
-  } else if (text === '5') {
-    // User entered their address. Save the data and ask for the phone number.
-    response = `CON Almost there! Please provide your Phone Number:`;
-  } else if (text === '6') {
-    // User entered their phone number. Save the data and ask for the email.
-    response = `CON Last step! Please provide your Email Address:`;
-  } else if (text === '7') {
-    // User entered their email. Save the data and ask for the password.
-    response = `CON Final step! Please provide your Password:`;
-  } else if (text === '8') {
-    // User entered their password. Save all data and insert into the database.
+// app.post('/ussd', (req, res) => {
+//   let { text, phoneNumber } = req.body;
+//   let response = '';
+//       text='';
+//   if (text === '') {
+//     // This is the first request. Ask for the user's first name.
+//     response = `CON Hi, it's Alex Kemboi. Please provide your First Name:`;
+//   } else if (text === '1') {
+//     // User entered their first name. Save the name and ask for the second name.
+//     response = `CON Thank you. Now, please provide your Second Name:`;
+//   } else if (text === '2') {
+//     // User entered their second name. Save the name and ask for the date of birth.
+//     response = `CON Great! Next, please provide your Date of Birth (YYYY-MM-DD):`;
+//   } else if (text === '3') {
+//     // User entered their date of birth. Save the data and ask for the gender.
+//     response = `CON Excellent! Now, please provide your Gender (M/F):`;
+//   } else if (text === '4') {
+//     // User entered their gender. Save the data and ask for the address.
+//     response = `CON Thank you! Please provide your Address:`;
+//   } else if (text === '5') {
+//     // User entered their address. Save the data and ask for the phone number.
+//     response = `CON Almost there! Please provide your Phone Number:`;
+//   } else if (text === '6') {
+//     // User entered their phone number. Save the data and ask for the email.
+//     response = `CON Last step! Please provide your Email Address:`;
+//   } else if (text === '7') {
+//     // User entered their email. Save the data and ask for the password.
+//     response = `CON Final step! Please provide your Password:`;
+//   } else if (text === '8') {
+//     // User entered their password. Save all data and insert into the database.
 
-    const {
-      firstName,
-      secondName,
-      dob,
-      gender,
-      address,
-      phone,
-      email,
-      password
-    } = req.body;
+//     const {
+//       firstName,
+//       secondName,
+//       dob,
+//       gender,
+//       address,
+//       phone,
+//       email,
+//       password
+//     } = req.body;
 
-    const query = `INSERT INTO personal_information (firstName, secondName, dob, gender, address, phone_number, email, password)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+//     const query = `INSERT INTO personal_information (firstName, secondName, dob, gender, address, phone_number, email, password)
+//                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    connection.query(
-      query,
-      [firstName, secondName, dob, gender, address, phone, email, password],
-      (error, results) => {
-        if (error) {
-          console.error('Failed to insert personal information:', error);
-          res
-            .status(500)
-            .json({
-              message: "Failed to insert user personal information data"
-            });
-        } else {
-          console.log('Personal data inserted successfully');
-          res
-            .status(200)
-            .json({ message: "Personal data inserted successfully" });
-        }
-      }
-    );
+//     connection.query(
+//       query,
+//       [firstName, secondName, dob, gender, address, phone, email, password],
+//       (error, results) => {
+//         if (error) {
+//           console.error('Failed to insert personal information:', error);
+//           res
+//             .status(500)
+//             .json({
+//               message: "Failed to insert user personal information data"
+//             });
+//         } else {
+//           console.log('Personal data inserted successfully');
+//           res
+//             .status(200)
+//             .json({ message: "Personal data inserted successfully" });
+//         }
+//       }
+//     );
 
-    response = `END Thank you for providing your information!`;
-  } else {
-    // Handle unrecognized or invalid input.
-    response = `CON Invalid option. Please enter a valid option.
-    Press 9 to exit...`;
-  }
+//     response = `END Thank you for providing your information!`;
+//   } else {
+//     // Handle unrecognized or invalid input.
+//     response = `CON Invalid option. Please enter a valid option.
+//     Press 9 to exit...`;
+//   }
 
-  // Send the response back to the USSD gateway
-  res.set('Content-Type', 'text/plain');
-  res.send(response);
-});
+//   // Send the response back to the USSD gateway
+//   res.set('Content-Type', 'text/plain');
+//   res.send(response);
+// });
 
 
 
@@ -149,11 +170,9 @@ app.post('/ussd', (req, res) => {
 
 
 // app.post('/ussd', (req, res) => {
-//   const { text,phoneNumber } = req.body;
+//   let { text,phoneNumber } = req.body;
 //   let response = '';
-
-//   if (text === '') {
-    
+//   if (text === '') {    
 //     // This is the first request. Ask for your loved one's name.
 //     response = `CON Hi, it's Alex Kemboi. I just wanted to remind you how much I love you.
 //    Press 1 to Send:`;
@@ -181,46 +200,81 @@ app.post('/ussd', (req, res) => {
 //   res.send(response);
 // });
 
-// app.post('/ussds', (req, res) => {
-//   const { text, phoneNumber } = req.body;
-//   let response = '';
+app.post('/ussd', async (req, res) => {
+  const { text, phoneNumber } = req.body;
+  
+  let response = '';
+  if (text == '') {
+    sendMessage(`Thank you for using MedConnect service`, phoneNumber);
+    response = `CON Hello, it's MedConnect. Please select an option:    
+    1. View Placement Status
+    2. View Results
+    3. Press 0 to exit`;
+  } else if (text == '1') { 
+    
+    response = `END ${await getDetails(phoneNumber)}`;    
+   
+  }
+  else if (text == '2') { 
+    
+    response = `END Assessment in progress.Please be patient`;    
+   
+  }
+   else if (text == '0') {
+    // User selected option 4. Exit the USSD session.
+   
+    response = `END Goodbye. Thank you for using MedConnect service.`;
+  } 
+  // Send the response back to the USSD gateway
+  res.set('Content-Type', 'text/plain');
+  res.send(response);
+});
 
-//   if (text === '') {
-//     // This is the first request. Display the main menu.
-//     response = `CON Hi, it's CERPS. Please select an option:
-//     1. View Clinical Education Rotation
-//     2. View Placement Status
-//     3. Check Results Status
-//     Press 4 to exit.`;
-//     sendMessage(`Hi, it's CERPS. Choose an option.`, phoneNumber);
-//   } else if (text === '1') {
-//     // User selected option 1. View Clinical Education Rotation.
-//     // Implement logic to retrieve and display clinical education rotation.
-//     response = `CON Clinical Education Rotation: [Retrieve and display rotation details here]
-//     Press 4 to exit...`;
-//   } else if (text === '2') {
-//     // User selected option 2. View placement status.
-//     // Implement logic to retrieve and display placement status.
-//     response = `CON Your placement status: [Retrieve and display status here]
-//     Press 4 to exit...`;
-//   } else if (text === '3') {
-//     // User selected option 3. Check results status.
-//     // Implement logic to retrieve and display results status.
-//     response = `CON Your results status: [Retrieve and display status here]
-//     Press 4 to exit...`;
-//   } else if (text === '4') {
-//     // User selected option 4. Exit the USSD session.
-//     response = `END Goodbye. Thank you for using Alex's service.`;
-//   } else {
-//     // Handle unrecognized or invalid input.
-//     response = `CON Invalid option. Please select a valid option.
-//     Press 4 to exit...`;
-//   }
+function getDetails(phoneNumber) {
+  return new Promise((resolve, reject) => {
+    const query = `
+      SELECT pi.firstName, ra.area_name,cr.start_date,cr.end_date
+      FROM clinical_rotations cr
+      JOIN personal_information pi ON cr.student_id = pi.id
+      JOIN rotation_areas ra ON cr.rotation_area_id = ra.id
+      WHERE pi.phone_number = ${phoneNumber}`;
 
-//   // Send the response back to the USSD gateway
-//   res.set('Content-Type', 'text/plain');
-//   res.send(response);
-// });
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing the SQL query:', err);
+        console.log('Failed to fetch results');
+        reject({ error: 'Failed to fetch results' });
+        return; 
+      }    
+      function formatDate(dateString) {
+        if (!dateString) {
+          return '';
+        }
+      
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+      
+        return `${day}-${month}-${year}`;
+      }
+      const firstName = results && results.length > 0 ? results[0].firstName : '';
+      const areaName = results && results.length > 0 ? results[0].area_name : '';
+      const startDate = results && results.length > 0 ? formatDate(results[0].start_date) : '';
+      const endDate = results && results.length > 0 ? formatDate(results[0].end_date) : '';
+
+
+      if(firstName=='' ||areaName=='' ||startDate ==''||endDate =='' ){
+        const responseResults="Sorry,you are not registered.Contact the student registrar";
+        resolve(responseResults);
+      }else{
+
+        const responseResults = `${firstName} you are placed at ${areaName} starting from ${startDate} to ${endDate}.All the best`;
+        resolve(responseResults);
+      }
+    });
+  });
+}
 
 
 // app.post('/ussd', (req, res) => {
@@ -231,7 +285,7 @@ app.post('/ussd', (req, res) => {
 //       phoneNumber,
 //       text,
 //   } = req.body;
-
+// console.log(req.body);
 //   let response = '';
 
 //   if (text == '') {
@@ -474,13 +528,13 @@ app.post("/educationalInformation", (req, res) => {
   );
 });
 
-app.get('/results/:id', (req, res) => {
+app.get('/results', (req, res) => {
   const id = req.params.id;
   const query = `SELECT pi.Id, pi.firstName, pi.secondName,
   SUM(e.rating) as totalMarks ,
   CASE WHEN SUM(e.rating) > 50 THEN 'Passed' ELSE 'Failed' END AS grade 
   FROM personal_information pi JOIN evaluation e ON e.studentId = pi.id 
-  WHERE pi.Id=${id} GROUP BY pi.firstName;`;
+   GROUP BY pi.id;`;
 
   connection.query(query, (err, results) => {
     if (err) {
@@ -606,10 +660,10 @@ app.get("/searchClinicalRotations/:id", (req, res) => {
 });
 
 // route to select the records from clinicals_rotation
-app.get("/clinical_rotations/:id", (req, res) => {
+app.get("/clinical_rotations", (req, res) => {
     const id = req.params.id;
   const query = `SELECT personal_information.firstName,personal_information.secondName,clinical_rotations.id, rotation_area_id, start_date, end_date, student_id,rotation_areas.area_name, CASE WHEN clinical_rotations.end_date < CURDATE() THEN 'Completed' WHEN clinical_rotations.start_date <= CURDATE() AND clinical_rotations.end_date >= CURDATE() THEN 'In Progress' ELSE 'Incomplete' END AS status FROM clinical_rotations INNER JOIN rotation_areas ON clinical_rotations.rotation_area_id = rotation_areas.id INNER JOIN personal_information 
-  ON clinical_rotations.student_id=personal_information.id WHERE personal_information.id=${id}`;
+  ON clinical_rotations.student_id=personal_information.id `;
 
   connection.query(query, (error, results) => {
     if (error) {

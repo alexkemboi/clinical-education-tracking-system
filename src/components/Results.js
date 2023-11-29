@@ -13,7 +13,7 @@ const Results = () => {
     };
     useEffect( ()=>{
       const fetchData=async ()=>{
-       await fetch(`http://localhost:3001/results/${studentIdNumber}`)
+       await fetch(`http://localhost:3001/results`)
   .then(response => response.json())
   .then(data => {
     // Process the data received from the API

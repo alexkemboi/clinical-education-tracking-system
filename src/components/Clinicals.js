@@ -6,7 +6,7 @@ function Clinicals() {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   useEffect(() => {
-    fetch(`http://localhost:3001/clinical_rotations/${studentIdNumber}`)
+    fetch(`http://localhost:3001/clinical_rotations`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
