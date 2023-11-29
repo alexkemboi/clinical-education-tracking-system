@@ -45,7 +45,7 @@ const StudentDashboard = () => {
   return (
     <>
       {showStudentDashboard && (
-        <div className="container h-75 d-flex align-items-center justify-content-center">
+        <div className="container h-full d-flex align-items-center justify-content-center">
           <div className="card w-75">
             <div className="card-header bg-dark">
               <div className="row">

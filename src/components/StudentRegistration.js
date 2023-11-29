@@ -26,7 +26,7 @@ function StudentRegistratiion() {
   const [showClinicalRoations,setShowClinicalRotations]=useState(true);
   const [showStudentList,setShowStudentList]=useState(false);
   const [showStudentResults,setShowStudentResults]=useState(false);
-  const [password,setPassword]=useState(false);
+  const [password,setPassword]=useState("1234");
   //submit personal information
   const handleSubmitPersonalInformation = (e) => {
     e.preventDefault();

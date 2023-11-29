@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
-  const [userType, setUserType] = useState();
+  const [userType, setUserType] = useState("2");
   const [showStudentDashboard, setShowStudentDashboard] = useState(false);
 
   function handleSignupClick() {
@@ -27,54 +27,59 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   function handleLogin(e) {
     systemUserType = userType;
-
-    e.preventDefault();
-    fetch(
-      `http://localhost:3001/usersDetails?email=${email}&password=${password}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.length > 0) {
-          console.log(data[0].id);
-
-          if (userType !== undefined) {
-            if (userType == 1) {
-              setShowDashboard(true);
-              setShowLoginForm(false);
-              userName = data[0].firstName + " " + data[0].secondName;
-              studentIdNumber=data[0].id;
-              console.log(studentIdNumber)
-              console.log(data);
-            } else if (userType == "2" ||userType == "3") {
-              setShowStudentDashboard(true);
-              userName = data[0].firstName + " " + data[0].secondName;
-              console.log(userName);
-              studentIdNumber=data[0].id;
-              setShowLoginForm(false);
-            }
-          } else {
-            userName = data[0].firstName + " " + data[0].secondName;
-            studentIdNumber=data[0].id;
-            setErrorMessage("Invalid Password or username");
-            setShowDashboard(false);
-            //setShowLoginForm(true);
-          }
-          setErrorMessage("Select type of user");
+    if(userType == undefined|| email==""|| password==""){
+      setErrorMessage("Invalid credentials");
+    }else{
+      e.preventDefault();
+      fetch(
+        `http://localhost:3001/usersDetails?email=${email}&password=${password}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        //setShowLoginForm(true);
-        setErrorMessage("Server error");
-      });
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length > 0) {           
+  
+            if (userType !== undefined) {
+              if (userType == 1) {
+                setShowDashboard(true);
+                setShowLoginForm(false);
+                userName = data[0].firstName + " " + data[0].secondName;
+                studentIdNumber=data[0].id;
+              
+              } else if (userType == "2" ||userType == "3") {
+                setShowStudentDashboard(true);
+                userName = data[0].firstName + " " + data[0].secondName;
+               
+                studentIdNumber=data[0].id;
+                setShowLoginForm(false);
+              }
+            } else {
+              userName = data[0].firstName + " " + data[0].secondName;
+              studentIdNumber=data[0].id;
+              setErrorMessage("Invalid Password or username");
+              setShowDashboard(true);
+              //setShowLoginForm(true);
+            }
+            setErrorMessage("Select type of user");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          //setShowLoginForm(true);
+          setErrorMessage("Server error");
+          setShowDashboard(true);
+          setShowLoginForm(false);
+        });
+  
+      setShowSignUpForm(false);
+    }
 
-    setShowSignUpForm(false);
+  
   }
 
   return (

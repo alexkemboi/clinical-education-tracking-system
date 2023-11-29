@@ -3,8 +3,8 @@ function RotationPlacement() {
   const [successMessage, setSuccessMessage] = useState("");
   const [personalInformation, setPersonalInformation] = useState([]);
   const [rotationAreas, setRotationAreas] = useState([]);
-  const [studentId, setStudentId] = useState("");
-  const [rotationAreaId, setRotationAreaId] = useState("");
+  const [studentId, setStudentId] = useState("11");
+  const [rotationAreaId, setRotationAreaId] = useState("5");
   const [startRotationDate, setStartRotationDate] = useState("");
   const [endRotationDate, setEndRotationDate] = useState("");
   useEffect(() => {
@@ -38,15 +38,12 @@ function RotationPlacement() {
     let studentFirstName='';
     let studentRotationName='';
     let location='';
-    e.preventDefault();
-    console.log(personalInformation[0]);
-    console.log(rotationAreas[0]);    
-    console.log(studentId+" "+rotationAreaId);
+    e.preventDefault();  
+;
     for(let i=0;i<personalInformation.length;i++){
       if(personalInformation[i].id==studentId){
       studentPhone=personalInformation[i].phone_number;
-      studentFirstName=personalInformation[i].firstName;
-  
+      studentFirstName=personalInformation[i].firstName; 
         
       }
     }
@@ -56,6 +53,7 @@ function RotationPlacement() {
         location=rotationAreas[i].location;
       }
     }
+    console.log(studentId+" "+rotationAreaId)
     const data = {
       studentId,
       rotationAreaId,

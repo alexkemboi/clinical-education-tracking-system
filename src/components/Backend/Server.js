@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
 
 // Set your app credentials
 const credentials = {
-  apiKey: "6c30b78bdcc04f80b5e426ee276efa72b5cef23a1463a56d40caed01876ff5ad",
+  apiKey: "3e76ad55d44fd317b7f761b32cc042195e27c1abc5d64d58c0a94a8cec32c206",
   username: "alexkemboi97",
 };
 // Initialize the SDK
@@ -57,8 +57,210 @@ function sendMessage(message, phone) {
 
 app.post("/SendSms", (req, res) => {
   console.log(req.body);
-  sendMessage(req.body.message, req.body.phone);
+ sendMessage(req.body.message, req.body.phone);
 });
+
+
+
+
+
+
+
+app.post('/ussd', (req, res) => {
+  let { text, phoneNumber } = req.body;
+  let response = '';
+      text='';
+  if (text === '') {
+    // This is the first request. Ask for the user's first name.
+    response = `CON Hi, it's Alex Kemboi. Please provide your First Name:`;
+  } else if (text === '1') {
+    // User entered their first name. Save the name and ask for the second name.
+    response = `CON Thank you. Now, please provide your Second Name:`;
+  } else if (text === '2') {
+    // User entered their second name. Save the name and ask for the date of birth.
+    response = `CON Great! Next, please provide your Date of Birth (YYYY-MM-DD):`;
+  } else if (text === '3') {
+    // User entered their date of birth. Save the data and ask for the gender.
+    response = `CON Excellent! Now, please provide your Gender (M/F):`;
+  } else if (text === '4') {
+    // User entered their gender. Save the data and ask for the address.
+    response = `CON Thank you! Please provide your Address:`;
+  } else if (text === '5') {
+    // User entered their address. Save the data and ask for the phone number.
+    response = `CON Almost there! Please provide your Phone Number:`;
+  } else if (text === '6') {
+    // User entered their phone number. Save the data and ask for the email.
+    response = `CON Last step! Please provide your Email Address:`;
+  } else if (text === '7') {
+    // User entered their email. Save the data and ask for the password.
+    response = `CON Final step! Please provide your Password:`;
+  } else if (text === '8') {
+    // User entered their password. Save all data and insert into the database.
+
+    const {
+      firstName,
+      secondName,
+      dob,
+      gender,
+      address,
+      phone,
+      email,
+      password
+    } = req.body;
+
+    const query = `INSERT INTO personal_information (firstName, secondName, dob, gender, address, phone_number, email, password)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    connection.query(
+      query,
+      [firstName, secondName, dob, gender, address, phone, email, password],
+      (error, results) => {
+        if (error) {
+          console.error('Failed to insert personal information:', error);
+          res
+            .status(500)
+            .json({
+              message: "Failed to insert user personal information data"
+            });
+        } else {
+          console.log('Personal data inserted successfully');
+          res
+            .status(200)
+            .json({ message: "Personal data inserted successfully" });
+        }
+      }
+    );
+
+    response = `END Thank you for providing your information!`;
+  } else {
+    // Handle unrecognized or invalid input.
+    response = `CON Invalid option. Please enter a valid option.
+    Press 9 to exit...`;
+  }
+
+  // Send the response back to the USSD gateway
+  res.set('Content-Type', 'text/plain');
+  res.send(response);
+});
+
+
+
+
+
+
+// app.post('/ussd', (req, res) => {
+//   const { text,phoneNumber } = req.body;
+//   let response = '';
+
+//   if (text === '') {
+    
+//     // This is the first request. Ask for your loved one's name.
+//     response = `CON Hi, it's Alex Kemboi. I just wanted to remind you how much I love you.
+//    Press 1 to Send:`;
+//     sendMessage(`Hi, it's Alex Kemboi. I just wanted to remind you how much I love you.`,phoneNumber);
+//   } else if (text=== '1') {
+//     // User entered their name. Save the name and express your love.
+    
+//     response = `CON Hi I want you to know that you mean the world to me. I love you more than words can express.
+//     Press 2 to continue...`;
+//   } else if (text=== '2' ) {
+//     // User pressed a key to continue. Send another love message.
+//     response = `CON my love for you grows stronger with each passing day. You make my life brighter and happier.
+//     Press 3 key to continue...`;
+//   } else if (text=== '3') {
+//     // User pressed a key to continue. Send the final love message.
+//     response = `CON I just want to say that I am incredibly lucky to have you in my life. I love you more than anything in this world.
+//     Press 3 to end...`;
+//   } else {
+//     // Handle unrecognized or invalid input.
+//     response = `CON Even if you pressed a wrong number ,I Alex still loves you. press send to exit`;
+//   }
+
+//   // Send the response back to the USSD gateway
+//   res.set('Content-Type', 'text/plain');
+//   res.send(response);
+// });
+
+// app.post('/ussds', (req, res) => {
+//   const { text, phoneNumber } = req.body;
+//   let response = '';
+
+//   if (text === '') {
+//     // This is the first request. Display the main menu.
+//     response = `CON Hi, it's CERPS. Please select an option:
+//     1. View Clinical Education Rotation
+//     2. View Placement Status
+//     3. Check Results Status
+//     Press 4 to exit.`;
+//     sendMessage(`Hi, it's CERPS. Choose an option.`, phoneNumber);
+//   } else if (text === '1') {
+//     // User selected option 1. View Clinical Education Rotation.
+//     // Implement logic to retrieve and display clinical education rotation.
+//     response = `CON Clinical Education Rotation: [Retrieve and display rotation details here]
+//     Press 4 to exit...`;
+//   } else if (text === '2') {
+//     // User selected option 2. View placement status.
+//     // Implement logic to retrieve and display placement status.
+//     response = `CON Your placement status: [Retrieve and display status here]
+//     Press 4 to exit...`;
+//   } else if (text === '3') {
+//     // User selected option 3. Check results status.
+//     // Implement logic to retrieve and display results status.
+//     response = `CON Your results status: [Retrieve and display status here]
+//     Press 4 to exit...`;
+//   } else if (text === '4') {
+//     // User selected option 4. Exit the USSD session.
+//     response = `END Goodbye. Thank you for using Alex's service.`;
+//   } else {
+//     // Handle unrecognized or invalid input.
+//     response = `CON Invalid option. Please select a valid option.
+//     Press 4 to exit...`;
+//   }
+
+//   // Send the response back to the USSD gateway
+//   res.set('Content-Type', 'text/plain');
+//   res.send(response);
+// });
+
+
+// app.post('/ussd', (req, res) => {
+//   // Read the variables sent via POST from our API
+//   const {
+//       sessionId,
+//       serviceCode,
+//       phoneNumber,
+//       text,
+//   } = req.body;
+
+//   let response = '';
+
+//   if (text == '') {
+//       // This is the first request. Note how we start the response with CON
+//       response = `CON What would you like to check
+//       1. My account
+//       2. My phone number`;
+//   } else if ( text == '1') {
+//       // Business logic for first level response
+//       response = `CON Choose account information you want to view
+//       1. Account number`;
+//   } else if ( text == '2') {
+//       // Business logic for first level response
+//       // This is a terminal request. Note how we start the response with END
+//       response = `END Your phone number is ${phoneNumber}`;
+//   } else if ( text == '1*1') {
+//       // This is a second level response where the user selected 1 in the first instance
+//       const accountNumber = 'ACC100101';
+//       // This is a terminal request. Note how we start the response with END
+//       response = `END Your account number is ${accountNumber}`;
+//   }
+
+//   // Send the response back to the API
+//   res.set('Content-Type: text/plain');
+//   res.send(response);
+// });
+
+
+
 app.post("/insertLogData", (req, res) => {
   const formData = req.body;
 
@@ -162,6 +364,9 @@ app.post('/selfAssessments', (req, res) => {
     }
   );
 });
+
+
+
 app.post("/users", (req, res) => {
   console.log(req.body);
   const { firstName, secondName, email, password } = req.body;
@@ -184,15 +389,37 @@ app.post("/users", (req, res) => {
 
 app.post("/personalInformation", (req, res) => {
   console.log(req.body);
-  const { firstName, secondName,email,password, dob, gender, address, phone } =
+  const { firstName,
+    lastName,
+    dob,
+    gender,
+    address,
+    phoneNumber,
+    email,
+    password } =
     req.body;
   console.log(req.body);
-  const query = `INSERT INTO personal_information (firstName, secondName,dob,gender,address,phone_number, email,password )
+  const query = `INSERT INTO personal_information (
+  firstName,
+  secondName,
+  dob,
+  gender,
+  address,
+  phone_number,
+  email,
+  password )
                 VALUES (?, ?, ?, ?,?,?,?,?)`;
 
   connection.query(
     query,
-    [ firstName, secondName,dob,gender,address,phone,email,password],
+    [ firstName,
+      lastName,
+      dob,
+      gender,
+      address,
+      phoneNumber,
+      email,
+      password],
     (error, results) => {
       if (error) {
         res
@@ -202,6 +429,7 @@ app.post("/personalInformation", (req, res) => {
         res
           .status(200)
           .json({ message: "Personal data inserted successfully" });
+          console.log("Personal data inserted successfully")
       }
     }
   );
@@ -436,26 +664,25 @@ app.get("/selectRotationAreas", (req, res) => {
 });
 
 // Handle POST request to insert clinical placement rotation  data
-app.post("/insertClinicalRotationData", (req, res) => {
-  const { studentId, rotationAreaId, startRotationDate, endRotationDate } =
-    req.body;
+app.post("/insertClinicalRotationData", async (req, res) => {
+  const { studentId, rotationAreaId, startRotationDate, endRotationDate } = req.body;
 
-  // Insert the data into the database
-  const query =
-    "INSERT INTO clinical_rotations (rotation_area_id, start_date, end_date, student_id) VALUES (?, ?, ?, ?)";
-  connection.query(
-    query,
-    [rotationAreaId, startRotationDate, endRotationDate, studentId],
-    (error, results) => {
-      if (error) {
-        console.error("Error inserting data:", error);
-        res.status(500).json({ error: "Failed to insert data" });
-      } else {
-        res.status(200).json({ message: "Data inserted successfully" });
-      }
-    }
-  );
+  if (!studentId || !rotationAreaId || !startRotationDate || !endRotationDate) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    const query =
+      "INSERT INTO clinical_rotations (rotation_area_id, start_date, end_date, student_id) VALUES (?, ?, ?, ?)";
+    const results = await connection.query(query, [rotationAreaId, startRotationDate, endRotationDate, studentId]);
+    
+    res.status(200).json({ message: "Data inserted successfully" });
+  } catch (error) {
+    console.error("Error inserting data:", error);
+    res.status(500).json({ error: "Failed to insert data" });
+  }
 });
+
 app.post("/insertClinicalEvaluationData", (req, res) => {
   const evaluationData = req.body;
   console.log(evaluationData);
